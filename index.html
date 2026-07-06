@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AresAI - Autenticazione</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="glass p-8 rounded-2xl w-full max-w-md text-center shadow-2xl">
+        <div class="mb-6">
+            <span class="text-4xl">⚡</span>
+            <h1 class="text-2xl font-bold mt-2 tracking-wide text-cyan-400">AresAI</h1>
+            <p class="text-slate-400 text-sm mt-1">Configurazione dell'allenamento vocale</p>
+        </div>
+
+        <!-- Box di Stato -->
+        <div id="status-box" class="py-4 px-6 rounded-xl bg-slate-900/50 border border-slate-800">
+            <div id="spinner" class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-cyan-500 rounded-full mb-3" role="status"></div>
+            <p id="status-text" class="text-sm font-medium">Verifica del token di accesso in corso...</p>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURAZIONE SUPABASE (Sostituisci con i tuoi dati reali)
+        const SUPABASE_URL = "https://YOUR_SUPABASE_PROJECT_ID.supabase.co"; 
+        const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; 
+
+        async function validaAccesso() {
+            const statusText = document.getElementById("status-text");
+            const spinner = document.getElementById("spinner");
+
+            // 1. Estrai il token dall'URL (?token=token_test_qr_123)
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get("token");
+
+            if (!token) {
+                spinner.classList.add("hidden");
+                statusText.innerText = "Nessun token rilevato. Inquadra il QR Code sul rack per accedere.";
+                statusText.classList.add("text-red-400");
+                return;
+            }
+
+            try {
+                // 2. Interroga Supabase direttamente via REST API
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?token_accesso=eq.${token}&select=*`, {
+                    method: "GET",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+
+                if (!response.ok) throw new Error("Errore di connessione a Supabase");
+
+                const utenti = await response.json();
+
+                if (utenti.length === 0) {
+                    spinner.classList.add("hidden");
+                    statusText.innerText = "Token non valido o scaduto. Richiedi un nuovo accesso.";
+                    statusText.classList.add("text-red-400");
+                    return;
+                }
+
+                // 3. Token valido: Salva i dati dell'utente in locale
+                const utente = utenti[0];
+                localStorage.setItem("ares_utente_id", utente.id);
+                localStorage.setItem("ares_utente_nome", utente.nome);
+                localStorage.setItem("ares_utente_peso", utente.peso_kg);
+
+                statusText.innerText = `Benvenuto ${utente.nome}! Accesso eseguito.`;
+                statusText.classList.add("text-emerald-400");
+                spinner.classList.add("hidden");
+
+                // 4. Reindirizza alla dashboard dopo 1 secondo
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1000);
+
+            } catch (error) {
+                console.error(error);
+                spinner.classList.add("hidden");
+                statusText.innerText = "Errore di rete. Riprova più tardi.";
+                statusText.classList.add("text-red-400");
+            }
+        }
+
+        // Avvia la validazione al caricamento
+        window.onload = validaAccesso;
+    </script>
+</body>
+</html>
