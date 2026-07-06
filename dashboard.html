@@ -72,6 +72,46 @@
             localStorage.clear();
             window.location.href = "index.html";
         }
+
+        let vapiInstance = null;
+        let isCalling = false;
+        
+        // CONFIGURAZIONE CHIAVI VAPI
+        const VAPI_PUBLIC_KEY = "2c6184a3-130a-478f-9664-4781bc5a8dcc"; // Es: "vapi-pub-..."
+        const ASSISTANT_ID = "4d800e9c-95f0-470f-b650-879c11b96422"; // Il tuo Assistant ID
+        
+        function toggleChiamata() {
+            const btn = document.getElementById("vapi-btn");
+            
+            if (!vapiInstance) {
+                // Inizializza l'SDK di Vapi se non è già stato fatto
+                vapiInstance = new Vapi(VAPI_PUBLIC_KEY);
+                
+                // Ascolta l'evento di inizio chiamata per aggiornare l'interfaccia
+                vapiInstance.on('call-start', () => {
+                    isCalling = true;
+                    btn.innerHTML = "<span>🛑</span> Termina Allenamento";
+                    btn.classList.remove("bg-cyan-500", "hover:bg-cyan-600", "text-slate-950");
+                    btn.classList.add("bg-red-500", "hover:bg-red-600", "text-white");
+                });
+                
+                // Ascolta l'evento di fine chiamata per ripristinare il pulsante
+                vapiInstance.on('call-end', () => {
+                    isCalling = false;
+                    btn.innerHTML = "<span>🎤</span> Avvia Allenamento Vocale";
+                    btn.classList.remove("bg-red-500", "hover:bg-red-600", "text-white");
+                    btn.classList.add("bg-cyan-500", "hover:bg-cyan-600", "text-slate-950");
+                });
+            }
+        
+            if (!isCalling) {
+                // Avvia la chiamata vocale passando l'ID dell'assistente Ares
+                vapiInstance.start(ASSISTANT_ID);
+            } else {
+                // Interrompe la conversazione
+                vapiInstance.stop();
+            }
+        }
     </script>
 </body>
 </html>
