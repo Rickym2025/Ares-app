@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AresAI - Coach Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6 selection:bg-cyan-500 selection:text-slate-950">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10 border-b border-slate-900 pb-8">
+            <div>
+                <p class="text-xs text-cyan-400 uppercase tracking-widest font-semibold">Area Riservata</p>
+                <h1 class="text-3xl font-extrabold text-white mt-1">Coach Hub Dashboard</h1>
+                <p class="text-sm text-slate-400 mt-1">Monitora in tempo reale gli allenamenti e la nutrizione dei tuoi atleti.</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="caricaDatiCoach()" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 px-4 py-2.5 rounded-xl transition">Aggiorna Dati</button>
+                <a href="index.html" class="text-xs bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl transition">Torna alla Landing</a>
+            </div>
+        </header>
+
+        <!-- KPI Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wider">Atleti Totali</p>
+                <h3 id="kpi-atleti" class="text-3xl font-bold mt-2 text-white">--</h3>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wider">Ultimo Esercizio Ricevuto</p>
+                <h3 id="kpi-esercizio" class="text-xl font-semibold mt-3 text-cyan-400 truncate">Nessuno</h3>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wider">Stato Server AI</p>
+                <div class="flex items-center gap-2 mt-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-sm font-semibold text-emerald-400">Online & Pronto</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Atleti -->
+        <main>
+            <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span>📋</span> I tuoi Atleti
+            </h2>
+            <div id="athletes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- I dati degli atleti verranno iniettati qui da Javascript -->
+                <div class="glass p-8 rounded-2xl text-center col-span-full py-12">
+                    <div class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-cyan-500 rounded-full mb-3"></div>
+                    <p class="text-sm text-slate-400">Caricamento dell'elenco atleti in corso...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // CONFIGURAZIONE SUPABASE (Utilizza le tue credenziali reali)
+        const SUPABASE_URL = "https://geotspkwrfpbfuinypfw.supabase.co"; 
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3RzcGt3cmZwYmZ1aW55cGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMjgyMDUsImV4cCI6MjA5ODkwNDIwNX0.itwiI95uu_XbWaODK5tDyjbNgWWZ6TCRqEVHLRUOt6I"; 
+
+        async function caricaDatiCoach() {
+            const grid = document.getElementById("athletes-grid");
+            const kpiAtleti = document.getElementById("kpi-atleti");
+            const kpiEsercizio = document.getElementById("kpi-esercizio");
+
+            try {
+                // 1. Recupera la lista di tutti gli atleti su Supabase
+                const responseUtenti = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?select=*`, {
+                    method: "GET",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+
+                if (!responseUtenti.ok) throw new Error("Impossibile recuperare gli atleti");
+                const atleti = await responseUtenti.json();
+
+                // 2. Recupera le ultime serie registrate per poterle mostrare nelle schede
+                const responseSerie = await fetch(`${SUPABASE_URL}/rest/v1/ares_serie?order=created_at.desc&limit=5`, {
+                    method: "GET",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                
+                const serieRecenti = responseSerie.ok ? await responseSerie.json() : [];
+
+                // Aggiorna KPI di riepilogo
+                kpiAtleti.innerText = atleti.length;
+                if (serieRecenti.length > 0) {
+                    kpiEsercizio.innerText = `${serieRecenti[0].esercizio} (${serieRecenti[0].peso}kg)`;
+                }
+
+                // Svuota la griglia per inserire i nuovi dati
+                grid.innerHTML = "";
+
+                if (atleti.length === 0) {
+                    grid.innerHTML = `
+                        <div class="glass p-8 rounded-2xl text-center col-span-full py-12">
+                            <p class="text-sm text-slate-400">Non ci sono atleti registrati sotto questo account.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // 3. Genera le card per ciascun atleta
+                atleti.forEach(atleta => {
+                    // Trova se questo atleta ha serie recenti (per ora simuliamo l'associazione)
+                    const ultimaSerie = serieRecenti[0] || null;
+                    let infoSerieHtml = `<p class="text-xs text-slate-500 italic mt-2">Nessun esercizio registrato oggi</p>`;
+                    
+                    if (ultimaSerie) {
+                        infoSerieHtml = `
+                            <div class="mt-4 p-3 bg-slate-900/40 border border-slate-900 rounded-xl">
+                                <p class="text-[10px] text-cyan-400 uppercase tracking-widest font-bold">Ultima Attività Vocale</p>
+                                <p class="text-sm font-semibold text-slate-200 mt-1">${ultimaSerie.esercizio}</p>
+                                <p class="text-xs text-slate-400 mt-0.5">${ultimaSerie.ripetizioni} rep a ${ultimaSerie.peso} kg</p>
+                            </div>
+                        `;
+                    }
+
+                    const card = document.createElement("div");
+                    card.className = "glass p-6 rounded-2xl flex flex-col justify-between";
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-lg font-bold text-white">${atleta.nome}</h3>
+                                <span class="text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded">Attivo</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-3 text-xs text-slate-400 mb-4">
+                                <div>Peso: <strong class="text-slate-200">${atleta.peso_kg || '--'} kg</strong></div>
+                                <div>Altezza: <strong class="text-slate-200">${atleta.altezza_cm || '--'} cm</strong></div>
+                                <div>Target kcal: <strong class="text-slate-200">${atleta.obiettivo_calorie || '--'}</strong></div>
+                                <div>Target Pro: <strong class="text-slate-200">${atleta.obiettivo_proteine_g || '--'}g</strong></div>
+                            </div>
+
+                            ${infoSerieHtml}
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-900 flex gap-2">
+                            <button class="text-xs w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 py-2 rounded-lg transition">Vedi Storico</button>
+                            <button class="text-xs w-full bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 py-2 rounded-lg transition border border-cyan-500/10">Contatta</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error(error);
+                grid.innerHTML = `
+                    <div class="glass p-8 rounded-2xl text-center col-span-full py-12">
+                        <p class="text-sm text-red-400">Si è verificato un errore durante il recupero dei dati. Riprova più tardi.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Avvia il caricamento dei dati all'apertura
+        window.onload = caricaDatiCoach;
+    </script>
+</body>
+</html>
