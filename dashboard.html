@@ -14,7 +14,6 @@
         }
     </style>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web@2.5.2/dist/vapi.min.js"></script>
 <body class="bg-slate-950 text-slate-100 min-h-screen p-6 flex flex-col items-center">
 
     <div class="w-full max-w-md">
@@ -27,7 +26,7 @@
             <button onclick="logout()" class="text-xs bg-slate-900 border border-slate-800 text-slate-400 px-3 py-1.5 rounded-lg hover:bg-slate-800 transition">Scollega</button>
         </div>
 
-           <!-- Stato Allenamento con Pulsante Vapi -->
+        <!-- Stato Allenamento con Pulsante Vapi -->
         <div class="glass p-6 rounded-2xl mb-6">
             <div class="flex items-center justify-between mb-4">
                 <span class="text-xs font-semibold px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Sessione Attiva</span>
@@ -55,7 +54,10 @@
         </div>
     </div>
 
-    <script>
+    <!-- Utilizziamo type="module" per caricare Vapi nativamente come modulo ES dal CDN -->
+    <script type="module">
+        import Vapi from 'https://esm.sh/@vapi-ai/web';
+
         // Controlla se la sessione esiste
         const utenteNome = localStorage.getItem("ares_utente_nome");
         const utentePeso = localStorage.getItem("ares_utente_peso");
@@ -77,14 +79,14 @@
         let isCalling = false;
         
         // CONFIGURAZIONE CHIAVI VAPI
-        const VAPI_PUBLIC_KEY = "2c6184a3-130a-478f-9664-4781bc5a8dcc"; // Es: "vapi-pub-..."
-        const ASSISTANT_ID = "4d800e9c-95f0-470f-b650-879c11b96422"; // Il tuo Assistant ID
+        const VAPI_PUBLIC_KEY = "2c6184a3-130a-478f-9664-4781bc5a8dcc"; 
+        const ASSISTANT_ID = "4d800e9c-95f0-470f-b650-879c11b96422"; 
         
         function toggleChiamata() {
             const btn = document.getElementById("vapi-btn");
             
             if (!vapiInstance) {
-                // Inizializza l'SDK di Vapi se non è già stato fatto
+                // Inizializza l'SDK di Vapi caricato dal modulo
                 vapiInstance = new Vapi(VAPI_PUBLIC_KEY);
                 
                 // Ascolta l'evento di inizio chiamata per aggiornare l'interfaccia
@@ -112,6 +114,10 @@
                 vapiInstance.stop();
             }
         }
+
+        // Esponiamo le funzioni all'oggetto window per renderle accessibili dagli attributi onclick in HTML
+        window.logout = logout;
+        window.toggleChiamata = toggleChiamata;
     </script>
 </body>
 </html>
