@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AresAI - Dashboard</title>
+    <title>AresAI - Area Atleta</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .glass {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-6 flex flex-col items-center">
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6 flex flex-col items-center selection:bg-cyan-500 selection:text-slate-950">
 
     <div class="w-full max-w-md">
         <!-- Header -->
         <div class="flex justify-between items-center mb-8">
             <div>
                 <p class="text-xs text-slate-400 uppercase tracking-widest">Atleta</p>
-                <h1 id="welcome-title" class="text-2xl font-bold text-white">...</h1>
+                <h1 id="welcome-title" class="text-2xl font-bold text-white">Caricamento...</h1>
             </div>
             <button onclick="logout()" class="text-xs bg-slate-900 border border-slate-800 text-slate-400 px-3 py-1.5 rounded-lg hover:bg-slate-800 transition">Scollega</button>
         </div>
@@ -30,13 +30,13 @@
         <div class="glass p-6 rounded-2xl mb-6">
             <div class="flex items-center justify-between mb-4">
                 <span class="text-xs font-semibold px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Sessione Attiva</span>
-                <span class="text-slate-400 text-xs">Voice Coach</span>
+                <span class="text-slate-400 text-xs">Vapi Voice Coach</span>
             </div>
             <h2 class="text-xl font-bold mb-1">Allenamento in corso</h2>
-            <p class="text-sm text-slate-400 mb-4">Metti le cuffie, clicca sul pulsante in basso e inizia a parlare con Ares.</p>
+            <p class="text-sm text-slate-400 mb-4">Metti le cuffie, clicca sul pulsante in basso e inizia a parlare con Ares per registrare i tuoi dati.</p>
             
             <!-- Pulsante Interattivo -->
-            <button id="vapi-btn" onclick="toggleChiamata()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
+            <button id="vapi-btn" onclick="toggleChiamata()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2">
                 <span>🎤</span> Avvia Allenamento Vocale
             </button>
         </div>
@@ -54,42 +54,43 @@
         </div>
     </div>
 
-    <!-- Utilizziamo type="module" per caricare Vapi nativamente come modulo ES dal CDN -->
+    <!-- Caricamento dell'SDK Web di Vapi via ES Modules tramite esm.sh -->
     <script type="module">
         import Vapi from 'https://esm.sh/@vapi-ai/web';
 
-        // Controlla se la sessione esiste
+        // 1. Controlla se la sessione locale esiste
         const utenteNome = localStorage.getItem("ares_utente_nome");
         const utentePeso = localStorage.getItem("ares_utente_peso");
 
         if (!utenteNome) {
-            // Se non è loggato, rimandalo alla pagina principale
-            window.location.href = "index.html";
+            // Se non è loggato, reindirizza alla pagina di login
+            window.location.href = "login.html";
         } else {
             document.getElementById("welcome-title").innerText = utenteNome;
             document.getElementById("user-weight").innerText = utentePeso ? `${utentePeso} kg` : "-- kg";
         }
 
+        // Funzione per cancellare la sessione locale
         function logout() {
             localStorage.clear();
-            window.location.href = "index.html";
+            window.location.href = "login.html";
         }
+
+        // 2. CONFIGURAZIONE CHIAVI VAPI (Inserisci qui i tuoi identificativi reali)
+        const VAPI_PUBLIC_KEY = "IL_TUO_VAPI_PUBLIC_KEY_FUNZIONANTE"; // Es: la tua chiave pubblica abilitata al dominio ares.rmstudio.app
+        const ASSISTANT_ID = "4d800e9c-95f0-470f-b650-879c11b96422"; 
 
         let vapiInstance = null;
         let isCalling = false;
-        
-        // CONFIGURAZIONE CHIAVI VAPI
-        const VAPI_PUBLIC_KEY = "5d937cb1-a20a-4ba0-8090-21a1ce32feaf"; 
-        const ASSISTANT_ID = "4d800e9c-95f0-470f-b650-879c11b96422"; 
         
         function toggleChiamata() {
             const btn = document.getElementById("vapi-btn");
             
             if (!vapiInstance) {
-                // Inizializza l'SDK di Vapi caricato dal modulo
+                // Inizializza l'istanza Vapi
                 vapiInstance = new Vapi(VAPI_PUBLIC_KEY);
                 
-                // Ascolta l'evento di inizio chiamata per aggiornare l'interfaccia
+                // Aggiorna l'interfaccia all'avvio della chiamata
                 vapiInstance.on('call-start', () => {
                     isCalling = true;
                     btn.innerHTML = "<span>🛑</span> Termina Allenamento";
@@ -97,7 +98,7 @@
                     btn.classList.add("bg-red-500", "hover:bg-red-600", "text-white");
                 });
                 
-                // Ascolta l'evento di fine chiamata per ripristinare il pulsante
+                // Ripristina l'interfaccia alla disconnessione
                 vapiInstance.on('call-end', () => {
                     isCalling = false;
                     btn.innerHTML = "<span>🎤</span> Avvia Allenamento Vocale";
@@ -107,25 +108,23 @@
             }
         
             if (!isCalling) {
-                // Prende solo la prima parola del nome (es: "Riccardo Modena" diventa "Riccardo")
+                // Estrae solo il primo nome prima dello spazio (es: "Riccardo Modena" -> "Riccardo")
                 const soloNome = utenteNome ? utenteNome.split(' ')[0] : "Atleta";
-    
-                // Definiamo i valori delle variabili dinamiche da passare all'assistente Ares
+
+                // Passa il nome estratto dinamicamente all'assistente Ares
                 const assistantOverrides = {
                     variableValues: {
-                        nome_utente: soloNome // Passa solo il primo nome
+                        nome_utente: soloNome
                     }
                 };
                 
-                // Avvia la chiamata vocale passando l'ID e l'override delle variabili
                 vapiInstance.start(ASSISTANT_ID, assistantOverrides);
             } else {
-                // Interrompe la conversazione
                 vapiInstance.stop();
             }
         }
 
-        // Esponiamo le funzioni all'oggetto window per renderle accessibili dagli attributi onclick in HTML
+        // Esponiamo le funzioni all'oggetto window per farle funzionare con gli eventi onclick nativi dell'HTML
         window.logout = logout;
         window.toggleChiamata = toggleChiamata;
     </script>
