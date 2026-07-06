@@ -107,10 +107,13 @@
             }
         
             if (!isCalling) {
+                // Prende solo la prima parola del nome (es: "Riccardo Modena" diventa "Riccardo")
+                const soloNome = utenteNome ? utenteNome.split(' ')[0] : "Atleta";
+    
                 // Definiamo i valori delle variabili dinamiche da passare all'assistente Ares
                 const assistantOverrides = {
                     variableValues: {
-                        nome_utente: utenteNome // Passa il tuo nome salvato in localStorage
+                        nome_utente: soloNome // Passa solo il primo nome
                     }
                 };
                 
