@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AresAI - Autenticazione</title>
+    <title>AresAI - Autenticazione Atleta</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .glass {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
@@ -24,22 +24,22 @@
         </div>
 
         <!-- Box di Stato -->
-        <div id="status-box" class="py-4 px-6 rounded-xl bg-slate-900/50 border border-slate-800">
+        <div id="status-box" class="py-6 px-6 rounded-xl bg-slate-900/50 border border-slate-900">
             <div id="spinner" class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-cyan-500 rounded-full mb-3" role="status"></div>
-            <p id="status-text" class="text-sm font-medium">Verifica del token di accesso in corso...</p>
+            <p id="status-text" class="text-sm font-medium text-slate-300">Verifica del token di accesso in corso...</p>
         </div>
     </div>
 
     <script>
-        // CONFIGURAZIONE SUPABASE (Sostituisci con i tuoi dati reali)
-        const SUPABASE_URL = "https://geotspkwrfpbfuinypfw.supabase.co"; 
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3RzcGt3cmZwYmZ1aW55cGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMjgyMDUsImV4cCI6MjA5ODkwNDIwNX0.itwiI95uu_XbWaODK5tDyjbNgWWZ6TCRqEVHLRUOt6I"; 
+        // CONFIGURAZIONE SUPABASE (Utilizza le tue credenziali reali)
+        const SUPABASE_URL = "https://YOUR_SUPABASE_PROJECT_ID.supabase.co"; 
+        const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; 
 
         async function validaAccesso() {
             const statusText = document.getElementById("status-text");
             const spinner = document.getElementById("spinner");
 
-            // 1. Estrai il token dall'URL (?token=token_test_qr_123)
+            // 1. Estrae il token dall'URL (?token=token_test_qr_123)
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get("token");
 
@@ -51,7 +51,7 @@
             }
 
             try {
-                // 2. Interroga Supabase direttamente via REST API
+                // 2. Interroga Supabase per trovare l'utente corrispondente al token
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?token_accesso=eq.${token}&select=*`, {
                     method: "GET",
                     headers: {
@@ -60,13 +60,13 @@
                     }
                 });
 
-                if (!response.ok) throw new Error("Errore di connessione a Supabase");
+                if (!response.ok) throw new Error("Errore di connessione");
 
                 const utenti = await response.json();
 
                 if (utenti.length === 0) {
                     spinner.classList.add("hidden");
-                    statusText.innerText = "Token non valido o scaduto. Richiedi un nuovo accesso.";
+                    statusText.innerText = "Accesso non autorizzato. Token non valido o scaduto.";
                     statusText.classList.add("text-red-400");
                     return;
                 }
@@ -77,11 +77,11 @@
                 localStorage.setItem("ares_utente_nome", utente.nome);
                 localStorage.setItem("ares_utente_peso", utente.peso_kg);
 
-                statusText.innerText = `Benvenuto ${utente.nome}! Accesso eseguito.`;
+                statusText.innerText = `Benvenuto ${utente.nome}! Autenticazione completata.`;
                 statusText.classList.add("text-emerald-400");
                 spinner.classList.add("hidden");
 
-                // 4. Reindirizza alla dashboard dopo 1 secondo
+                // 4. Reindirizza alla dashboard
                 setTimeout(() => {
                     window.location.href = "dashboard.html";
                 }, 1000);
@@ -89,12 +89,11 @@
             } catch (error) {
                 console.error(error);
                 spinner.classList.add("hidden");
-                statusText.innerText = "Errore di rete. Riprova più tardi.";
+                statusText.innerText = "Errore di rete durante la verifica. Riprova.";
                 statusText.classList.add("text-red-400");
             }
         }
 
-        // Avvia la validazione al caricamento
         window.onload = validaAccesso;
     </script>
 </body>
