@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AresAI - Generatore QR Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Cinzel:wght@600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .font-cursive { font-family: 'Caveat', cursive; }
+        .font-tech { font-family: 'Orbitron', sans-serif; }
+        .font-luxury { font-family: 'Cinzel', serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6 selection:bg-cyan-500 selection:text-slate-950">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-10 border-b border-slate-900 pb-8">
+            <div>
+                <p class="text-xs text-cyan-400 uppercase tracking-widest font-semibold">Strumenti Coach</p>
+                <h1 class="text-3xl font-extrabold text-white mt-1">Generatore QR Code Palestra</h1>
+            </div>
+            <a href="coach.html" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 px-4 py-2.5 rounded-xl transition">← Torna alla Dashboard</a>
+        </header>
+
+        <!-- Generatore -->
+        <section class="glass p-8 rounded-3xl">
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Pannello di Controllo -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase tracking-wider mb-2 font-semibold">1. Seleziona l'Atleta</label>
+                        <select id="qr-athlete-select" onchange="aggiornaAnteprimaQR()" class="w-full bg-slate-900 border border-slate-800 text-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 transition">
+                            <!-- Popolato da JS -->
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase tracking-wider mb-2 font-semibold">2. Nome della tua Palestra</label>
+                        <input type="text" id="gym-name-input" oninput="aggiornaTestiPalestra()" placeholder="Es. Gold's Gym" class="w-full bg-slate-900 border border-slate-800 text-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-400 uppercase tracking-wider mb-2 font-semibold">3. Scegli lo Stile del Cartello</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="cambiaStileQR('semplice')" class="bg-slate-900 border border-slate-800 text-xs py-2.5 rounded-xl hover:bg-slate-800 transition font-medium">1. Semplice</button>
+                            <button onclick="cambiaStileQR('scanme')" class="bg-slate-900 border border-slate-800 text-xs py-2.5 rounded-xl hover:bg-slate-800 transition font-medium">2. Scan Me Elegant</button>
+                            <button onclick="cambiaStileQR('cyber')" class="bg-slate-900 border border-slate-800 text-xs py-2.5 rounded-xl hover:bg-slate-800 transition font-medium">3. Cyber Gym</button>
+                            <button onclick="cambiaStileQR('luxury')" class="bg-slate-900 border border-slate-800 text-xs py-2.5 rounded-xl hover:bg-slate-800 transition font-medium">4. Luxury Gold</button>
+                            <button onclick="cambiaStileQR('iron')" class="bg-slate-900 border border-slate-800 text-xs py-2.5 rounded-xl hover:bg-slate-800 transition font-medium col-span-2">5. Hardcore Iron</button>
+                        </div>
+                    </div>
+
+                    <button onclick="scaricaCartelloQR()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                        <span>📥</span> Scarica Cartello HD (PNG)
+                    </button>
+                </div>
+
+                <!-- Area Anteprima Live -->
+                <div class="lg:col-span-7 flex justify-center items-center p-6 bg-slate-900/40 rounded-2xl border border-slate-900 min-h-[400px]">
+                    <div id="qr-capture-container" class="p-1 rounded-2xl">
+                        
+                        <!-- Template 1: Semplice (Minimal) -->
+                        <div id="tpl-semplice" class="qr-template bg-white p-6 rounded-xl flex items-center justify-center">
+                            <div class="qrcode-placeholder"></div>
+                        </div>
+
+                        <!-- Template 2: Scan Me Elegant (Come tua immagine con freccia che punta verso l'alto-destra) -->
+                        <div id="tpl-scanme" class="qr-template hidden bg-gradient-to-tr from-slate-50 via-white to-blue-50 p-8 rounded-2xl border border-slate-200/80 w-[240px] text-center flex flex-col items-center relative">
+                            <!-- Freccia curva direzionata correttamente verso il QR -->
+                            <div class="absolute bottom-16 -left-3 text-slate-800">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 21c3-6 8-9 13-9m0 0l-5-5m5 5l-5 5"></path>
+                                </svg>
+                            </div>
+                            <div class="qrcode-placeholder bg-white p-2 rounded-xl shadow-sm z-10"></div>
+                            <span class="font-cursive text-4xl text-slate-800 mt-5 tracking-wide">Scan me</span>
+                        </div>
+
+                        <!-- Template 3: Cyber Gym (Neon / Tech) -->
+                        <div id="tpl-cyber" class="qr-template hidden bg-slate-950 p-8 rounded-2xl border-2 border-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.3)] w-[240px] text-center flex flex-col items-center">
+                            <span class="font-tech text-[10px] text-cyan-400 uppercase tracking-widest mb-4 font-bold label-palestra">AresAI Connection</span>
+                            <div class="qrcode-placeholder bg-white p-2 rounded-xl"></div>
+                            <span class="font-tech text-xs text-cyan-400 mt-5 uppercase tracking-wider">Inizia Serie</span>
+                        </div>
+
+                        <!-- Template 4: Luxury Gold (Elegante Nero/Oro) -->
+                        <div id="tpl-luxury" class="qr-template hidden bg-zinc-950 p-8 rounded-2xl border border-amber-500/40 w-[240px] text-center flex flex-col items-center">
+                            <span class="font-luxury text-xs text-amber-500/80 uppercase tracking-widest mb-4 font-semibold label-palestra">AresAI Premium Partner</span>
+                            <div class="qrcode-placeholder bg-white p-2 rounded-xl border border-amber-500/20"></div>
+                            <span class="font-luxury text-[10px] text-amber-500/60 mt-5 uppercase tracking-widest">Inquadra per Accedere</span>
+                        </div>
+
+                        <!-- Template 5: Hardcore Iron (Palestra Grezza) -->
+                        <div id="tpl-iron" class="qr-template hidden bg-zinc-900 p-8 rounded-2xl border-4 border-yellow-500 w-[240px] text-center flex flex-col items-center">
+                            <span class="font-sans text-xs text-yellow-500 font-extrabold uppercase tracking-wider mb-4 label-palestra">🏋️‍♂️ REGISTRA SERIE QUI</span>
+                            <div class="qrcode-placeholder bg-white p-2 rounded-xl border-2 border-black"></div>
+                            <span class="font-sans text-[10px] text-slate-300 mt-5 font-bold uppercase tracking-wide">Avvia Ares Vocale</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Script Librerie -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        const SUPABASE_URL = "https://YOUR_SUPABASE_PROJECT_ID.supabase.co"; 
+        const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; 
+
+        let stileAttivo = "semplice";
+
+        async function inizializzaGeneratore() {
+            const selectAtleti = document.getElementById("qr-athlete-select");
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?select=*`, {
+                    method: "GET",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+
+                if (!response.ok) throw new Error("Errore");
+                const atleti = await response.json();
+
+                selectAtleti.innerHTML = "";
+                atleti.forEach(atleta => {
+                    const opt = document.createElement("option");
+                    opt.value = atleta.token_accesso;
+                    opt.innerText = atleta.nome;
+                    selectAtleti.appendChild(opt);
+                });
+
+                aggiornaAnteprimaQR();
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function aggiornaAnteprimaQR() {
+            const selectAtleti = document.getElementById("qr-athlete-select");
+            const token = selectAtleti.value;
+            if (!token) return;
+
+            const urlCompleto = `https://ares.rmstudio.app/login.html?token=${token}`;
+            const placeholders = document.getElementsByClassName("qrcode-placeholder");
+            for (let ph of placeholders) {
+                ph.innerHTML = "";
+                new QRCode(ph, {
+                    text: urlCompleto,
+                    width: 140,
+                    height: 140,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+            }
+        }
+
+        // AGGIORNA IL NOME DELLA PALESTRA SUI CARTELLI IN TEMPO REALE
+        function aggiornaTestiPalestra() {
+            const input = document.getElementById("gym-name-input");
+            const nomePalestra = input.value.trim() || "AresAI";
+
+            // Trova tutte le label della palestra e ne aggiorna il testo
+            document.querySelectorAll(".label-palestra").forEach(label => {
+                if (label.classList.contains("font-tech")) {
+                    label.innerText = `⚡ ${nomePalestra.toUpperCase()} CONNECTION`;
+                } else if (label.classList.contains("font-luxury")) {
+                    label.innerText = `${nomePalestra.toUpperCase()} PREMIUM PARTNER`;
+                } else {
+                    label.innerText = `🏋️‍♂️ ${nomePalestra.toUpperCase()} REGISTRA SERIE`;
+                }
+            });
+        }
+
+        function cambiaStileQR(stile) {
+            stileAttivo = stile;
+            const templates = document.getElementsByClassName("qr-template");
+            for (let tpl of templates) { tpl.classList.add("hidden"); }
+            const tplAttivo = document.getElementById(`tpl-${stile}`);
+            if (tplAttivo) tplAttivo.classList.remove("hidden");
+        }
+
+        function scaricaCartelloQR() {
+            const container = document.getElementById("qr-capture-container");
+            const selectAtleti = document.getElementById("qr-athlete-select");
+            const nomeAtleta = selectAtleti.options[selectAtleti.selectedIndex]?.text || "atleta";
+
+            html2canvas(container, {
+                backgroundColor: null,
+                scale: 3,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement("a");
+                link.download = `QR_${nomeAtleta.replace(/\s+/g, '_')}_${stileAttivo}.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            });
+        }
+
+        window.onload = inizializzaGeneratore;
+    </script>
+</body>
+</html>
