@@ -107,8 +107,15 @@
             }
         
             if (!isCalling) {
-                // Avvia la chiamata vocale passando l'ID dell'assistente Ares
-                vapiInstance.start(ASSISTANT_ID);
+                // Definiamo i valori delle variabili dinamiche da passare all'assistente Ares
+                const assistantOverrides = {
+                    variableValues: {
+                        nome_utente: utenteNome // Passa il tuo nome salvato in localStorage
+                    }
+                };
+                
+                // Avvia la chiamata vocale passando l'ID e l'override delle variabili
+                vapiInstance.start(ASSISTANT_ID, assistantOverrides);
             } else {
                 // Interrompe la conversazione
                 vapiInstance.stop();
