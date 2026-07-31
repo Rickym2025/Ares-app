@@ -116,8 +116,8 @@
     <header class="fixed top-0 left-0 w-full p-4 md:p-5 z-50 backdrop-blur-md bg-black/40 border-b border-white/10">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <a href="#" class="logo flex items-center gap-3 text-2xl font-black text-white font-display">
-                <!-- ⚡ NUOVO LOGO UFFICIALE ARESAI -->
-                <img src="logo.png" alt="AresAI Logo" class="h-10 w-auto object-contain">
+                <!-- ⚡ LOGO FIX CON FALLBACK SU PUBLIC -->
+                <img src="/logo.png" alt="AresAI Logo" class="h-10 w-auto object-contain" onerror="this.onerror=null; this.src='public/logo.png';">
                 <span>Ares<span class="text-brandCyan italic">AI</span></span>
             </a>
             <nav class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest text-zinc-300">
@@ -125,6 +125,8 @@
                 <a href="#dieta" class="hover:text-white transition-colors">Dieta AI</a>
                 <a href="#prezzi" class="hover:text-white transition-colors">Piani</a>
                 <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+                <!-- 🚀 LINK BLOG AGGIUNTO -->
+                <a href="https://blogs.rmstudio.app/ares/" target="_blank" class="text-brandCyan hover:text-white transition-colors flex items-center gap-1.5"><i class="fas fa-newspaper"></i> Blog</a>
             </nav>
             <div class="flex items-center gap-3">
                 <a href="login.html" class="text-xs font-extrabold text-zinc-300 hover:text-white px-4 py-2 rounded-lg transition hidden sm:block">Accedi</a>
@@ -230,7 +232,6 @@
                 <!-- SIMULATORE INTERFACCIA DIETA -->
                 <div class="glass-panel p-6 rounded-3xl border border-white/15 shadow-2xl">
                     <div class="rounded-2xl overflow-hidden mb-4 relative aspect-video bg-zinc-900 border border-zinc-800 flex items-center justify-center">
-                        <!-- 🥗 FOTO REALE DI UN PASTO FITNESS PROTEICO -->
                         <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Pasto Fitness Rilevato dall'AI" class="w-full h-full object-cover">
                         <div class="absolute bottom-3 left-3 bg-black/80 backdrop-blur-md border border-zinc-800 text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg">Foto Rilevata AI</div>
                     </div>
@@ -258,7 +259,7 @@
             </div>
         </section>
 
-        <!-- FORM REGISTRAZIONE CON TELEFONO OBBLIGATORIO PER VAPI -->
+        <!-- FORM REGISTRAZIONE -->
         <section id="registrazione-sezione" class="py-24 px-6 border-t border-white/10 relative">
             <div class="max-w-3xl mx-auto glass-panel p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden shadow-2xl">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-3xl rounded-full pointer-events-none"></div>
@@ -427,14 +428,16 @@
 
     </main>
 
-    <!-- FOOTER -->
+    <!-- FOOTER CON LINK BLOG -->
     <footer class="border-t border-white/10 bg-black py-12 px-6 text-xs text-zinc-500">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-center md:text-left">
                 <span class="text-white font-bold text-sm">AresAI • RM Studio</span>
                 <p class="mt-1">© 2026 RM Studio. Tutti i diritti riservati.</p>
             </div>
-            <div class="flex gap-4">
+            <div class="flex gap-4 items-center">
+                <a href="https://blogs.rmstudio.app/ares/" target="_blank" class="hover:underline text-brandCyan font-bold">Blog AresAI</a>
+                <span>|</span>
                 <a href="https://rmstudio.app/privacy.html" target="_blank" class="hover:underline">Privacy Policy</a>
                 <span>|</span>
                 <a href="https://rmstudio.app/termini.html" target="_blank" class="hover:underline">Termini</a>
