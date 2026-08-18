@@ -63,7 +63,7 @@
 </head>
 <body class="antialiased flex flex-col min-h-screen selection:bg-cyan-500/30 selection:text-white relative overflow-x-hidden">
 
-    <!-- ── VIDEO BACKGROUND LOCALE DA PUBLIC/BACKGROUND.MP4 (z-0) ── -->
+    <!-- ── VIDEO BACKGROUND (z-0) ── -->
     <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover opacity-30 filter brightness-75">
             <source src="public/background.mp4" type="video/mp4">
@@ -133,7 +133,7 @@
             <section id="come-funziona" class="py-24 px-6 border-t border-white/10 bg-zinc-950/40">
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-16">
-                        <p class="font-mono text-xs text-brandCyan uppercase tracking-[5px] mb-3">Semplice & Immediato</p>
+                        <p class="font-mono text-xs text-brandCyan uppercase tracking-[5px] mb-3">Semplice &amp; Immediato</p>
                         <h2 class="text-3xl md:text-5xl font-black tracking-tight uppercase font-display text-white">Tre passi per rivoluzionare l'allenamento</h2>
                     </div>
 
@@ -210,8 +210,8 @@
                         <div class="md:col-span-2">
                             <label class="block text-xs text-zinc-400 mb-2 uppercase tracking-widest font-bold">Piano desiderato *</label>
                             <select id="reg-piano" required class="w-full bg-black/60 border border-white/10 text-white rounded-xl px-4 py-3.5 outline-none focus:border-cyan-400 text-sm font-bold appearance-none">
-                                <option value="base">Atleta PRO (19€/mese)</option>
-                                <option value="coach">Coach Hub per Personal Trainer (99€/mese)</option>
+                                <option value="base" data-plan-option="base">Atleta PRO (19€/mese)</option>
+                                <option value="coach" data-plan-option="coach">Coach Hub per Personal Trainer (99€/mese)</option>
                             </select>
                         </div>
                         <div class="md:col-span-2 mt-2">
@@ -247,7 +247,7 @@
                                 <li>✓ Dashboard atleta ed esportazione dati</li>
                             </ul>
                         </div>
-                        <button onclick="avviaCheckoutAres('base')" class="w-full py-4 rounded-xl text-center font-extrabold text-xs uppercase tracking-wider bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white transition cursor-pointer">Acquista Atleta PRO (€19)</button>
+                        <button onclick="avviaCheckoutAres('base')" data-btn-plan="base" class="w-full py-4 rounded-xl text-center font-extrabold text-xs uppercase tracking-wider bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white transition cursor-pointer">Acquista Atleta PRO (€19)</button>
                     </div>
 
                     <!-- COACH HUB -->
@@ -267,7 +267,7 @@
                                 <li>✓ Generatore QR per personalizzare la palestra</li>
                             </ul>
                         </div>
-                        <button onclick="avviaCheckoutAres('coach')" class="w-full py-4 rounded-xl text-center font-black text-xs uppercase tracking-wider bg-brandCyan hover:bg-cyan-400 text-black transition shadow-lg cursor-pointer">Attiva Coach Hub (€99) 🔥</button>
+                        <button onclick="avviaCheckoutAres('coach')" data-btn-plan="coach" class="w-full py-4 rounded-xl text-center font-black text-xs uppercase tracking-wider bg-brandCyan hover:bg-cyan-400 text-black transition shadow-lg cursor-pointer">Attiva Coach Hub (€99) 🔥</button>
                     </div>
                 </div>
             </section>
@@ -281,14 +281,14 @@
 
                     <div class="lg:col-span-7 space-y-6 text-left">
                         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-brandCyan text-xs font-bold uppercase tracking-widest">
-                            Esperienza & Autorevolezza
+                            Esperienza &amp; Autorevolezza
                         </div>
                         <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight font-display">
                             Tecnologia proprietaria <span class="text-brandCyan">RM Studio</span>
                         </h2>
                         
                         <p class="text-zinc-300 text-base leading-relaxed font-light">
-                            Sviluppato dal programmatore <b>Riccardo Modena</b>, AresAI fa parte di un ecosistema integrato di software B2B/B2C dedicati all'automazione aziendale e alla Computer Vision.
+                            Sviluppato dal programmatore <b>Riccardo Modena</b>, AresAI fa parte di un ecosistema integrato di software B2B/B2C dedicati all&apos;automazione aziendale e alla Computer Vision.
                         </p>
 
                         <div class="pt-2">
