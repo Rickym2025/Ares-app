@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AresAI • Maxischermo Arena</title>
+    <title>AresAI • Maxischermo Arena TV</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;700;800;900&family=Montserrat:wght@800;900&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-impact { font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; }
         .font-rpg { font-family: 'Orbitron', sans-serif; }
-        .font-sans { font-family: 'Inter', sans-serif; }
+
         .glow-cyan { box-shadow: 0 0 40px rgba(6, 182, 212, 0.25); }
         .glow-gold { box-shadow: 0 0 50px rgba(245, 158, 11, 0.35); }
-        .bg-cyber { background: radial-gradient(circle at 50% 10%, #0c162d 0%, #050811 100%); }
-        @keyframes pulse-slow { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.85; transform: scale(1.02); } }
+        .bg-cyber { background: radial-gradient(circle at 50% 10%, #080f1d 0%, #030712 100%); }
         .alert-pop { animation: alertIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes alertIn { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
     </style>
 </head>
-<body class="bg-cyber text-slate-100 min-h-screen p-8 lg:p-12 font-sans overflow-hidden select-none flex flex-col justify-between">
+<body class="bg-cyber text-slate-100 min-h-screen p-8 lg:p-12 font-inter overflow-hidden select-none flex flex-col justify-between">
 
     <!-- HEADER MAXISCHERMO -->
     <header class="flex justify-between items-center border-b border-cyan-500/20 pb-6">
@@ -48,11 +52,11 @@
         <!-- LEADERBOARD CLASSIFICA (Col 8) -->
         <section class="col-span-8 space-y-3">
             <div class="flex justify-between items-center px-4 mb-2">
-                <span class="text-xs font-rpg text-slate-400 uppercase tracking-widest">Rango & Atleta</span>
+                <span class="text-xs font-rpg text-slate-400 uppercase tracking-widest">Rango &amp; Atleta</span>
                 <span class="text-xs font-rpg text-slate-400 uppercase tracking-widest">Punti Esperienza (XP)</span>
             </div>
             <div id="board-list" class="space-y-3">
-                <!-- Popolato dinamicamente da JS -->
+                <div class="text-center py-8 text-xs text-slate-500 animate-pulse font-rpg">Caricamento atleti in sala...</div>
             </div>
         </section>
 
@@ -64,18 +68,18 @@
                     <h3 class="font-rpg text-xs font-bold text-white uppercase tracking-wider">Ultima Serie in Sala</h3>
                 </div>
                 <div id="last-activity-box" class="p-4 rounded-xl bg-slate-950/80 border border-cyan-500/30">
-                    <p class="text-xs text-slate-500 italic">In attesa del prossimo carico...</p>
+                    <p class="text-xs text-slate-500 italic">In attesa del prossimo carico registrato a voce...</p>
                 </div>
             </div>
 
-            <!-- Box Motivazionale & Regole XP -->
+            <!-- Box Regole XP -->
             <div class="bg-gradient-to-br from-cyan-950/40 to-slate-900/40 border border-cyan-500/20 p-5 rounded-2xl">
-                <h4 class="font-rpg text-xs text-cyan-400 font-bold uppercase mb-2">Come Guadagnare XP:</h4>
+                <h4 class="font-rpg text-xs text-cyan-400 font-bold uppercase mb-2">Come Salire di Livello:</h4>
                 <ul class="text-xs text-slate-300 space-y-2 font-medium">
-                    <li class="flex items-center gap-2"><span>🎯</span> <b>+50 XP</b> per ogni serie completata a voce</li>
-                    <li class="flex items-center gap-2"><span>⚖️</span> <b>+1 XP</b> ogni 10 kg sollevati</li>
-                    <li class="flex items-center gap-2"><span>📸</span> <b>+100 XP</b> per ogni pasto tracciato con AI</li>
-                    <li class="flex items-center gap-2"><span>🔥</span> <b>Bonus Streak</b> per costanza settimanale</li>
+                    <li class="flex items-center gap-2"><span>🎯</span> <b>XP Base</b> ad ogni serie registrata dicendo "Ares"</li>
+                    <li class="flex items-center gap-2"><span>⚖️</span> <b>Bonus Carico</b> per ogni 10 kg sollevati</li>
+                    <li class="flex items-center gap-2"><span>📸</span> <b>+100 XP</b> per ogni pasto fotografato con l'AI</li>
+                    <li class="flex items-center gap-2"><span>🔥</span> <b>Streak Attiva</b> per chi non salta gli allenamenti</li>
                 </ul>
             </div>
         </section>
@@ -94,6 +98,7 @@
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3RzcGt3cmZwYmZ1aW55cGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMjgyMDUsImV4cCI6MjA5ODkwNDIwNX0.itwiI95uu_XbWaODK5tDyjbNgWWZ6TCRqEVHLRUOt6I";
 
         let ultimaSerieId = null;
+        let fontCorrente = 'font-orbitron';
 
         // Orologio in tempo reale
         function aggiornaOrologio() {
@@ -105,7 +110,19 @@
 
         async function sincronizzaArena() {
             try {
-                // 1. Recupera la classifica utenti ordinata per XP
+                // 1. Sincronizza Font scelto dalla Palestra
+                const resConfig = await fetch(`${SUPABASE_URL}/rest/v1/ares_config_xp?select=font_style&limit=1`, {
+                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                });
+                const configData = await resConfig.json();
+                if (configData && configData[0]?.font_style && configData[0].font_style !== fontCorrente) {
+                    fontCorrente = configData[0].font_style;
+                    document.querySelectorAll('.font-rpg').forEach(el => {
+                        el.className = el.className.replace(/font-\w+/g, '') + ' ' + fontCorrente;
+                    });
+                }
+
+                // 2. Recupera Classifica Atleti ordinata per XP
                 const resUtenti = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?select=*&order=xp.desc&limit=6`, {
                     headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
                 });
@@ -114,7 +131,7 @@
 
                 renderLeaderboard(classifica);
 
-                // 2. Recupera l'ultimo log di serie per il Ticker Live
+                // 3. Recupera Ultima Serie per il Ticker Live
                 const resSerie = await fetch(`${SUPABASE_URL}/rest/v1/ares_serie?order=created_at.desc&limit=1`, {
                     headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
                 });
@@ -122,7 +139,7 @@
 
                 if (serie.length > 0 && serie[0].id !== ultimaSerieId) {
                     ultimaSerieId = serie[0].id;
-                    mostraNuovaAttivita(serie[0], classifica);
+                    mostraNuovaAttivita(serie[0]);
                 }
 
             } catch (err) {
@@ -166,7 +183,7 @@
             });
         }
 
-        function mostraNuovaAttivita(serie, classifica) {
+        function mostraNuovaAttivita(serie) {
             const box = document.getElementById("last-activity-box");
             const kgTot = (serie.peso || 0) * (serie.ripetizioni || 0);
             const xpStima = 50 + Math.round(kgTot / 10);
@@ -182,7 +199,7 @@
             `;
         }
 
-        // Loop di aggiornamento continuo ogni 5 secondi
+        // Aggiornamento automatico ogni 5 secondi
         setInterval(sincronizzaArena, 5000);
         sincronizzaArena();
     </script>
