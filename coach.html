@@ -44,6 +44,44 @@
             </div>
         </header>
 
+        <!-- PANNELLO CONFIGURAZIONE PUNTI XP DELLA PALESTRA -->
+        <section class="glass p-6 rounded-3xl border border-cyan-500/30 space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-3">
+                <div>
+                    <h3 class="font-rpg text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                        <span>⚙️</span> Regole Punti XP Macchinari Palestra
+                    </h3>
+                    <p class="text-xs text-slate-400">Modifica quanti punti esperienza guadagnano gli atleti su ciascun attrezzo.</p>
+                </div>
+                <button onclick="salvaRegoleXPPalestra()" class="bg-cyan-500 hover:bg-cyan-400 text-black font-black font-rpg text-xs px-4 py-2 rounded-xl transition uppercase cursor-pointer">
+                    Salva Regole XP 💾
+                </button>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                    <label class="block text-[9px] font-rpg text-cyan-400 uppercase font-bold mb-1">Squat / Panca / Stacco</label>
+                    <input type="number" id="xp-fondamentali" value="75" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-center font-bold text-white text-sm outline-none focus:border-cyan-500">
+                    <span class="text-[9px] text-slate-500 block mt-1">XP Base / Serie</span>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                    <label class="block text-[9px] font-rpg text-cyan-400 uppercase font-bold mb-1">Lat Machine / Press</label>
+                    <input type="number" id="xp-macchine" value="50" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-center font-bold text-white text-sm outline-none focus:border-cyan-500">
+                    <span class="text-[9px] text-slate-500 block mt-1">XP Base / Serie</span>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                    <label class="block text-[9px] font-rpg text-cyan-400 uppercase font-bold mb-1">Bicipiti / Cavi</label>
+                    <input type="number" id="xp-isolamento" value="30" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-center font-bold text-white text-sm outline-none focus:border-cyan-500">
+                    <span class="text-[9px] text-slate-500 block mt-1">XP Base / Serie</span>
+                </div>
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                    <label class="block text-[9px] font-rpg text-amber-400 uppercase font-bold mb-1">Dieta Fotografica</label>
+                    <input type="number" id="xp-dieta" value="100" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-center font-bold text-amber-300 text-sm outline-none focus:border-amber-500">
+                    <span class="text-[9px] text-slate-500 block mt-1">XP / Pasto Rilevato</span>
+                </div>
+            </div>
+        </section>
+        
         <!-- BANNER PROMO PERENNE FF EDIZIONI & PLAYER SALA PESI -->
         <section class="bg-gradient-to-r from-amber-950/40 via-slate-900/90 to-amber-950/30 border-2 border-amber-500/40 p-6 rounded-3xl glow-gold space-y-5">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
