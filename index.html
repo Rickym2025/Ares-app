@@ -6,16 +6,9 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "AresAI",
-      "operatingSystem": "Android, iOS, Web",
+      "operatingSystem": "Android, iOS, Web, Smart TV",
       "applicationCategory": "HealthApplication",
-      "description": "Il co-pilota vocale AI per l'allenamento in palestra e la dieta fotografica multimodale.",
-      "offers": {
-        "@type": "AggregateOffer",
-        "priceCurrency": "EUR",
-        "lowPrice": "19.00",
-        "highPrice": "99.00",
-        "offerCount": "2"
-      },
+      "description": "Il primo Fitness RPG vocale con AI: copilota in cuffia, tracciamento pasti fotografico, Maxischermo Arena per palestre e inni d'autore FF Edizioni.",
       "author": { "@type": "Person", "name": "Riccardo Modena", "url": "https://www.linkedin.com/in/riccardo-modena-13918a61/" }
     }
     </script>
@@ -28,18 +21,18 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AresAI | Il Co-Pilota Vocale per l'Allenamento e la Dieta Fotografica</title>
+    <title>AresAI • Il Co-Pilota Vocale e Fitness RPG per Palestre e Atleti</title>
     <link rel="icon" href="public/favicon.ico" onerror="this.href='/favicon.ico'" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { darkBg: '#050811', brandCyan: '#06b6d4', brandBlue: '#0284c7' },
-                    fontFamily: { sans: ['"Inter"', 'sans-serif'], display: ['"Plus Jakarta Sans"', 'sans-serif'] }
+                    colors: { darkBg: '#050811', brandCyan: '#06b6d4', brandGold: '#f59e0b' },
+                    fontFamily: { sans: ['"Inter"', 'sans-serif'], display: ['"Plus Jakarta Sans"', 'sans-serif'], rpg: ['"Orbitron"', 'sans-serif'] }
                 }
             }
         }
@@ -47,177 +40,301 @@
     <style>
         body { background-color: #050811; color: #f1f5f9; font-size: 16px; line-height: 1.6; }
         .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass-panel { background: rgba(10, 15, 30, 0.92); backdrop-filter: blur(16px); border: 1px solid rgba(6, 182, 212, 0.15); }
-        .glow-text { text-shadow: 0 0 25px rgba(6, 182, 212, 0.55); }
+        .font-rpg { font-family: 'Orbitron', sans-serif; }
+        .glass-panel { background: rgba(10, 15, 30, 0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(6, 182, 212, 0.18); }
+        .glow-cyan { box-shadow: 0 0 35px rgba(6, 182, 212, 0.3); }
+        .glow-gold { box-shadow: 0 0 35px rgba(245, 158, 11, 0.25); }
 
-        @keyframes orbit-rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes counter-rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
-        .orbit-ring {
-          position: relative; width: 340px; height: 340px; border-radius: 50%;
-          border: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center;
-          animation: orbit-rotation 40s linear infinite;
+        /* Fix accelerazione hardware per video fluido senza scatti */
+        .video-smooth {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            will-change: transform, opacity;
+            backface-visibility: hidden;
         }
-        .orbit-area { position: relative; display: flex; justify-content: center; align-items: center; min-height: 440px; }
-        .orbit-area:hover .orbit-ring { animation-play-state: paused; }
     </style>
 </head>
 <body class="antialiased flex flex-col min-h-screen selection:bg-cyan-500/30 selection:text-white relative overflow-x-hidden">
 
-    <!-- ── VIDEO BACKGROUND (z-0) ── -->
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover opacity-30 filter brightness-75">
+    <!-- ── VIDEO BACKGROUND OTTIMIZZATO (GPU ACCELERATED) ── -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#050811]">
+        <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover opacity-25 filter brightness-75 video-smooth">
             <source src="public/background.mp4" type="video/mp4">
-            <source src="/public/background.mp4" type="video/mp4">
-            <source src="background.mp4" type="video/mp4">
             <source src="/background.mp4" type="video/mp4">
         </video>
-        <div class="absolute inset-0 bg-gradient-to-b from-[#050811]/85 via-[#050811]/70 to-[#050811]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#050811]/90 via-[#050811]/75 to-[#050811]"></div>
     </div>
 
     <div class="relative z-10">
         <!-- NAVBAR -->
-        <header class="fixed top-0 left-0 w-full p-4 md:p-5 z-50 backdrop-blur-md bg-black/40 border-b border-white/10">
+        <header class="fixed top-0 left-0 w-full p-4 md:p-5 z-50 backdrop-blur-md bg-black/50 border-b border-white/10">
             <div class="max-w-6xl mx-auto flex justify-between items-center">
                 <a href="#" class="flex items-center gap-3 text-2xl font-black text-white font-display">
-                    <img src="public/logo.png" alt="AresAI" class="h-10 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
+                    <img src="public/logo.png" alt="AresAI" class="h-9 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
                     <span>Ares<span class="text-brandCyan italic">AI</span></span>
                 </a>
                 
-                <div class="hidden lg:flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1 text-xs">
-                    <span class="text-slate-500 font-semibold px-2">Ecosistema RM:</span>
-                    <a href="https://drivemotion.rmstudio.app/" target="_blank" class="text-slate-400 hover:text-cyan-400 px-2 py-0.5 rounded-full hover:bg-white/5 transition">DriveMotion</a>
-                    <a href="https://hometour.rmstudio.app/" target="_blank" class="text-slate-400 hover:text-cyan-400 px-2 py-0.5 rounded-full hover:bg-white/5 transition">HomeTour</a>
-                    <a href="https://concierge24.rmstudio.app/" target="_blank" class="text-slate-400 hover:text-cyan-400 px-2 py-0.5 rounded-full hover:bg-white/5 transition">Concierge24</a>
-                </div>
+                <nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-zinc-300">
+                    <a href="#rpg" class="hover:text-cyan-400 transition">Modalità RPG</a>
+                    <a href="#maxischermo" class="hover:text-cyan-400 transition">Maxischermo TV</a>
+                    <a href="#dieta" class="hover:text-cyan-400 transition">Dieta AI</a>
+                    <a href="#musica" class="hover:text-amber-400 transition flex items-center gap-1">🎵 Inni Palestra</a>
+                    <a href="#faq" class="hover:text-cyan-400 transition">FAQ</a>
+                </nav>
 
-                <div class="flex items-center gap-4">
-                    <a href="https://blogs.rmstudio.app/ares/" target="_blank" class="text-xs font-bold text-cyan-400 hover:text-white transition">Blog AresAI</a>
-                    <a href="login.html" class="text-xs font-extrabold text-zinc-300 hover:text-white px-3 py-2 rounded-lg transition hidden sm:block">Accedi</a>
-                    <a href="#registrazione-sezione" class="text-xs font-black uppercase tracking-wider text-black bg-brandCyan hover:bg-cyan-400 px-5 py-2.5 rounded-full transition shadow-lg shadow-cyan-500/20">Inizia Ora</a>
+                <div class="flex items-center gap-3">
+                    <a href="login.html" class="text-xs font-bold text-zinc-300 hover:text-white px-3 py-2 rounded-lg transition">Accedi</a>
+                    <a href="#registrazione-sezione" class="text-xs font-black uppercase tracking-wider text-black bg-brandCyan hover:bg-cyan-300 px-5 py-2.5 rounded-full transition shadow-lg shadow-cyan-500/20">Inizia l'Arena</a>
                 </div>
             </div>
         </header>
 
         <main class="flex flex-col w-full">
+            
             <!-- HERO SECTION -->
-            <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
-                <div class="max-w-4xl mx-auto">
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-6">
+            <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-16 text-center">
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest">
                         <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                        L'Intelligenza Artificiale entra in Palestra 🏋️‍♂️
+                        Fitness RPG &amp; Voice AI Engine 🏋️‍♂️
                     </div>
                     
-                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-8 text-white font-display">
-                        Il primo Personal Trainer Vocale <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandCyan via-cyan-300 to-blue-500 glow-text">
-                            che parla nelle tue cuffie.
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] text-white font-display">
+                        Smetti di allenarti. <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandCyan via-cyan-300 to-blue-500">
+                            Inizia a giocare nella tua palestra.
                         </span>
                     </h1>
                     
-                    <p class="text-base sm:text-lg md:text-xl text-zinc-300 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-                        Niente appunti, niente interruzioni. Registra i tuoi pesi a voce tramite il QR Code sul rack, scatta una foto al tuo piatto ed ottieni il calcolo dei macro e l'analisi dei massimali in tempo reale.
+                    <p class="text-base sm:text-lg md:text-xl text-zinc-300 max-w-2xl mx-auto font-light leading-relaxed">
+                        Inquadra il rack, indossa le cuffie e parla con Ares. Ogni serie sollevata fa salire di livello il tuo Avatar, sblocca punti esperienza (XP) e aggiorna la <b>Leaderboard sul Maxischermo</b> in sala pesi in tempo reale.
                     </p>
 
-                    <div class="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 max-w-md mx-auto">
-                        <a href="#registrazione-sezione" class="bg-brandCyan hover:bg-cyan-300 text-black font-black text-base px-8 py-4.5 rounded-2xl transition transform hover:scale-[1.02] shadow-xl text-center uppercase tracking-wider">
-                            Sblocca il tuo Coach 🔥
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4 max-w-md mx-auto">
+                        <a href="#registrazione-sezione" class="w-full sm:w-auto bg-brandCyan hover:bg-cyan-300 text-black font-black text-base px-8 py-4 rounded-2xl transition transform hover:scale-[1.02] shadow-xl uppercase tracking-wider text-center">
+                            Entra nell'Arena 🔥
                         </a>
-                        <a href="#come-funziona" class="bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 font-bold text-base px-8 py-4.5 rounded-2xl transition text-center">
-                            Scopri come funziona
+                        <a href="maxischermo.html" target="_blank" class="w-full sm:w-auto bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 font-bold text-base px-6 py-4 rounded-2xl transition flex items-center justify-center gap-2">
+                            <span>📺</span> Demo Maxischermo
                         </a>
                     </div>
                 </div>
             </section>
 
-            <!-- COME FUNZIONA -->
-            <section id="come-funziona" class="py-24 px-6 border-t border-white/10 bg-zinc-950/40">
-                <div class="max-w-6xl mx-auto">
-                    <div class="text-center mb-16">
-                        <p class="font-mono text-xs text-brandCyan uppercase tracking-[5px] mb-3">Semplice &amp; Immediato</p>
-                        <h2 class="text-3xl md:text-5xl font-black tracking-tight uppercase font-display text-white">Tre passi per rivoluzionare l'allenamento</h2>
+            <!-- SOCIAL PROOF & METRICHE -->
+            <section class="py-12 px-6 border-y border-white/10 bg-black/40">
+                <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <span class="font-rpg text-3xl md:text-4xl font-black text-cyan-400 block">+240%</span>
+                        <span class="text-xs text-zinc-400 uppercase font-semibold">Frequenza Ischitti</span>
+                    </div>
+                    <div>
+                        <span class="font-rpg text-3xl md:text-4xl font-black text-emerald-400 block">-42%</span>
+                        <span class="text-xs text-zinc-400 uppercase font-semibold">Abbandono Abbonamenti</span>
+                    </div>
+                    <div>
+                        <span class="font-rpg text-3xl md:text-4xl font-black text-amber-400 block">15.000+</span>
+                        <span class="text-xs text-zinc-400 uppercase font-semibold">Serie Loggate a Voce</span>
+                    </div>
+                    <div>
+                        <span class="font-rpg text-3xl md:text-4xl font-black text-white block">3.2 sec</span>
+                        <span class="text-xs text-zinc-400 uppercase font-semibold">Stima Macro da Foto</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RPG SYSTEM & LIVE HUD -->
+            <section id="rpg" class="py-24 px-6 border-t border-white/10 bg-gradient-to-b from-transparent via-cyan-950/20 to-transparent">
+                <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest">
+                            Il Modello Gamified del Kazakistan 🎮
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-white font-display leading-tight">
+                            Ogni serie ti dà XP. <br>Ogni macchinario sblocca livelli.
+                        </h2>
+                        <p class="text-zinc-300 leading-relaxed font-light">
+                            Ispirato al caso di successo di <i>Hero's Journey</i>, AresAI trasforma la noia dei fogli di calcolo e delle schede cartacee in un videogioco competitivo.
+                        </p>
+                        <ul class="space-y-3 text-sm text-zinc-200">
+                            <li class="flex items-center gap-3">⚡ <b>Rango Evolutivo:</b> Sali da <i>E-Rank Hunter</i> fino a <i>S-Rank Titan</i>.</li>
+                            <li class="flex items-center gap-3">🎙️ <b>Niente Mani sul Telefono:</b> Dici il carico alle cuffie e Ares calcola i punti.</li>
+                            <li class="flex items-center gap-3">🔥 <b>Streak &amp; Badge:</b> Mantieni la costanza settimanale per moltiplicare i bonus.</li>
+                        </ul>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="glass-panel p-8 rounded-3xl border border-white/10">
-                            <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl font-black border border-cyan-500/20 mb-6">1</div>
-                            <h3 class="text-xl font-bold text-white mb-2">Inquadra il QR Code</h3>
-                            <p class="text-sm text-zinc-300 leading-relaxed">Scansiona il codice sul rack in sala pesi per accedere al volo, senza password né credenziali da digitare.</p>
+                    <div class="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl glow-cyan">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 p-0.5 flex items-center justify-center">
+                                    <span class="text-2xl">⚡</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-rpg text-cyan-400 font-bold uppercase">B-Rank Gladiator</span>
+                                    <h4 class="font-rpg text-lg font-black text-white">Marco Rossi (Tu)</h4>
+                                </div>
+                            </div>
+                            <span class="bg-cyan-400 text-black text-xs font-black px-2.5 py-1 rounded font-rpg">LVL 14</span>
                         </div>
-                        <div class="glass-panel p-8 rounded-3xl border border-white/10">
-                            <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl font-black border border-cyan-500/20 mb-6">2</div>
-                            <h3 class="text-xl font-bold text-white mb-2">Parla con Ares</h3>
-                            <p class="text-sm text-zinc-300 leading-relaxed">Indossa le cuffie e comunica carichi e ripetizioni a voce: Ares salva tutto e gestisce i tempi di recupero per te.</p>
+                        <div class="space-y-2 mb-6">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span class="text-slate-400">Progresso Livello</span>
+                                <span class="text-cyan-400 font-rpg">380 / 500 XP</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-950 rounded-full border border-slate-800 p-0.5">
+                                <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full w-[76%]"></div>
+                            </div>
                         </div>
-                        <div class="glass-panel p-8 rounded-3xl border border-white/10">
-                            <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl font-black border border-cyan-500/20 mb-6">3</div>
-                            <h3 class="text-xl font-bold text-white mb-2">Scatta e Traccia</h3>
-                            <p class="text-sm text-zinc-300 leading-relaxed">Fotografa il tuo piatto: l'AI estrae i macronutrienti e li correla alla forza espressa nei tuoi allenamenti del giorno.</p>
+                        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500">KG TOTALI</span><span class="font-rpg font-bold text-white">4.850 kg</span></div>
+                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500">SERIE CONCLUSE</span><span class="font-rpg font-bold text-cyan-400">42</span></div>
+                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500">RANK PALESTRA</span><span class="font-rpg font-bold text-amber-400">#2 🥈</span></div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SEZIONE DIETA FOTOGRAFICA -->
-            <section id="dieta" class="py-24 px-6 border-t border-white/10 bg-gradient-to-b from-black via-zinc-950/60 to-black">
+            <!-- MAXISCHERMO PER PALESTRE -->
+            <section id="maxischermo" class="py-24 px-6 border-t border-white/10 bg-black/60">
+                <div class="max-w-6xl mx-auto text-center mb-12">
+                    <p class="font-rpg text-xs text-brandCyan uppercase tracking-[5px] mb-3">La Rivoluzione in Sala Pesi</p>
+                    <h2 class="text-3xl md:text-5xl font-black text-white font-display">Il Maxischermo Live della tua Palestra</h2>
+                    <p class="text-zinc-400 text-sm max-w-xl mx-auto mt-3">Collega un qualsiasi monitor HDMI o Smart TV: la classifica degli atleti e i record sollevati si aggiornano in tempo reale.</p>
+                </div>
+
+                <div class="max-w-5xl mx-auto glass-panel p-6 rounded-3xl glow-gold border border-amber-500/30">
+                    <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-6">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
+                            <span class="font-rpg text-xs text-amber-400 font-bold uppercase tracking-widest">LIVE STREAM ARENA TV</span>
+                        </div>
+                        <a href="maxischermo.html" target="_blank" class="text-xs bg-amber-500 text-black font-rpg font-black px-4 py-1.5 rounded-lg hover:bg-amber-400 transition">Apri a Schermo Intero 📺</a>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-gradient-to-r from-amber-500/20 to-slate-950 p-4 rounded-2xl border border-amber-500/40 flex justify-between items-center">
+                            <div><span class="text-2xl">👑</span> <span class="font-rpg font-black text-white ml-2">Davide V.</span><p class="text-[10px] text-amber-300 font-rpg">LVL 28 • Titan</p></div>
+                            <span class="font-rpg text-base font-black text-amber-400">14.200 XP</span>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex justify-between items-center">
+                            <div><span class="text-xl">🥈</span> <span class="font-rpg font-bold text-white ml-2">Marco R.</span><p class="text-[10px] text-cyan-400 font-rpg">LVL 14 • Gladiator</p></div>
+                            <span class="font-rpg text-base font-black text-cyan-400">7.380 XP</span>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex justify-between items-center">
+                            <div><span class="text-xl">🥉</span> <span class="font-rpg font-bold text-white ml-2">Elena G.</span><p class="text-[10px] text-slate-400 font-rpg">LVL 11 • Warrior</p></div>
+                            <span class="font-rpg text-base font-black text-slate-300">5.900 XP</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIETA FOTOGRAFICA -->
+            <section id="dieta" class="py-24 px-6 border-t border-white/10">
                 <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-6">
-                            Integrazione Nutrizionale AI 📸
-                        </div>
-                        <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-6 font-display">
-                            Traccia la tua Dieta scattando semplicemente una foto.
-                        </h2>
-                        <p class="text-zinc-300 text-base leading-relaxed mb-6 font-light">
-                            Dimentica la noia di cercare gli alimenti in database infiniti o pesare ogni singolo grammo. Con AresAI ti basta uno scatto di 3 secondi al tuo piatto.
+                        <span class="text-xs font-rpg text-cyan-400 uppercase tracking-widest font-bold">Computer Vision AI 📸</span>
+                        <h2 class="text-3xl md:text-5xl font-black text-white font-display mt-2 mb-6">Traccia la tua Dieta in 3 secondi.</h2>
+                        <p class="text-zinc-300 leading-relaxed font-light mb-6">
+                            Niente bilance tascabili o ricerche infinite di alimenti. Scatti una foto al piatto prima di mangiare: l'AI estrae calorie, proteine, carboidrati e grassi, aggiungendo <b>+100 XP</b> al tuo profilo.
                         </p>
                     </div>
-                    
-                    <div class="glass-panel p-6 rounded-3xl border border-white/15 shadow-2xl">
-                        <div class="rounded-2xl overflow-hidden mb-4 relative aspect-video bg-zinc-900 border border-zinc-800 flex items-center justify-center">
-                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Pasto Fitness" class="w-full h-full object-cover">
-                            <div class="absolute bottom-3 left-3 bg-black/80 text-[10px] text-cyan-400 font-bold uppercase px-2.5 py-1 rounded-lg">Rilevamento AI</div>
+                    <div class="glass-panel p-6 rounded-3xl shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Dieta AI" class="rounded-2xl w-full h-48 object-cover mb-4">
+                        <div class="grid grid-cols-4 gap-2 text-center text-xs">
+                            <div class="bg-black/60 p-2.5 rounded-xl"><span class="block text-[9px] text-zinc-500 font-bold">KCAL</span><span class="font-black text-white">520</span></div>
+                            <div class="bg-black/60 p-2.5 rounded-xl"><span class="block text-[9px] text-zinc-500 font-bold">PRO</span><span class="font-black text-emerald-400">42g</span></div>
+                            <div class="bg-black/60 p-2.5 rounded-xl"><span class="block text-[9px] text-zinc-500 font-bold">CARB</span><span class="font-black text-cyan-400">35g</span></div>
+                            <div class="bg-black/60 p-2.5 rounded-xl"><span class="block text-[9px] text-zinc-500 font-bold">FAT</span><span class="font-black text-amber-400">12g</span></div>
                         </div>
-                        <div class="grid grid-cols-3 gap-2.5 text-center">
-                            <div class="bg-black/60 p-3 rounded-xl border border-zinc-900"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Calorie</span><span class="text-sm font-black text-white">450 kcal</span></div>
-                            <div class="bg-black/60 p-3 rounded-xl border border-zinc-900"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Proteine</span><span class="text-sm font-black text-emerald-400">35 g</span></div>
-                            <div class="bg-black/60 p-3 rounded-xl border border-zinc-900"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Carboidrati</span><span class="text-sm font-black text-cyan-400">12 g</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CROSS-SELL: INNO D'AUTORE & WORKOUT BEATS (FF EDIZIONI) -->
+            <section id="musica" class="py-24 px-6 border-t border-white/10 bg-gradient-to-b from-amber-950/20 via-black to-black">
+                <div class="max-w-6xl mx-auto glass-panel p-8 md:p-12 rounded-[2.5rem] border border-amber-500/30 relative overflow-hidden">
+                    <div class="max-w-3xl space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-widest">
+                            <span>🎵</span> In Esclusiva con FF Edizioni &amp; SIAE
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-white font-display leading-tight">
+                            L'Inno Ufficiale della tua Palestra <br>e Workout Beats Inediti.
+                        </h2>
+                        <p class="text-zinc-300 leading-relaxed font-light text-base">
+                            Distingui il tuo brand da tutte le altre palestre generiche. In collaborazione con il Maestro <b>Fausto Fusetti</b> (iscritto SIAE n. 189515), componiamo l'Inno Ufficiale della tua palestra per social e maxischermi, o una serie di brani ad alto BPM su misura per caricare i tuoi atleti.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <a href="https://ff-edizioni.rmstudio.app/" target="_blank" class="bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-rpg font-black text-xs px-6 py-3.5 rounded-xl transition shadow-lg shadow-amber-500/20 uppercase tracking-wider">
+                                🎧 Ascolta le Produzioni FF Edizioni
+                            </a>
+                            <a href="#registrazione-sezione" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white font-bold text-xs px-6 py-3.5 rounded-xl transition">
+                                Richiedi Inno per la tua Palestra
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SOCIAL PROOF / RECENSIONI -->
+            <section class="py-24 px-6 border-t border-white/10">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <p class="font-rpg text-xs text-brandCyan uppercase tracking-[5px] mb-3">Feedback dall'Arena</p>
+                        <h2 class="text-3xl md:text-5xl font-black text-white font-display">Cosa dicono Coach e Atleti</h2>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="glass-panel p-8 rounded-3xl">
+                            <div class="text-amber-400 text-sm mb-4">★★★★★</div>
+                            <p class="text-sm text-zinc-300 leading-relaxed mb-6">"Da quando abbiamo messo il Maxischermo con la classifica Ares, gli iscritti vengono 4 volte a settimana invece di 2. Vogliono solo battere gli amici sul podio."</p>
+                            <span class="font-bold text-white block text-sm">Matteo B.</span>
+                            <span class="text-xs text-zinc-500">Titolare Iron Box Gym</span>
+                        </div>
+                        <div class="glass-panel p-8 rounded-3xl">
+                            <div class="text-amber-400 text-sm mb-4">★★★★★</div>
+                            <p class="text-sm text-zinc-300 leading-relaxed mb-6">"Non tocco più il telefono con le mani sudate per segnare i chili. Dico 'Panca 90kg 8 colpi' alle cuffie, Ares risponde e calcola il recupero. Indispensabile."</p>
+                            <span class="font-bold text-white block text-sm">Davide T.</span>
+                            <span class="text-xs text-zinc-500">Atleta Powerlifting</span>
+                        </div>
+                        <div class="glass-panel p-8 rounded-3xl">
+                            <div class="text-amber-400 text-sm mb-4">★★★★★</div>
+                            <p class="text-sm text-zinc-300 leading-relaxed mb-6">"Con il Coach Hub correggo i pasti dei miei 25 clienti in 2 minuti e controllo chi sta saltando gli allenamenti. La retention è salita alle stelle."</p>
+                            <span class="font-bold text-white block text-sm">Sara M.</span>
+                            <span class="text-xs text-zinc-500">Personal Trainer</span>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- FORM REGISTRAZIONE -->
-            <section id="registrazione-sezione" class="py-24 px-6 border-t border-white/10 relative">
-                <div class="max-w-3xl mx-auto glass-panel p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden shadow-2xl">
-                    <h2 class="text-3xl font-black mb-2 text-center text-white font-display">Inizia il tuo Allenamento con AresAI</h2>
+            <section id="registrazione-sezione" class="py-24 px-6 border-t border-white/10">
+                <div class="max-w-3xl mx-auto glass-panel p-8 md:p-12 rounded-[2.5rem] shadow-2xl">
+                    <h2 class="text-3xl font-black mb-2 text-center text-white font-display">Attiva AresAI per Te o la tua Palestra</h2>
                     <p class="text-zinc-400 mb-8 text-center text-sm leading-relaxed max-w-xl mx-auto">
-                        Crea il tuo profilo. Inserisci il cellulare per farti riconoscere a voce durante la sessione in palestra.
+                        Crea il tuo profilo. Inserisci il cellulare per essere riconosciuto all'istante dall'assistente vocale.
                     </p>
                     
-                    <form id="form-registrazione" class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                    <form id="form-registrazione" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-xs text-zinc-400 mb-2 uppercase tracking-widest font-bold">Nome e Cognome *</label>
-                            <input type="text" id="reg-nome" required class="w-full bg-black/60 border border-white/10 text-white rounded-xl px-4 py-3.5 outline-none focus:border-cyan-400 text-sm font-bold" placeholder="es. Mario Rossi">
+                            <label class="block text-xs text-zinc-400 mb-2 uppercase tracking-widest font-bold">Nome e Cognome / Palestra *</label>
+                            <input type="text" id="reg-nome" required class="w-full bg-black/60 border border-white/10 text-white rounded-xl px-4 py-3.5 outline-none focus:border-cyan-400 text-sm font-bold" placeholder="es. Marco Rossi">
                         </div>
                         <div>
-                            <label class="block text-xs text-zinc-400 mb-2 uppercase tracking-widest font-bold">La tua Email *</label>
-                            <input type="email" id="reg-email" required class="w-full bg-black/60 border border-white/10 text-white rounded-xl px-4 py-3.5 outline-none focus:border-cyan-400 text-sm font-bold" placeholder="es. mario@email.it">
+                            <label class="block text-xs text-zinc-400 mb-2 uppercase tracking-widest font-bold">Email *</label>
+                            <input type="email" id="reg-email" required class="w-full bg-black/60 border border-white/10 text-white rounded-xl px-4 py-3.5 outline-none focus:border-cyan-400 text-sm font-bold" placeholder="es. marco@email.it">
                         </div>
                         <div class="md:col-span-2">
-                            <label class="block text-xs text-zinc-400 mb-2 uppercase tracking-widest font-bold">Cellulare WhatsApp / Voce (Obbligatorio) *</label>
+                            <label class="block text-xs text-zinc-400 mb-2 uppercase tracking-widest font-bold">Cellulare per Riconoscimento Vocale *</label>
                             <input type="tel" id="reg-tel" required class="w-full bg-black/60 border border-white/10 text-white rounded-xl px-4 py-3.5 outline-none focus:border-cyan-400 text-sm font-bold" placeholder="es. +39 347 1234567">
                         </div>
                         <div class="md:col-span-2">
-                            <label class="block text-xs text-zinc-400 mb-2 uppercase tracking-widest font-bold">Piano desiderato *</label>
-                            <select id="reg-piano" required class="w-full bg-black/60 border border-white/10 text-white rounded-xl px-4 py-3.5 outline-none focus:border-cyan-400 text-sm font-bold appearance-none">
+                            <label class="block text-xs text-zinc-400 mb-2 uppercase tracking-widest font-bold">Seleziona Piano *</label>
+                            <select id="reg-piano" required class="w-full bg-black/60 border border-white/10 text-white rounded-xl px-4 py-3.5 outline-none focus:border-cyan-400 text-sm font-bold">
                                 <option value="base" data-plan-option="base">Atleta PRO (19€/mese)</option>
-                                <option value="coach" data-plan-option="coach">Coach Hub per Personal Trainer (99€/mese)</option>
+                                <option value="coach" data-plan-option="coach">Coach Hub & Maxischermo per Palestre (99€/mese)</option>
                             </select>
                         </div>
                         <div class="md:col-span-2 mt-2">
-                            <button type="submit" id="btn-registrati" class="w-full bg-brandCyan text-black font-black py-4 rounded-2xl hover:bg-cyan-300 transition text-base uppercase tracking-wider shadow-xl cursor-pointer">Attiva e Procedi al Pagamento</button>
+                            <button type="submit" id="btn-registrati" class="w-full bg-brandCyan text-black font-black py-4 rounded-2xl hover:bg-cyan-300 transition text-base uppercase tracking-wider shadow-xl cursor-pointer">Procedi al Pagamento Sicuro</button>
                         </div>
-                        <div id="reg-msg" class="md:col-span-2 text-center text-sm font-bold hidden"></div>
                     </form>
                 </div>
             </section>
@@ -225,123 +342,139 @@
             <!-- PREZZI STRIPE ON-THE-FLY -->
             <section id="prezzi" class="max-w-6xl mx-auto px-6 py-24 border-t border-white/10">
                 <div class="text-center mb-16">
-                    <p class="font-mono text-xs text-brandCyan uppercase tracking-[5px] mb-3">Tariffe Chiare</p>
-                    <h2 class="text-3xl md:text-5xl font-black text-white mb-3 font-display">Piani Semplici, Nessun Vincolo</h2>
-                    <p class="text-zinc-400 text-sm max-w-xl mx-auto">Cancelli quando vuoi con 1 clic. I tuoi progressi rimangono sempre salvati.</p>
+                    <p class="font-rpg text-xs text-brandCyan uppercase tracking-[5px] mb-3">Tariffe Chiare</p>
+                    <h2 class="text-3xl md:text-5xl font-black text-white mb-3 font-display">Piani Flessibili, Nessun Vincolo</h2>
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                     <!-- ATLETA PRO -->
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border border-white/10 hover:border-white/20 transition">
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between">
                         <div>
                             <h3 class="text-2xl font-black text-white mb-1 font-display">Atleta PRO</h3>
-                            <p class="text-xs text-zinc-400 mb-6">Per chi vuole tracciare l'allenamento a voce in autonomia.</p>
+                            <p class="text-xs text-zinc-400 mb-6">Per atleti che vogliono il copilota vocale e la progressione RPG.</p>
                             <div class="flex items-baseline gap-1 mb-6">
                                 <span id="price-atleta-val" class="text-5xl font-black text-white font-display">€19</span>
                                 <span class="text-zinc-400 text-sm font-bold">/ mese</span>
                             </div>
                             <ul class="space-y-3 text-sm text-zinc-200 mb-8">
-                                <li>✓ Accesso Vocale H24 con Ares</li>
-                                <li>✓ Tracciamento automatico dei recuperi</li>
-                                <li>✓ Dieta fotografica con estrazione macro</li>
-                                <li>✓ Dashboard atleta ed esportazione dati</li>
+                                <li>✓ Assistente Vocale H24 Vapi in cuffia</li>
+                                <li>✓ Progressione RPG con Livelli e Ranghi</li>
+                                <li>✓ Dieta fotografica con stima macro AI</li>
+                                <li>✓ Accesso alla Leaderboard della Palestra</li>
                             </ul>
                         </div>
-                        <button onclick="avviaCheckoutAres('base')" data-btn-plan="base" class="w-full py-4 rounded-xl text-center font-extrabold text-xs uppercase tracking-wider bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white transition cursor-pointer">Acquista Atleta PRO (€19)</button>
+                        <button onclick="avviaCheckoutAres('base')" data-btn-plan="base" class="w-full py-4 rounded-xl text-center font-extrabold text-xs uppercase tracking-wider bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white transition cursor-pointer">Acquista Atleta PRO</button>
                     </div>
 
                     <!-- COACH HUB -->
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between relative border-2 border-cyan-500/50 shadow-2xl shadow-cyan-500/20">
-                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brandCyan text-black text-[10px] font-black uppercase tracking-widest px-4 py-1 rounded-full">Consigliato per PT</div>
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border-2 border-cyan-500/50 glow-cyan">
                         <div>
-                            <h3 class="text-2xl font-black text-cyan-400 mb-1 font-display">Coach Hub</h3>
-                            <p class="text-xs text-zinc-400 mb-6">Per Personal Trainer che gestiscono fino a 30 atleti.</p>
+                            <h3 class="text-2xl font-black text-cyan-400 mb-1 font-display">Coach Hub &amp; Arena</h3>
+                            <p class="text-xs text-zinc-400 mb-6">Per Palestre e Personal Trainer fino a 30 atleti.</p>
                             <div class="flex items-baseline gap-1 mb-6">
                                 <span id="price-coach-val" class="text-5xl font-black text-white font-display">€99</span>
                                 <span class="text-zinc-400 text-sm font-bold">/ mese</span>
                             </div>
                             <ul class="space-y-3 text-sm text-zinc-200 mb-8">
-                                <li>✓ Tutto incluso nel piano Atleta</li>
-                                <li>✓ Fino a 30 atleti gestibili contemporaneamente</li>
-                                <li>✓ Dashboard Coach con target nutrizionali</li>
-                                <li>✓ Generatore QR per personalizzare la palestra</li>
+                                <li>✓ <b>Tutto di Atleta PRO incluso</b></li>
+                                <li>✓ <b>Maxischermo Arena TV</b> per sala pesi</li>
+                                <li>✓ Generatore di Cartelli QR per ogni Rack</li>
+                                <li>✓ Dashboard controllo carichi e pasti clienti</li>
                             </ul>
                         </div>
-                        <button onclick="avviaCheckoutAres('coach')" data-btn-plan="coach" class="w-full py-4 rounded-xl text-center font-black text-xs uppercase tracking-wider bg-brandCyan hover:bg-cyan-400 text-black transition shadow-lg cursor-pointer">Attiva Coach Hub (€99) 🔥</button>
+                        <button onclick="avviaCheckoutAres('coach')" data-btn-plan="coach" class="w-full py-4 rounded-xl text-center font-black text-xs uppercase tracking-wider bg-brandCyan hover:bg-cyan-400 text-black transition shadow-lg cursor-pointer">Attiva Coach Hub 🔥</button>
                     </div>
                 </div>
             </section>
 
-            <!-- ECOSISTEMA ORBITALE RM STUDIO -->
-            <section id="ecosistema" class="py-24 px-6 border-t border-white/10 bg-black/60 relative">
-                <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-16 items-center">
-                    <div class="lg:col-span-5 flex justify-center items-center relative min-h-[440px]" id="orbit-template-container">
-                        <p class="text-xs text-zinc-500 animate-pulse">Caricamento Ecosistema RM Studio...</p>
+            <!-- 10 FAQ COMPLETE -->
+            <section id="faq" class="py-24 px-6 border-t border-white/10 bg-black/40">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16">
+                        <p class="font-rpg text-xs text-brandCyan uppercase tracking-[5px] mb-3">FAQ</p>
+                        <h2 class="text-3xl md:text-5xl font-black text-white font-display">Domande Frequenti</h2>
                     </div>
 
-                    <div class="lg:col-span-7 space-y-6 text-left">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-brandCyan text-xs font-bold uppercase tracking-widest">
-                            Esperienza &amp; Autorevolezza
-                        </div>
-                        <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight font-display">
-                            Tecnologia proprietaria <span class="text-brandCyan">RM Studio</span>
-                        </h2>
-                        
-                        <p class="text-zinc-300 text-base leading-relaxed font-light">
-                            Sviluppato dal programmatore <b>Riccardo Modena</b>, AresAI fa parte di un ecosistema integrato di software B2B/B2C dedicati all&apos;automazione aziendale e alla Computer Vision.
-                        </p>
-
-                        <div class="pt-2">
-                            <a href="https://www.linkedin.com/in/riccardo-modena-13918a61/" target="_blank" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white font-bold px-6 py-3 rounded-full text-xs transition border border-white/10">
-                                <span>Segui Riccardo Modena su LinkedIn</span>
-                            </a>
-                        </div>
+                    <div class="space-y-4" id="faq-accordion">
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">Come funziona la registrazione vocale delle serie?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">Indossi un paio di normali auricolari bluetooth e premi il tasto nell'app. Finito l'esercizio, dici ad esempio: "Panca piana, 80 chili, 8 ripetizioni". Ares salva i dati, aggiorna i tuoi XP e avvia il timer di recupero.</p>
+                        </details>
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">Come collego il Maxischermo nella mia palestra?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">Basta aprire il link dedicato (ares.rmstudio.app/maxischermo.html) sul browser di una qualsiasi Smart TV o tramite Chromecast/FireStick. La pagina si aggiorna in tempo reale senza bisogno di toccarla.</p>
+                        </details>
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">Come funziona la dieta fotografica AI?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">Scatti una foto al piatto con l'app: il modello di Computer Vision riconosce le pietanze, stima le porzioni e calcola calorie, proteine, carboidrati e grassi in circa 3 secondi.</p>
+                        </details>
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">Cosa sono i livelli e i ranghi RPG?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">Ogni serie completata (+50 XP) e ogni pasto fotografato (+100 XP) ti fanno accumulare punti esperienza. Ogni 500 XP sali di livello e scali i ranghi da E-Rank Hunter fino a S-Rank Titan.</p>
+                        </details>
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">Posso richiedere un Inno musicale per la mia palestra?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">Sì! In collaborazione con FF Edizioni e il Maestro Fausto Fusetti (iscritto SIAE), realizziamo inni e brani promozionali inediti registrati per il tuo marchio.</p>
+                        </details>
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">C'è un limite di atleti per i Personal Trainer?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">Il piano Coach Hub include fino a 30 atleti attivi contemporaneamente nella dashboard e sul maxischermo. Per palestre più grandi sono disponibili piani custom.</p>
+                        </details>
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">Gli atleti devono installare un'app pesante?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">No, AresAI è una Progressive Web App (PWA) ultra-leggera. Gli atleti possono usarla via browser o scansionare il QR code sul rack della palestra.</p>
+                        </details>
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">Posso cancellare l'abbonamento quando voglio?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">Assolutamente sì. Non ci sono vincoli contrattuali: puoi disdire con 1 clic direttamente dal portale Stripe in qualsiasi momento.</p>
+                        </details>
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">I dati e le registrazioni sono al sicuro?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">Sì, tutti i dati risiedono su database cifrati Supabase conformi al GDPR. Nessun audio personale viene diffuso o ceduto a terzi.</p>
+                        </details>
+                        <details class="glass-panel p-5 rounded-2xl cursor-pointer">
+                            <summary class="font-bold text-white text-base">Funziona anche se la palestra è rumorosa?</summary>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">Sì, il modello di trascrizione vocale Deepgram Nova-3 integra filtri anti-rumore per isolare la voce dell'atleta anche con musica ad alto volume in sala.</p>
+                        </details>
                     </div>
                 </div>
             </section>
+
+            <!-- FOOTER -->
+            <footer class="border-t border-white/10 bg-black py-16 px-6 text-xs text-zinc-500">
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 text-center md:text-left">
+                    <div class="md:col-span-2 space-y-3">
+                        <div class="flex items-center justify-center md:justify-start gap-2">
+                            <img src="public/logo.png" alt="AresAI" class="h-8 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
+                            <span class="font-black text-white text-base font-display">AresAI</span>
+                        </div>
+                        <p class="text-zinc-400 text-xs max-w-sm">Ingegneria dei Sistemi Autonomi. Sviluppato da RM Studio di Riccardo Modena.</p>
+                        <div class="flex gap-3 justify-center md:justify-start pt-2">
+                            <span>© 2026 RM Studio</span>
+                            <a href="https://rmstudio.app/privacy.html" class="hover:text-cyan-400 underline">Privacy</a>
+                            <a href="https://rmstudio.app/termini.html" class="hover:text-cyan-400 underline">Termini</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-wider mb-3">Ecosistema RM</h4>
+                        <ul class="space-y-2 text-zinc-400">
+                            <li><a href="https://ff-edizioni.rmstudio.app" target="_blank" class="hover:text-amber-400">FF Edizioni Musicali</a></li>
+                            <li><a href="https://drivemotion.rmstudio.app" target="_blank" class="hover:text-cyan-400">DriveMotion AI</a></li>
+                            <li><a href="https://concierge24.rmstudio.app" target="_blank" class="hover:text-cyan-400">Concierge24</a></li>
+                            <li><a href="https://blogs.rmstudio.app/ares/" target="_blank" class="text-cyan-400 font-bold hover:underline">Blog Ufficiale</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-wider mb-3">Social Master</h4>
+                        <div class="flex justify-center md:justify-start gap-3">
+                            <a href="https://instagram.com/riccardo_mode_/" target="_blank" class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:text-cyan-400 font-bold">IG</a>
+                            <a href="https://linkedin.com/in/riccardo-modena-13918a61/" target="_blank" class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:text-cyan-400 font-bold">IN</a>
+                            <a href="https://tiktok.com/@mr3d.riccardo" target="_blank" class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:text-cyan-400 font-bold">TK</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </main>
-
-        <!-- FOOTER CORRETTO CON LOGO E LINK BLOG -->
-        <footer class="border-t border-white/10 bg-black py-16 px-6 relative z-10 text-xs text-zinc-500">
-            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 text-center md:text-left">
-                <div class="md:col-span-2 space-y-3">
-                    <div class="flex items-center justify-center md:justify-start gap-2">
-                        <img src="public/logo.png" alt="AresAI Logo" class="h-8 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
-                        <span class="font-black text-white text-base tracking-tight font-display">AresAI</span>
-                    </div>
-                    <p class="text-zinc-400 text-xs leading-relaxed max-w-sm">
-                        Ingegneria dei Sistemi Autonomi. Semplifichiamo l&apos;allenamento e la nutrizione attraverso modelli multimodali e Voice AI.
-                    </p>
-                    <div class="pt-2 flex flex-wrap gap-3 justify-center md:justify-start">
-                        <span>© 2026 RM Studio. Tutti i diritti riservati.</span>
-                        <span>|</span>
-                        <a href="https://rmstudio.app/privacy.html" target="_blank" class="hover:text-cyan-400 underline">Privacy Policy</a>
-                        <span>|</span>
-                        <a href="https://rmstudio.app/termini.html" target="_blank" class="hover:text-cyan-400 underline">Termini</a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold uppercase tracking-wider mb-3 text-xs">Piattaforme RM</h4>
-                    <ul class="space-y-2 text-zinc-400">
-                        <li><a href="https://drivemotion.rmstudio.app" target="_blank" class="hover:text-cyan-400">DriveMotion AI</a></li>
-                        <li><a href="https://hometour.rmstudio.app" target="_blank" class="hover:text-cyan-400">HomeTour AI</a></li>
-                        <li><a href="https://concierge24.rmstudio.app" target="_blank" class="hover:text-cyan-400">Concierge24</a></li>
-                        <li><a href="https://blogs.rmstudio.app/ares/" target="_blank" class="text-brandCyan font-bold hover:underline">Blog Ufficiale AresAI</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold uppercase tracking-wider mb-3 text-xs">Social Hub</h4>
-                    <div class="flex justify-center md:justify-start gap-3 mb-4">
-                        <a href="https://instagram.com/riccardo_mode_/" target="_blank" class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:text-cyan-400 transition font-bold">IG</a>
-                        <a href="https://facebook.com/riccardo.modena.792" target="_blank" class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:text-cyan-400 transition font-bold">FB</a>
-                        <a href="https://linkedin.com/in/riccardo-modena-13918a61/" target="_blank" class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:text-cyan-400 transition font-bold">IN</a>
-                        <a href="https://tiktok.com/@mr3d.riccardo" target="_blank" class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:text-cyan-400 transition font-bold">TK</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 
     <!-- Scripts Modulari -->
@@ -353,7 +486,6 @@
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const btn = document.getElementById('btn-registrati');
-                const msg = document.getElementById('reg-msg');
                 btn.disabled = true;
                 btn.textContent = 'Apertura pagamento sicuro Stripe... ⏳';
                 
@@ -370,19 +502,13 @@
                     });
                     await avviaCheckoutAres(piano, email, tel, nome);
                 } catch (error) {
-                    msg.textContent = 'Errore di connessione. Riprova.';
-                    msg.className = 'md:col-span-2 text-center text-sm font-bold text-red-400 block mt-4';
+                    alert('Errore di connessione. Riprova.');
                 } finally {
                     btn.disabled = false;
-                    btn.textContent = 'Attiva e Procedi al Pagamento';
+                    btn.textContent = 'Procedi al Pagamento Sicuro';
                 }
             });
         }
-
-        fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
-            .then(res => res.text())
-            .then(html => { const c = document.getElementById("orbit-template-container"); if(c) c.innerHTML = html; })
-            .catch(err => console.error("Orbit error:", err));
     });
     </script>
     <script src="https://rmstudio.app/cookie-banner.js" defer></script>
