@@ -1,6 +1,6 @@
 /**
  * AresAI - Live Pricing & Stripe Checkout Engine
- * RM Studio Universal Engine
+ * RM Studio Universal Engine (Supabase S2 Central DB)
  */
 
 const SUPABASE_S2_URL = 'https://jhijfulhntlhcytbhcly.supabase.co';
@@ -9,7 +9,7 @@ const SUPABASE_S2_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzd
 // 1. Prezzi di Fallback Immediati (Zero Flicker)
 const ARES_PRICES = {
   base:  { id: "base",  name: "Atleta PRO", price: 19 },
-  coach: { id: "coach", name: "Coach Hub",  price: 99 }
+  coach: { id: "coach", name: "Coach Hub & Arena", price: 99 }
 };
 
 // 2. Render Reattivo del DOM
@@ -20,17 +20,15 @@ function renderAresPrices() {
   if (elBase) elBase.innerText = `€${ARES_PRICES.base.price}`;
   if (elCoach) elCoach.innerText = `€${ARES_PRICES.coach.price}`;
 
-  // Aggiornamento dei testi nei pulsanti del listino
   const btnBase = document.querySelector('[data-btn-plan="base"]');
   const btnCoach = document.querySelector('[data-btn-plan="coach"]');
   if (btnBase) btnBase.innerText = `Acquista Atleta PRO (€${ARES_PRICES.base.price})`;
   if (btnCoach) btnCoach.innerText = `Attiva Coach Hub (€${ARES_PRICES.coach.price}) 🔥`;
 
-  // Aggiornamento delle opzioni nel form di registrazione
   const optBase = document.querySelector('option[data-plan-option="base"]');
   const optCoach = document.querySelector('option[data-plan-option="coach"]');
   if (optBase) optBase.innerText = `Atleta PRO (${ARES_PRICES.base.price}€/mese)`;
-  if (optCoach) optCoach.innerText = `Coach Hub per Personal Trainer (${ARES_PRICES.coach.price}€/mese)`;
+  if (optCoach) optCoach.innerText = `Coach Hub per Palestre & PT (${ARES_PRICES.coach.price}€/mese)`;
 }
 
 // 3. Fetch Live da Supabase S2 (Tabella saas_pricing)
@@ -58,7 +56,7 @@ async function initAresPricing() {
       }
     }
   } catch (e) {
-    console.warn("Utilizzo prezzi locali fallback per AresAI:", e);
+    console.warn("Utilizzo prezzi locali di fallback per AresAI:", e);
   }
 }
 
@@ -78,7 +76,7 @@ async function avviaCheckoutAres(planKey = "base", email = "", phone = "", name 
     agency_id: telSafe || (email ? `lead_${email}` : "atleta_anon"),
     project_id: telSafe || "atleta_anon",
     origin: origin,
-    success_url: `${origin}/dashboard.html?success=true&plan=${planKey}`,
+    success_url: `${origin}/atleta.html?success=true&plan=${planKey}`,
     cancel_url: `${origin}/#prezzi`
   };
 
@@ -89,14 +87,14 @@ async function avviaCheckoutAres(planKey = "base", email = "", phone = "", name 
       body: JSON.stringify(payload)
     });
 
-    if (!res.ok) throw new Error("Errore creazione sessione");
+    if (!res.ok) throw new Error("Errore creazione sessione Stripe");
     const data = await res.json();
     const redirectUrl = data.url || data.checkout_url || data.session_url;
 
     if (redirectUrl) {
       window.location.href = redirectUrl;
     } else {
-      throw new Error("URL Stripe mancante");
+      throw new Error("URL Stripe non restituito dal server");
     }
   } catch (err) {
     console.error("Errore checkout AresAI:", err);
