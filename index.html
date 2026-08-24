@@ -41,11 +41,11 @@
         body { background-color: #050811; color: #f1f5f9; font-size: 16px; line-height: 1.6; }
         .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
         .font-rpg { font-family: 'Orbitron', sans-serif; }
-        .glass-panel { background: rgba(10, 15, 30, 0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(6, 182, 212, 0.18); }
+        .glass-panel { background: rgba(10, 15, 30, 0.90); border: 1px solid rgba(6, 182, 212, 0.18); }
         .glow-cyan { box-shadow: 0 0 35px rgba(6, 182, 212, 0.3); }
         .glow-gold { box-shadow: 0 0 35px rgba(245, 158, 11, 0.25); }
 
-        /* SFONDO DINAMICO FLUIDO SOCIALENGINE (Zero Lag / 0 KB) */
+        /* SFONDO ANIMATO A 60 FPS IN PURO CSS (Zero Lag / 0 KB) */
         @keyframes floatSlow1 { 0% { transform: translate(0px, 0px) scale(1); } 33% { transform: translate(60px, -80px) scale(1.15); } 66% { transform: translate(-50px, 40px) scale(0.9); } 100% { transform: translate(0px, 0px) scale(1); } }
         @keyframes floatSlow2 { 0% { transform: translate(0px, 0px) scale(1); } 33% { transform: translate(-70px, 60px) scale(1.1); } 66% { transform: translate(40px, -50px) scale(0.95); } 100% { transform: translate(0px, 0px) scale(1); } }
         @keyframes pulseGlow { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 0.65; transform: scale(1.2); } }
@@ -64,24 +64,17 @@
 </head>
 <body class="antialiased flex flex-col min-h-screen selection:bg-cyan-500/30 selection:text-white relative overflow-x-hidden">
 
-    <!-- ── SFONDO GRADIENTE FLUIDO ANIMATO (TECNOLOGIA SOCIALENGINE ARES) ── -->
+    <!-- SFONDO GRADIENTE FLUIDO ANIMATO (TECNOLOGIA SOCIALENGINE ARES) -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        <!-- Mesh 1 (Ciano Superiore Sinistra) -->
         <div class="absolute -top-[15%] -left-[10%] w-[650px] md:w-[850px] h-[650px] md:h-[850px] rounded-full bg-gradient-to-br from-cyan-600/25 via-blue-600/10 to-transparent blur-[140px] animate-mesh-1"></div>
-        
-        <!-- Mesh 2 (Blu / Indaco Inferiore Destra) -->
         <div class="absolute top-[35%] -right-[15%] w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full bg-gradient-to-tl from-indigo-600/20 via-cyan-600/15 to-transparent blur-[150px] animate-mesh-2"></div>
-        
-        <!-- Mesh 3 (Oro / Ambra Centro Basso) -->
         <div class="absolute bottom-[-10%] left-[25%] w-[500px] md:w-[700px] h-[500px] md:h-[700px] rounded-full bg-gradient-to-t from-amber-500/10 via-cyan-500/10 to-transparent blur-[160px] animate-mesh-3"></div>
-
-        <!-- Pattern griglia a punti ultra-sottile -->
         <div class="absolute inset-0 bg-[radial-gradient(rgba(6,182,212,0.08)_1px,transparent_1px)] bg-[size:32px_32px] opacity-40"></div>
     </div>
 
     <div class="relative z-10">
         <!-- NAVBAR -->
-        <header class="fixed top-0 left-0 w-full p-4 md:p-5 z-50 backdrop-blur-xl bg-black/50 border-b border-white/10">
+        <header class="fixed top-0 left-0 w-full p-4 md:p-5 z-50 bg-[#050811]/90 border-b border-white/10">
             <div class="max-w-6xl mx-auto flex justify-between items-center">
                 <a href="#" class="flex items-center gap-3 text-2xl font-black text-white font-display">
                     <img src="public/logo.png" alt="AresAI" class="h-9 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
@@ -91,13 +84,16 @@
                 <nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-zinc-300">
                     <a href="#rpg" class="hover:text-cyan-400 transition">Modalità RPG</a>
                     <a href="#maxischermo" class="hover:text-cyan-400 transition">Maxischermo TV</a>
-                    <a href="#recensioni" class="hover:text-cyan-400 transition">Recensioni</a>
+                    <a href="#servizi-ausiliari" class="hover:text-cyan-400 transition">Suite Palestre</a>
                     <a href="#workout-beats" class="hover:text-amber-400 transition flex items-center gap-1">🎵 Inni Palestra</a>
                     <a href="#ecosistema" class="hover:text-cyan-400 transition">Ecosistema RM</a>
                     <a href="#faq" class="hover:text-cyan-400 transition">FAQ</a>
                 </nav>
 
                 <div class="flex items-center gap-3">
+                    <button id="pwa-install-btn" class="hidden text-xs bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 px-3 py-1.5 rounded-xl font-bold transition hover:bg-cyan-500/30 flex items-center gap-1.5 cursor-pointer">
+                        <span>📲</span> Installa App
+                    </button>
                     <a href="login.html" class="text-xs font-bold text-zinc-300 hover:text-white px-3 py-2 rounded-lg transition">Accedi</a>
                     <a href="#registrazione-sezione" class="text-xs font-black uppercase tracking-wider text-black bg-brandCyan hover:bg-cyan-300 px-5 py-2.5 rounded-full transition shadow-lg shadow-cyan-500/20">Inizia l'Arena</a>
                 </div>
@@ -109,7 +105,7 @@
             <!-- HERO SECTION -->
             <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-36 pb-16 text-center">
                 <div class="max-w-4xl mx-auto space-y-6">
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest">
                         <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
                         Fitness RPG &amp; Voice AI Engine 🏋️‍♂️
                     </div>
@@ -137,7 +133,7 @@
             </section>
 
             <!-- STATISTICHE METRICHE -->
-            <section class="py-12 px-6 border-y border-white/10 bg-black/40 backdrop-blur-md">
+            <section class="py-12 px-6 border-y border-white/10 bg-black/60">
                 <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                     <div><span class="font-rpg text-3xl md:text-4xl font-black text-cyan-400 block">+280%</span><span class="text-xs text-zinc-400 uppercase font-semibold">Frequenza Iscritti</span></div>
                     <div><span class="font-rpg text-3xl md:text-4xl font-black text-emerald-400 block">-42%</span><span class="text-xs text-zinc-400 uppercase font-semibold">Tasso di Abbandono</span></div>
@@ -200,8 +196,54 @@
                 </div>
             </section>
 
+            <!-- SERVIZI AUSILIARI PER PALESTRE & PT (CROSS-SELL SUITE RM) -->
+            <section id="servizi-ausiliari" class="py-24 px-6 border-t border-white/10 bg-gradient-to-b from-cyan-950/20 via-black to-black">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-3">Suite Palestre All-in-One 🚀</div>
+                        <h2 class="text-3xl md:text-5xl font-black text-white font-display">Tecnologie Ausiliarie per Riempire la tua Sala</h2>
+                        <p class="text-zinc-400 text-sm max-w-2xl mx-auto mt-2">Dalla segreteria vocale H24 alla generazione automatica di Reel promozionali per non perdere nessun nuovo iscritto.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Servizio 1: Receptionist AI H24 -->
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border border-cyan-500/30 hover:border-cyan-400 transition">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-2xl font-black mb-6">📞</div>
+                                <h3 class="text-xl font-bold text-white mb-2">Receptionist Vocale H24</h3>
+                                <span class="text-[10px] font-rpg text-cyan-400 font-bold uppercase tracking-wider block mb-3">Ex Dentis • Riadattato Palestre</span>
+                                <p class="text-xs text-zinc-300 leading-relaxed">Risponde al telefono fuori orario, di notte e nei weekend. Spiega prezzi, orari corsi e prenota in automatico <b>giornate di prova gratuita</b> su Google Calendar con promemoria WhatsApp al cliente.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-slate-800 text-xs font-bold text-cyan-400">Zero chiamate perse alla reception →</div>
+                        </div>
+
+                        <!-- Servizio 2: Vision UGC -->
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border border-fuchsia-500/30 hover:border-fuchsia-400 transition">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-fuchsia-500/10 text-fuchsia-400 flex items-center justify-center text-2xl font-black mb-6">🎥</div>
+                                <h3 class="text-xl font-bold text-white mb-2">Vision UGC Fitness</h3>
+                                <span class="text-[10px] font-rpg text-fuchsia-400 font-bold uppercase tracking-wider block mb-3">Influencer &amp; Modelli Virtuali</span>
+                                <p class="text-xs text-zinc-300 leading-relaxed">Genera video Reel e TikTok ad alta conversione con modelli fitness virtuali realistici (es. "Camila") per promuovere la tua palestra sui social. Tagli del 90% i costi di videomaker e attori.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-slate-800 text-xs font-bold text-fuchsia-400">Reel pronti in 24 ore →</div>
+                        </div>
+
+                        <!-- Servizio 3: SocialEngine AI -->
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border border-indigo-500/30 hover:border-indigo-400 transition">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-2xl font-black mb-6">⚡</div>
+                                <h3 class="text-xl font-bold text-white mb-2">SocialEngine AI</h3>
+                                <span class="text-[10px] font-rpg text-indigo-400 font-bold uppercase tracking-wider block mb-3">Caroselli in 40 Secondi</span>
+                                <p class="text-xs text-zinc-300 leading-relaxed">Incolli l'URL del sito della tua palestra: l'AI estrae i colori del tuo logo e genera 5 slide persuasive con consigli nutrizionali, promo e schede pronte per Instagram e Facebook.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-slate-800 text-xs font-bold text-indigo-400">Zero ore perse su Canva →</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- WALL OF FAME SOCIAL PROOF ANIMATA -->
-            <section id="recensioni" class="py-24 border-t border-white/10 bg-gradient-to-b from-black via-zinc-950/80 to-black overflow-hidden relative">
+            <section id="recensioni" class="py-24 border-t border-white/10 bg-black/60 overflow-hidden relative">
                 <div class="max-w-6xl mx-auto px-6 text-center mb-12">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-3">Wall of Fame 🌟</div>
                     <h2 class="text-3xl md:text-5xl font-black text-white font-display">Chi si allena e gestisce palestre con AresAI</h2>
@@ -256,7 +298,6 @@
                             <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400"><span>-45% CHURN CLIENTI</span><span class="text-zinc-500">Coach Hub Master</span></div>
                         </div>
 
-                        <!-- Duplicato loop -->
                         <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
                             <div>
                                 <div class="flex justify-between items-start mb-3">
@@ -305,7 +346,6 @@
                             <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-amber-400"><span>TOP #1 LEADERBOARD</span><span class="text-zinc-500">Atleta PRO</span></div>
                         </div>
 
-                        <!-- Duplicato loop -->
                         <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
                             <div>
                                 <div class="flex justify-between items-start mb-3">
@@ -324,10 +364,9 @@
                 </div>
             </section>
 
-            <!-- WORKOUT BEATS & INNI ARENA (FF EDIZIONI) CON PLAYER MP3 INTEGRATO -->
+            <!-- WORKOUT BEATS & INNI ARENA (FF EDIZIONI) -->
             <section id="workout-beats" class="py-24 px-6 border-t border-white/10 bg-gradient-to-b from-amber-950/20 via-black to-black">
                 <div class="max-w-5xl mx-auto glass-panel p-8 md:p-12 rounded-[2.5rem] border border-amber-500/30 glow-gold relative overflow-hidden">
-                    
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-white/10 pb-8 mb-8">
                         <div class="space-y-2">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-widest">
@@ -339,7 +378,6 @@
                             </p>
                         </div>
 
-                        <!-- Mini Player Console -->
                         <div class="flex items-center gap-3 bg-black/80 p-3 rounded-2xl border border-amber-500/40 w-full md:w-auto justify-between md:justify-start">
                             <button id="master-play-btn" onclick="togglePlayBrano()" class="w-12 h-12 rounded-xl bg-amber-400 hover:bg-amber-300 text-black flex items-center justify-center font-black text-base transition shadow-lg shadow-amber-500/25 cursor-pointer">▶</button>
                             <div>
@@ -349,7 +387,6 @@
                         </div>
                     </div>
 
-                    <!-- Griglia dei 6 Brani Suno con Link MP3 Diretti -->
                     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8" id="tracks-grid"></div>
                     <audio id="ares-audio-player" preload="none"></audio>
 
@@ -476,7 +513,7 @@
                         </details>
                         <details class="glass-panel p-5 rounded-2xl cursor-pointer">
                             <summary class="font-bold text-white text-base">Gli atleti devono installare un'app pesante?</summary>
-                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">No, AresAI è una Progressive Web App ultra-leggera: funziona direttamente dal browser del telefono senza download dagli store.</p>
+                            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">No, AresAI è una Progressive Web App ultra-leggera: puoi aggiungerla alla schermata Home del telefono con 1 clic senza passare da Google Play o App Store.</p>
                         </details>
                         <details class="glass-panel p-5 rounded-2xl cursor-pointer">
                             <summary class="font-bold text-white text-base">Posso cancellare l'abbonamento quando voglio?</summary>
@@ -552,6 +589,7 @@
     <!-- Scripts Modulari & Audio Player Logic -->
     <script src="pricing.js"></script>
     <script>
+    // 1. Inni & Tracce Suno (CDN Diretta MP3)
     const ARES_TRACKS = [
         { id: 1, title: "S-Rank Titan", duration: "High BPM", url: "https://cdn1.suno.ai/80902ba7-9a03-44f1-b454-def984ca893e.mp3" },
         { id: 2, title: "Log It", duration: "Voice Beat", url: "https://cdn1.suno.ai/4fb1eb5f-df02-4a3d-8dec-a8e826749515.mp3" },
@@ -630,10 +668,30 @@
         };
     }
 
+    // 2. PWA 1-Tap Prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        const pwaBtn = document.getElementById('pwa-install-btn');
+        if (pwaBtn) pwaBtn.classList.remove('hidden');
+    });
+
+    document.getElementById('pwa-install-btn')?.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                document.getElementById('pwa-install-btn').classList.add('hidden');
+            }
+            deferredPrompt = null;
+        }
+    });
+
+    // 3. Form Registrazione e Sistema Orbitale
     document.addEventListener('DOMContentLoaded', () => {
         renderTracklist();
 
-        // Registrazione Form
         const form = document.getElementById('form-registrazione');
         if (form) {
             form.addEventListener('submit', async (e) => {
@@ -663,7 +721,6 @@
             });
         }
 
-        // Caricamento Dinamico Sistema Orbitale RM Studio
         fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
             .then(res => res.text())
             .then(html => { 
