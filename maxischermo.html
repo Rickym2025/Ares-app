@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AresAI • Maxischermo Arena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .font-rpg { font-family: 'Orbitron', sans-serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        .glow-cyan { box-shadow: 0 0 40px rgba(6, 182, 212, 0.25); }
+        .glow-gold { box-shadow: 0 0 50px rgba(245, 158, 11, 0.35); }
+        .bg-cyber { background: radial-gradient(circle at 50% 10%, #0c162d 0%, #050811 100%); }
+        @keyframes pulse-slow { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.85; transform: scale(1.02); } }
+        .alert-pop { animation: alertIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes alertIn { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    </style>
+</head>
+<body class="bg-cyber text-slate-100 min-h-screen p-8 lg:p-12 font-sans overflow-hidden select-none flex flex-col justify-between">
+
+    <!-- HEADER MAXISCHERMO -->
+    <header class="flex justify-between items-center border-b border-cyan-500/20 pb-6">
+        <div class="flex items-center gap-4">
+            <div class="w-4 h-4 rounded-full bg-cyan-400 animate-ping"></div>
+            <div>
+                <span class="font-rpg text-xs text-cyan-400 font-bold uppercase tracking-[0.3em] block">Ares Arena Live Feed</span>
+                <h1 class="font-rpg text-3xl lg:text-4xl font-black text-white tracking-wider flex items-center gap-3">
+                    ARENA <span class="text-cyan-400">LEADERBOARD</span> 🏋️‍♂️
+                </h1>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="text-right">
+                <span id="live-clock" class="font-rpg text-2xl font-black text-slate-300">--:--:--</span>
+                <p class="text-[10px] text-cyan-400 font-bold tracking-widest uppercase">Classifica Ufficiale</p>
+            </div>
+            <div class="bg-cyan-500/10 border border-cyan-500/30 px-4 py-2 rounded-xl text-center">
+                <span class="text-xs text-slate-400 font-bold block">ATLETI IN ARENA</span>
+                <span id="tot-atleti" class="font-rpg text-xl font-black text-cyan-400">--</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY: PODIO & LIVE FEED -->
+    <main class="grid grid-cols-12 gap-8 my-auto py-6 items-start">
+        
+        <!-- LEADERBOARD CLASSIFICA (Col 8) -->
+        <section class="col-span-8 space-y-3">
+            <div class="flex justify-between items-center px-4 mb-2">
+                <span class="text-xs font-rpg text-slate-400 uppercase tracking-widest">Rango & Atleta</span>
+                <span class="text-xs font-rpg text-slate-400 uppercase tracking-widest">Punti Esperienza (XP)</span>
+            </div>
+            <div id="board-list" class="space-y-3">
+                <!-- Popolato dinamicamente da JS -->
+            </div>
+        </section>
+
+        <!-- LIVE ACTIVITY FEED (Col 4) -->
+        <section class="col-span-4 space-y-4">
+            <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-2xl">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-emerald-400 text-lg">⚡</span>
+                    <h3 class="font-rpg text-xs font-bold text-white uppercase tracking-wider">Ultima Serie in Sala</h3>
+                </div>
+                <div id="last-activity-box" class="p-4 rounded-xl bg-slate-950/80 border border-cyan-500/30">
+                    <p class="text-xs text-slate-500 italic">In attesa del prossimo carico...</p>
+                </div>
+            </div>
+
+            <!-- Box Motivazionale & Regole XP -->
+            <div class="bg-gradient-to-br from-cyan-950/40 to-slate-900/40 border border-cyan-500/20 p-5 rounded-2xl">
+                <h4 class="font-rpg text-xs text-cyan-400 font-bold uppercase mb-2">Come Guadagnare XP:</h4>
+                <ul class="text-xs text-slate-300 space-y-2 font-medium">
+                    <li class="flex items-center gap-2"><span>🎯</span> <b>+50 XP</b> per ogni serie completata a voce</li>
+                    <li class="flex items-center gap-2"><span>⚖️</span> <b>+1 XP</b> ogni 10 kg sollevati</li>
+                    <li class="flex items-center gap-2"><span>📸</span> <b>+100 XP</b> per ogni pasto tracciato con AI</li>
+                    <li class="flex items-center gap-2"><span>🔥</span> <b>Bonus Streak</b> per costanza settimanale</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER STREAMING BANNER -->
+    <footer class="bg-slate-950/80 border border-slate-800/80 p-3.5 rounded-2xl flex justify-between items-center text-xs">
+        <span class="font-rpg text-cyan-400 font-bold text-xs tracking-wider flex items-center gap-2">
+            <span>🛡️</span> ARES AI • IL TUO COACH VOCALE IN SALA PESI
+        </span>
+        <span class="text-slate-400">Scansiona il QR Code sul tuo rack per entrare in Classifica</span>
+    </footer>
+
+    <script>
+        const SUPABASE_URL = "https://geotspkwrfpbfuinypfw.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3RzcGt3cmZwYmZ1aW55cGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMjgyMDUsImV4cCI6MjA5ODkwNDIwNX0.itwiI95uu_XbWaODK5tDyjbNgWWZ6TCRqEVHLRUOt6I";
+
+        let ultimaSerieId = null;
+
+        // Orologio in tempo reale
+        function aggiornaOrologio() {
+            const now = new Date();
+            document.getElementById("live-clock").innerText = now.toLocaleTimeString('it-IT');
+        }
+        setInterval(aggiornaOrologio, 1000);
+        aggiornaOrologio();
+
+        async function sincronizzaArena() {
+            try {
+                // 1. Recupera la classifica utenti ordinata per XP
+                const resUtenti = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?select=*&order=xp.desc&limit=6`, {
+                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                });
+                const classifica = await resUtenti.json();
+                document.getElementById("tot-atleti").innerText = classifica.length;
+
+                renderLeaderboard(classifica);
+
+                // 2. Recupera l'ultimo log di serie per il Ticker Live
+                const resSerie = await fetch(`${SUPABASE_URL}/rest/v1/ares_serie?order=created_at.desc&limit=1`, {
+                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                });
+                const serie = await resSerie.json();
+
+                if (serie.length > 0 && serie[0].id !== ultimaSerieId) {
+                    ultimaSerieId = serie[0].id;
+                    mostraNuovaAttivita(serie[0], classifica);
+                }
+
+            } catch (err) {
+                console.error("Errore Sync Maxischermo:", err);
+            }
+        }
+
+        function renderLeaderboard(classifica) {
+            const container = document.getElementById("board-list");
+            container.innerHTML = "";
+
+            classifica.forEach((atleta, idx) => {
+                const card = document.createElement("div");
+                const isPrimo = idx === 0;
+                
+                card.className = `flex items-center justify-between p-4 rounded-2xl border transition-all duration-500 ${
+                    isPrimo ? 'bg-gradient-to-r from-amber-500/20 via-slate-900 to-slate-950 border-amber-500/50 glow-gold scale-[1.02]' : 'bg-slate-950/70 border-slate-800/80'
+                }`;
+
+                let rankBadge = `<span class="font-rpg font-black text-lg text-slate-500 w-8">#${idx + 1}</span>`;
+                if (idx === 0) rankBadge = `<span class="text-2xl w-8">👑</span>`;
+                if (idx === 1) rankBadge = `<span class="text-2xl w-8">🥈</span>`;
+                if (idx === 2) rankBadge = `<span class="text-2xl w-8">🥉</span>`;
+
+                const lvl = Math.floor((atleta.xp || 0) / 500) + 1;
+
+                card.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        ${rankBadge}
+                        <div>
+                            <h3 class="font-rpg font-extrabold text-lg text-white ${isPrimo ? 'text-amber-300' : ''}">${atleta.nome}</h3>
+                            <span class="text-xs font-rpg text-cyan-400 font-bold uppercase tracking-wider">Lvl ${lvl} • ${atleta.rango || 'Hunter'}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-rpg text-xl font-black text-cyan-400 block">${atleta.xp || 0} XP</span>
+                        <span class="text-[10px] text-slate-400 font-bold">${atleta.forza_totale_kg || 0} kg sollevati</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function mostraNuovaAttivita(serie, classifica) {
+            const box = document.getElementById("last-activity-box");
+            const kgTot = (serie.peso || 0) * (serie.ripetizioni || 0);
+            const xpStima = 50 + Math.round(kgTot / 10);
+
+            box.className = "p-4 rounded-xl bg-cyan-950/50 border border-cyan-400 glow-cyan alert-pop";
+            box.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-[10px] font-rpg text-cyan-300 font-bold uppercase">NUOVA SERIE REGISTRATA!</span>
+                    <span class="text-[10px] bg-cyan-400 text-black px-1.5 py-0.5 rounded font-black font-rpg">+${xpStima} XP</span>
+                </div>
+                <h4 class="font-bold text-white text-base">${serie.esercizio || 'Esercizio'}</h4>
+                <p class="text-xs text-slate-300 mt-1">${serie.peso} kg × ${serie.ripetizioni} ripetizioni (${kgTot} kg totali)</p>
+            `;
+        }
+
+        // Loop di aggiornamento continuo ogni 5 secondi
+        setInterval(sincronizzaArena, 5000);
+        sincronizzaArena();
+    </script>
+</body>
+</html>
