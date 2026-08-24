@@ -14,7 +14,7 @@
             backdrop-filter: blur(16px);
             border: 1px solid rgba(6, 182, 212, 0.15);
         }
-        .glow-cyan { box-shadow: 0 0 25px rgba(6, 182, 212, 0.25); }
+        .glow-gold { box-shadow: 0 0 30px rgba(245, 158, 11, 0.25); }
     </style>
 </head>
 <body class="bg-[#050811] text-slate-100 min-h-screen p-6 font-sans selection:bg-cyan-500 selection:text-black">
@@ -45,6 +45,23 @@
             </div>
         </header>
 
+        <!-- BANNER PERENNE PROMO FF EDIZIONI (CROSS-SELL MUSICALE PER LA PALESTRA) -->
+        <section class="bg-gradient-to-r from-amber-950/40 via-slate-900/90 to-amber-950/30 border-2 border-amber-500/40 p-6 rounded-3xl flex flex-col md:flex-row justify-between items-center gap-6 glow-gold">
+            <div class="space-y-1 text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-2">
+                    <span class="text-xl">🎵</span>
+                    <span class="font-rpg text-xs text-amber-400 font-bold uppercase tracking-wider">FF Edizioni Musicali • Produzione Esclusiva SIAE</span>
+                </div>
+                <h3 class="text-lg font-black text-white font-rpg">Vuoi l'Inno Ufficiale o una Playlist Inedita per la tua Palestra?</h3>
+                <p class="text-xs text-slate-300 max-w-2xl leading-relaxed">
+                    Componiamo l'Inno su misura per i tuoi social e il maxischermo con il Maestro <b>Fausto Fusetti</b>. Carica gli atleti con musica d'autore registrata a tuo marchio.
+                </p>
+            </div>
+            <button onclick="apriModalMusica()" class="whitespace-nowrap bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-black font-rpg text-xs px-6 py-3.5 rounded-xl transition shadow-lg shadow-amber-500/25 cursor-pointer uppercase tracking-wider">
+                Richiedi Brano / Inno 🎧
+            </button>
+        </section>
+
         <!-- KPI CARDS GAMIFIED -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glass p-5 rounded-2xl">
@@ -74,11 +91,10 @@
                 <h2 class="text-lg font-bold text-white font-rpg flex items-center gap-2">
                     <span>👥</span> Roster Atleti &amp; Parametri RPG
                 </h2>
-                <span class="text-xs text-slate-400">Ordina automaticamente per XP</span>
+                <span class="text-xs text-slate-400">Classifica automatica per XP</span>
             </div>
 
             <div id="athletes-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Skeleton Loader -->
                 <div class="glass p-8 rounded-3xl text-center col-span-full py-12">
                     <div class="animate-spin inline-block w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full mb-3"></div>
                     <p class="text-xs text-slate-400">Sincronizzazione roster con Supabase...</p>
@@ -87,23 +103,69 @@
         </main>
     </div>
 
+    <!-- MODAL RICHIESTA INNO / BRANO VIA WEB3FORMS -->
+    <div id="modal-musica" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass p-8 rounded-3xl border-2 border-amber-500/50 max-w-lg w-full relative">
+            <button onclick="chiudiModalMusica()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">✕</button>
+            
+            <div class="flex items-center gap-2 mb-2">
+                <span class="text-xl">🎵</span>
+                <span class="font-rpg text-xs text-amber-400 font-bold uppercase tracking-wider">FF Edizioni • Maestro Fausto Fusetti</span>
+            </div>
+            <h3 class="text-xl font-black text-white font-rpg mb-1">Richiedi Produzione Inno Palestra</h3>
+            <p class="text-xs text-slate-300 mb-6 leading-relaxed">Invia la tua richiesta: Riccardo e il Maestro Fausto Fusetti elaboreranno la proposta artistica personalizzata per la tua struttura.</p>
+
+            <form id="form-inno" class="space-y-4">
+                <!-- Web3Forms Access Key RM Studio -->
+                <input type="hidden" name="access_key" value="0fe31b53-ec52-4467-9273-0309e46a782e">
+                <input type="hidden" name="subject" value="Nuova Richiesta Inno Palestra - FF Edizioni da Ares Dashboard">
+                <input type="hidden" name="from_name" value="Ares Gym Dashboard">
+
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Nome Palestra / Richiedente *</label>
+                    <input type="text" name="nome_palestra" required placeholder="Es. Gold's Gym Roma" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-amber-400">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Email di Contatto *</label>
+                        <input type="email" name="email" required placeholder="direzione@palestra.it" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Cellulare / WhatsApp *</label>
+                        <input type="tel" name="telefono" required placeholder="+39 347..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-amber-400">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Tipologia di Produzione Desiderata *</label>
+                    <select name="tipo_brano" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-amber-400">
+                        <option value="Inno Ufficiale Palestra">Inno Ufficiale del Marchio (per Social, Spot & Maxischermo)</option>
+                        <option value="Playlist Inedita High BPM">Serie di Brani Inediti High BPM per Sala Pesi</option>
+                        <option value="Jingle Commerciale">Jingle Commerciale Radio / Reel</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Dettagli / Stile Musicale Desiderato</label>
+                    <textarea name="note" rows="2" placeholder="Es. Vogliamo un sound energico rock/elettronico..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-amber-400"></textarea>
+                </div>
+
+                <button type="submit" id="btn-invia-inno" class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-black font-black font-rpg text-xs py-3 rounded-xl transition uppercase tracking-wider">
+                    Invia Richiesta al Maestro Fausto Fusetti 🚀
+                </button>
+                <p id="inno-result" class="text-center text-xs font-bold hidden mt-2"></p>
+            </form>
+        </div>
+    </div>
+
     <!-- SCRIPT LOGICA COACH -->
     <script>
         const SUPABASE_URL = "https://geotspkwrfpbfuinypfw.supabase.co"; 
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3RzcGt3cmZwYmZ1aW55cGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMjgyMDUsImV4cCI6MjA5ODkwNDIwNX0.itwiI95uu_XbWaODK5tDyjbNgWWZ6TCRqEVHLRUOt6I"; 
 
-        // Whitelist SuperAdmin RM Studio
-        const SUPERADMIN_EMAILS = [
-            "modena.riccardo@gmail.com",
-            "riccardo@rmstudio.app",
-            "info@rmstudio.app"
-        ];
+        const SUPERADMIN_EMAILS = ["modena.riccardo@gmail.com", "riccardo@rmstudio.app", "info@rmstudio.app"];
 
         function verificaSuperAdmin() {
-            // Controlla localStorage o parametro URL ?admin=modena.riccardo@gmail.com
             const urlParams = new URLSearchParams(window.location.search);
             const emailParam = urlParams.get("admin") || localStorage.getItem("ares_coach_email");
-
             if (emailParam && SUPERADMIN_EMAILS.includes(emailParam.toLowerCase().trim())) {
                 localStorage.setItem("ares_coach_email", emailParam);
                 const badge = document.getElementById("superadmin-badge");
@@ -118,25 +180,21 @@
             const kpiEsercizio = document.getElementById("kpi-esercizio");
 
             try {
-                // 1. Roster Atleti
                 const resUtenti = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?select=*&order=xp.desc`, {
                     headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` }
                 });
                 const atleti = await resUtenti.json();
 
-                // 2. Ultima serie registrata
                 const resSerie = await fetch(`${SUPABASE_URL}/rest/v1/ares_serie?order=created_at.desc&limit=1`, {
                     headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` }
                 });
                 const serieRecenti = await resSerie.json();
 
-                // 3. Log pasti
                 const resDieta = await fetch(`${SUPABASE_URL}/rest/v1/ares_dieta_log?order=created_at.desc`, {
                     headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` }
                 });
                 const logDieta = await resDieta.json();
 
-                // Calcolo KPI
                 kpiAtleti.innerText = atleti.length;
                 const xpSomma = atleti.reduce((acc, u) => acc + (u.xp || 0), 0);
                 kpiXpTot.innerText = `${xpSomma} XP`;
@@ -151,7 +209,6 @@
                     const ultimoPasto = logDieta.find(d => d.utente_id === atleta.id) || null;
                     const lvl = Math.floor((atleta.xp || 0) / 500) + 1;
 
-                    // HTML Sezione Pasto
                     let pastoHtml = `<p class="text-xs text-slate-500 italic mt-2">Nessun pasto recente registrato con AI.</p>`;
                     if (ultimoPasto) {
                         pastoHtml = `
@@ -178,7 +235,6 @@
                     card.className = "glass p-6 rounded-3xl border border-slate-800 flex flex-col justify-between";
                     card.innerHTML = `
                         <div>
-                            <!-- Header Atleta con Rango & XP -->
                             <div class="flex justify-between items-start mb-4">
                                 <div>
                                     <div class="flex items-center gap-2">
@@ -194,8 +250,6 @@
                                     <button onclick="assegnaBonusXP('${atleta.id}', ${atleta.xp || 0}, 500)" class="text-[10px] bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 px-2 py-1 rounded-lg font-rpg font-bold transition">+500 XP</button>
                                 </div>
                             </div>
-
-                            <!-- Target Nutrizionali Quotidiani -->
                             <div class="p-3.5 rounded-2xl bg-slate-950/40 border border-slate-900 mb-3">
                                 <span class="text-[9px] font-rpg text-slate-400 uppercase tracking-wider font-bold block mb-2">Target Quotidiani Coach</span>
                                 <div class="grid grid-cols-2 gap-3 text-xs">
@@ -204,8 +258,6 @@
                                 </div>
                                 <button onclick="aggiornaObiettiviAtleta('${atleta.id}')" class="w-full mt-2.5 text-[10px] bg-slate-900 hover:bg-slate-800 border border-slate-800 text-cyan-400 font-bold py-1.5 rounded-lg transition font-rpg">Aggiorna Target Atleta</button>
                             </div>
-
-                            <!-- Sezione Dieta -->
                             ${pastoHtml}
                         </div>
                     `;
@@ -220,44 +272,28 @@
         async function assegnaBonusXP(atletaId, xpAttuali, bonus) {
             const nuovoXp = xpAttuali + bonus;
             const nuovoLivello = Math.floor(nuovoXp / 500) + 1;
-
             try {
                 const res = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?id=eq.${atletaId}`, {
                     method: "PATCH",
-                    headers: {
-                        "apikey": SUPABASE_ANON_KEY,
-                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-                        "Content-Type": "application/json",
-                        "Prefer": "return=minimal"
-                    },
+                    headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json", "Prefer": "return=minimal" },
                     body: JSON.stringify({ xp: nuovoXp, livello: nuovoLivello })
                 });
-                if (!res.ok) throw new Error("Errore assegnazione XP");
+                if (!res.ok) throw new Error();
                 caricaDatiCoach();
-            } catch (e) {
-                alert("Errore nell'assegnazione XP");
-            }
+            } catch (e) { alert("Errore XP"); }
         }
 
         async function aggiornaObiettiviAtleta(atletaId) {
             const cal = parseInt(document.getElementById(`target-cal-${atletaId}`).value) || 2000;
             const pro = parseInt(document.getElementById(`target-pro-${atletaId}`).value) || 120;
-
             try {
                 await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?id=eq.${atletaId}`, {
                     method: "PATCH",
-                    headers: {
-                        "apikey": SUPABASE_ANON_KEY,
-                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-                        "Content-Type": "application/json",
-                        "Prefer": "return=minimal"
-                    },
+                    headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json", "Prefer": "return=minimal" },
                     body: JSON.stringify({ obiettivo_calorie: cal, obiettivo_proteine_g: pro })
                 });
-                alert("Target aggiornati!");
-            } catch (e) {
-                alert("Errore salvataggio");
-            }
+                alert("Target salvati!");
+            } catch (e) { alert("Errore"); }
         }
 
         async function modificaValoriPasto(pastoId) {
@@ -265,23 +301,50 @@
             const pro = parseInt(document.getElementById(`meal-pro-${pastoId}`).value) || 0;
             const carb = parseInt(document.getElementById(`meal-carb-${pastoId}`).value) || 0;
             const fat = parseInt(document.getElementById(`meal-fat-${pastoId}`).value) || 0;
-
             try {
                 await fetch(`${SUPABASE_URL}/rest/v1/ares_dieta_log?id=eq.${pastoId}`, {
                     method: "PATCH",
-                    headers: {
-                        "apikey": SUPABASE_ANON_KEY,
-                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-                        "Content-Type": "application/json",
-                        "Prefer": "return=minimal"
-                    },
+                    headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json", "Prefer": "return=minimal" },
                     body: JSON.stringify({ calorie: cal, proteine_g: pro, carboidrati_g: carb, grassi_g: fat })
                 });
                 alert("Pasto corretto!");
-            } catch (e) {
-                alert("Errore pasto");
-            }
+            } catch (e) { alert("Errore"); }
         }
+
+        // GESTIONE MODAL & WEB3FORMS INNO PALESTRA
+        function apriModalMusica() { document.getElementById("modal-musica").classList.remove("hidden"); }
+        function chiudiModalMusica() { document.getElementById("modal-musica").classList.add("hidden"); }
+
+        document.getElementById("form-inno").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById("btn-invia-inno");
+            const res = document.getElementById("inno-result");
+            btn.disabled = true;
+            btn.innerText = "Invio richiesta in corso... ⏳";
+
+            try {
+                const formData = new FormData(this);
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.success) {
+                    res.innerText = "✓ Richiesta inviata con successo! Riceverai una proposta da Riccardo e dal Maestro Fausto Fusetti entro 24 ore.";
+                    res.className = "text-center text-xs font-bold text-amber-400 block mt-2";
+                    this.reset();
+                    setTimeout(chiudiModalMusica, 3500);
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
+                res.innerText = "Errore durante l'invio. Riprova più tardi.";
+                res.className = "text-center text-xs font-bold text-red-400 block mt-2";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Invia Richiesta al Maestro Fausto Fusetti 🚀";
+            }
+        });
 
         window.onload = () => {
             verificaSuperAdmin();
