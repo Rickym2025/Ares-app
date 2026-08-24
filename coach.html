@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AresAI • Coach Hub & Master Control</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;700;800;900&family=Montserrat:wght@800;900&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-impact { font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; }
         .font-rpg { font-family: 'Orbitron', sans-serif; }
-        .font-sans { font-family: 'Inter', sans-serif; }
+
         .glass {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(5, 8, 17, 0.96) 100%);
             border: 1px solid rgba(6, 182, 212, 0.15);
@@ -16,7 +21,7 @@
         .glow-gold { box-shadow: 0 0 30px rgba(245, 158, 11, 0.25); }
     </style>
 </head>
-<body class="bg-[#050811] text-slate-100 min-h-screen p-6 font-sans selection:bg-cyan-500 selection:text-black">
+<body class="bg-[#030712] text-slate-100 min-h-screen p-6 font-inter selection:bg-cyan-500 selection:text-black">
 
     <div class="max-w-6xl mx-auto space-y-8">
         
@@ -32,11 +37,14 @@
             </div>
             
             <div class="flex flex-wrap gap-2.5">
+                <button onclick="apriModalNuovoAtleta()" class="text-xs bg-cyan-500 hover:bg-cyan-400 text-black font-black font-rpg px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 cursor-pointer">
+                    <span>➕</span> Nuovo Atleta
+                </button>
                 <a href="maxischermo.html" target="_blank" class="text-xs bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-black font-rpg px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-amber-500/20">
-                    <span>📺</span> Lancia Maxischermo Arena
+                    <span>📺</span> Lancia Maxischermo
                 </a>
-                <a href="qr-generator.html" class="text-xs bg-cyan-500 hover:bg-cyan-400 text-black font-bold font-rpg px-4 py-2.5 rounded-xl transition">
-                    🖨️ Generatore QR
+                <a href="qr-generator.html" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-bold font-rpg px-4 py-2.5 rounded-xl transition">
+                    🖨️ Cartelli QR Rack
                 </a>
                 <button onclick="caricaDatiCoach()" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 px-4 py-2.5 rounded-xl transition font-medium">
                     🔄 Sincronizza
@@ -44,17 +52,17 @@
             </div>
         </header>
 
-        <!-- PANNELLO CONFIGURAZIONE PUNTI XP DELLA PALESTRA -->
+        <!-- PANNELLO CONFIGURAZIONE REGOLE XP & FONT DELLA PALESTRA -->
         <section class="glass p-6 rounded-3xl border border-cyan-500/30 space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-3">
                 <div>
                     <h3 class="font-rpg text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
-                        <span>⚙️</span> Regole Punti XP Macchinari Palestra
+                        <span>⚙️</span> Regole Punti XP &amp; Stile Palestra
                     </h3>
-                    <p class="text-xs text-slate-400">Modifica quanti punti esperienza guadagnano gli atleti su ciascun attrezzo.</p>
+                    <p class="text-xs text-slate-400">Modifica quanti XP guadagnano gli atleti e scegli il font ufficiale della tua palestra.</p>
                 </div>
                 <button onclick="salvaRegoleXPPalestra()" class="bg-cyan-500 hover:bg-cyan-400 text-black font-black font-rpg text-xs px-4 py-2 rounded-xl transition uppercase cursor-pointer">
-                    Salva Regole XP 💾
+                    Salva Impostazioni 💾
                 </button>
             </div>
 
@@ -79,9 +87,24 @@
                     <input type="number" id="xp-dieta" value="100" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-center font-bold text-amber-300 text-sm outline-none focus:border-amber-500">
                     <span class="text-[9px] text-slate-500 block mt-1">XP / Pasto Rilevato</span>
                 </div>
+
+                <!-- Selettore Font Globale -->
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 col-span-2 sm:col-span-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div>
+                        <label class="block text-[9px] font-rpg text-cyan-400 uppercase font-bold mb-0.5">Font Ufficiale Palestra (TV Arena &amp; App Atleti)</label>
+                        <p class="text-[11px] text-slate-400">Si applicherà automaticamente sul Maxischermo e sull'HUD di tutti gli atleti.</p>
+                    </div>
+                    <select id="global-font-select" class="bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs font-bold text-white outline-none focus:border-cyan-500">
+                        <option value="font-orbitron">⚡ Cyber Tech (Orbitron) - Predefinito</option>
+                        <option value="font-montserrat">🔥 Strong Bold (Montserrat)</option>
+                        <option value="font-inter">📱 Modern Clean (Inter)</option>
+                        <option value="font-impact">💥 Hardcore Iron (Impact)</option>
+                        <option value="font-cinzel">👑 Luxury Gold (Cinzel)</option>
+                    </select>
+                </div>
             </div>
         </section>
-        
+
         <!-- BANNER PROMO PERENNE FF EDIZIONI & PLAYER SALA PESI -->
         <section class="bg-gradient-to-r from-amber-950/40 via-slate-900/90 to-amber-950/30 border-2 border-amber-500/40 p-6 rounded-3xl glow-gold space-y-5">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -153,6 +176,50 @@
         </main>
     </div>
 
+    <!-- MODAL REGISTRAZIONE NUOVO ATLETA -->
+    <div id="modal-nuovo-atleta" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass p-8 rounded-3xl border-2 border-cyan-500/50 max-w-md w-full relative">
+            <button onclick="chiudiModalNuovoAtleta()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">✕</button>
+            <h3 class="text-xl font-black text-white font-rpg mb-1">Registra Nuovo Atleta</h3>
+            <p class="text-xs text-slate-400 mb-6">Inserisci i dati dell'iscritto per abilitarlo al riconoscimento vocale.</p>
+
+            <form id="form-nuovo-atleta" onsubmit="salvaNuovoAtleta(event)" class="space-y-4">
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Nome e Cognome *</label>
+                    <input type="text" id="add-nome" required placeholder="Es. Marco Rossi" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Cellulare (per Riconoscimento Vocale) *</label>
+                    <input type="tel" id="add-telefono" required placeholder="Es. +39 347 1234567" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-cyan-400 font-mono">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Peso (kg)</label>
+                        <input type="number" step="0.1" id="add-peso" placeholder="Es. 78" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-cyan-400">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Altezza (cm)</label>
+                        <input type="number" id="add-altezza" placeholder="Es. 180" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-cyan-400">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Target Calorie (kcal)</label>
+                        <input type="number" id="add-cal" value="2200" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-cyan-400">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Target Proteine (g)</label>
+                        <input type="number" id="add-pro" value="140" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-cyan-400">
+                    </div>
+                </div>
+
+                <button type="submit" id="btn-salva-atleta" class="w-full bg-cyan-400 hover:bg-cyan-300 text-black font-black font-rpg text-xs py-3.5 rounded-xl transition uppercase tracking-wider cursor-pointer">
+                    Salva &amp; Abilita Atleta ⚡
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- MODAL RICHIESTA INNO / BRANO VIA WEB3FORMS -->
     <div id="modal-musica" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
         <div class="glass p-8 rounded-3xl border-2 border-amber-500/50 max-w-lg w-full relative">
@@ -187,7 +254,7 @@
                 <div>
                     <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Tipologia di Produzione Desiderata *</label>
                     <select name="tipo_brano" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-amber-400">
-                        <option value="Inno Ufficiale Palestra">Inno Ufficiale del Marchio (per Social, Spot & Maxischermo)</option>
+                        <option value="Inno Ufficiale Palestra">Inno Ufficiale del Marchio (per Social, Spot &amp; Maxischermo)</option>
                         <option value="Playlist Inedita High BPM">Serie di Brani Inediti High BPM per Sala Pesi</option>
                         <option value="Jingle Commerciale">Jingle Commerciale Radio / Reel</option>
                     </select>
@@ -197,7 +264,7 @@
                     <textarea name="note" rows="2" placeholder="Es. Sound energico rock/elettronico..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-amber-400"></textarea>
                 </div>
 
-                <button type="submit" id="btn-invia-inno" class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-black font-black font-rpg text-xs py-3 rounded-xl transition uppercase tracking-wider">
+                <button type="submit" id="btn-invia-inno" class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-black font-black font-rpg text-xs py-3 rounded-xl transition uppercase tracking-wider cursor-pointer">
                     Invia Richiesta al Maestro Fausto Fusetti 🚀
                 </button>
                 <p id="inno-result" class="text-center text-xs font-bold hidden mt-2"></p>
@@ -379,6 +446,120 @@
             } catch (e) { alert("Errore"); }
         }
 
+        // CARICAMENTO & SALVATAGGIO REGOLE XP E FONT GLOBALE
+        async function caricaRegoleXP() {
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/ares_config_xp?select=*&limit=1`, {
+                    headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` }
+                });
+                const data = await res.json();
+                if (data && data.length > 0) {
+                    document.getElementById('xp-fondamentali').value = data[0].fondamentali_base_xp || 75;
+                    document.getElementById('xp-macchine').value = data[0].macchine_base_xp || 50;
+                    document.getElementById('xp-isolamento').value = data[0].isolamento_base_xp || 30;
+                    document.getElementById('xp-dieta').value = data[0].dieta_foto_xp || 100;
+                    if (data[0].font_style) {
+                        document.getElementById('global-font-select').value = data[0].font_style;
+                        applicaFontDinamico(data[0].font_style);
+                    }
+                }
+            } catch(e) { console.warn("Fallback XP rules"); }
+        }
+
+        async function salvaRegoleXPPalestra() {
+            const fond = parseInt(document.getElementById('xp-fondamentali').value) || 75;
+            const macch = parseInt(document.getElementById('xp-macchine').value) || 50;
+            const isol = parseInt(document.getElementById('xp-isolamento').value) || 30;
+            const dieta = parseInt(document.getElementById('xp-dieta').value) || 100;
+            const font = document.getElementById('global-font-select').value || 'font-orbitron';
+
+            try {
+                await fetch(`${SUPABASE_URL}/rest/v1/ares_config_xp`, {
+                    method: "POST",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                        "Content-Type": "application/json",
+                        "Prefer": "resolution=merge-duplicates"
+                    },
+                    body: JSON.stringify({
+                        id: "00000000-0000-0000-0000-000000000001",
+                        fondamentali_base_xp: fond,
+                        macchine_base_xp: macch,
+                        isolamento_base_xp: isol,
+                        dieta_foto_xp: dieta,
+                        font_style: font,
+                        updated_at: new Date().toISOString()
+                    })
+                });
+                applicaFontDinamico(font);
+                alert("✓ Regole XP e Font salvati con successo per tutta la palestra!");
+            } catch(e) { alert("Errore salvataggio impostazioni."); }
+        }
+
+        function applicaFontDinamico(fontClass) {
+            document.querySelectorAll('.font-rpg').forEach(el => {
+                el.className = el.className.replace(/font-\w+/g, '') + ' ' + fontClass;
+            });
+        }
+
+        // GESTIONE NUOVO ATLETA
+        function apriModalNuovoAtleta() { document.getElementById("modal-nuovo-atleta").classList.remove("hidden"); }
+        function chiudiModalNuovoAtleta() { document.getElementById("modal-nuovo-atleta").classList.add("hidden"); }
+
+        async function salvaNuovoAtleta(e) {
+            e.preventDefault();
+            const btn = document.getElementById("btn-salva-atleta");
+            btn.disabled = true;
+            btn.innerText = "Salvataggio in corso... ⏳";
+
+            const nome = document.getElementById("add-nome").value.trim();
+            let tel = document.getElementById("add-telefono").value.replace(/[^0-9+]/g, '');
+            if (!tel.startsWith('+')) tel = '+39' + tel.replace(/^39/, '');
+
+            const peso = parseFloat(document.getElementById("add-peso").value) || 75;
+            const altezza = parseInt(document.getElementById("add-altezza").value) || 175;
+            const cal = parseInt(document.getElementById("add-cal").value) || 2200;
+            const pro = parseInt(document.getElementById("add-pro").value) || 140;
+
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti`, {
+                    method: "POST",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                        "Content-Type": "application/json",
+                        "Prefer": "return=minimal"
+                    },
+                    body: JSON.stringify({
+                        nome: nome,
+                        telefono: tel,
+                        peso_kg: peso,
+                        altezza_cm: altezza,
+                        obiettivo_calorie: cal,
+                        obiettivo_proteine_g: pro,
+                        xp: 0,
+                        livello: 1,
+                        rango: 'E-Rank Hunter',
+                        is_paid: true,
+                        piano: 'Coach Hub'
+                    })
+                });
+
+                if (!res.ok) throw new Error();
+                alert(`✓ Atleta ${nome} registrato e abilitato!`);
+                document.getElementById("form-nuovo-atleta").reset();
+                chiudiModalNuovoAtleta();
+                caricaDatiCoach();
+            } catch (err) {
+                alert("Errore durante la registrazione dell'atleta.");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Salva & Abilita Atleta ⚡";
+            }
+        }
+
+        // GESTIONE MODAL MUSICA FF EDIZIONI
         function apriModalMusica() { document.getElementById("modal-musica").classList.remove("hidden"); }
         function chiudiModalMusica() { document.getElementById("modal-musica").classList.add("hidden"); }
 
@@ -410,50 +591,6 @@
             }
         });
 
-        // Caricamento e Salvataggio Regole XP
-        async function caricaRegoleXP() {
-            try {
-                const res = await fetch(`${SUPABASE_URL}/rest/v1/ares_config_xp?select=*&limit=1`, {
-                    headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` }
-                });
-                const data = await res.json();
-                if (data && data.length > 0) {
-                    document.getElementById('xp-fondamentali').value = data[0].fondamentali_base_xp || 75;
-                    document.getElementById('xp-macchine').value = data[0].macchine_base_xp || 50;
-                    document.getElementById('xp-isolamento').value = data[0].isolamento_base_xp || 30;
-                    document.getElementById('xp-dieta').value = data[0].dieta_foto_xp || 100;
-                }
-            } catch(e) { console.warn("Fallback XP rules"); }
-        }
-
-        async function salvaRegoleXPPalestra() {
-            const fond = parseInt(document.getElementById('xp-fondamentali').value) || 75;
-            const macch = parseInt(document.getElementById('xp-macchine').value) || 50;
-            const isol = parseInt(document.getElementById('xp-isolamento').value) || 30;
-            const dieta = parseInt(document.getElementById('xp-dieta').value) || 100;
-
-            try {
-                await fetch(`${SUPABASE_URL}/rest/v1/ares_config_xp`, {
-                    method: "POST",
-                    headers: {
-                        "apikey": SUPABASE_ANON_KEY,
-                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-                        "Content-Type": "application/json",
-                        "Prefer": "resolution=merge-duplicates"
-                    },
-                    body: JSON.stringify({
-                        id: "00000000-0000-0000-0000-000000000001",
-                        fondamentali_base_xp: fond,
-                        macchine_base_xp: macch,
-                        isolamento_base_xp: isol,
-                        dieta_foto_xp: dieta,
-                        updated_at: new Date().toISOString()
-                    })
-                });
-                alert("✓ Regole XP salvate! Tutte le nuove serie registrate useranno questi punti.");
-            } catch(e) { alert("Errore durante il salvataggio."); }
-        }
-        
         window.onload = () => {
             verificaSuperAdmin();
             caricaRegoleXP();
