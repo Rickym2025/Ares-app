@@ -9,6 +9,13 @@
       "operatingSystem": "Android, iOS, Web, Smart TV",
       "applicationCategory": "HealthApplication",
       "description": "Il primo Fitness RPG vocale con AI: copilota in cuffia con attivazione vocale 'Ares', tracciamento pasti fotografico, Maxischermo Arena per palestre e inni d'autore FF Edizioni.",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "EUR",
+        "lowPrice": "19.00",
+        "highPrice": "399.00",
+        "offerCount": "3"
+      },
       "author": { "@type": "Person", "name": "Riccardo Modena", "url": "https://www.linkedin.com/in/riccardo-modena-13918a61/" }
     }
     </script>
@@ -31,7 +38,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { darkBg: '#030712', brandCyan: '#06b6d4', brandBlue: '#0284c7', brandGold: '#f59e0b' },
+                    colors: { darkBg: '#030712', brandCyan: '#06b6d4', brandBlue: '#0284c7', brandGold: '#f59e0b', brandRed: '#ef4444' },
                     fontFamily: { sans: ['"Inter"', 'sans-serif'], display: ['"Plus Jakarta Sans"', 'sans-serif'], rpg: ['"Orbitron"', 'sans-serif'] }
                 }
             }
@@ -60,7 +67,7 @@
 </head>
 <body class="antialiased flex flex-col min-h-screen selection:bg-cyan-500/30 selection:text-white relative overflow-x-hidden">
 
-    <!-- ── SFONDO VIBRANTE GYM CON ACCENTI NEON ── -->
+    <!-- SFONDO GYM VIBRANTE (Zero Lag) -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
         <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1920&q=80" alt="Palestra Background" class="absolute inset-0 w-full h-full object-cover opacity-15 mix-blend-luminosity filter contrast-125">
         <div class="absolute inset-0 bg-gradient-to-b from-[#030712]/95 via-[#030712]/85 to-[#030712]"></div>
@@ -210,7 +217,7 @@
                 </div>
             </section>
 
-            <!-- WORKOUT BEATS PLAYER CON TOGGLE INTELLIGENTE (RIPREMI PER PAUSA) -->
+            <!-- WORKOUT BEATS PLAYER (CON I NUOVI BRANI FIRSTFIT & TOGGLE PAUSA) -->
             <section id="workout-beats" class="py-24 px-6 border-t border-white/10 bg-gradient-to-b from-amber-950/20 via-black to-black">
                 <div class="max-w-5xl mx-auto glass-panel p-8 md:p-12 rounded-[2.5rem] border border-amber-500/30 glow-gold relative overflow-hidden">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-white/10 pb-8 mb-8">
@@ -220,7 +227,7 @@
                             </div>
                             <h2 class="text-2xl sm:text-4xl font-black text-white font-display">Inni Palestra &amp; Workout Beats Inediti</h2>
                             <p class="text-xs sm:text-sm text-zinc-300 max-w-xl font-light leading-relaxed">
-                                Clicca su un brano per avviarlo, <b>ripremerlo per metterlo in pausa</b>. Brani registrati dal Maestro <b>Fausto Fusetti</b> (SIAE n. 189515).
+                                Ascolta gli inni composti dal Maestro <b>Fausto Fusetti</b> per la palestra <b>FirstFit</b> e la suite Ares. Clicca un brano per ascoltare, <b>ripremerlo per metterlo in pausa</b>.
                             </p>
                         </div>
 
@@ -277,11 +284,11 @@
                 </div>
             </section>
 
-            <!-- ── NUOVO LISTINO PREZZI AD ALTO MARGINE B2B STRIPE ON-THE-FLY ── -->
+            <!-- ── LISTINO PREZZI B2B HIGH-TICKET STRIPE ON-THE-FLY (€19 / €199 / €399) ── -->
             <section id="prezzi" class="max-w-6xl mx-auto px-6 py-24 border-t border-white/10">
                 <div class="text-center mb-16">
                     <p class="font-rpg text-xs text-brandCyan uppercase tracking-[5px] mb-3">Piani &amp; Licenze Ufficiali</p>
-                    <h2 class="text-3xl md:text-5xl font-black text-white mb-3 font-display">Tariffe Chiare ad Alto ROI</h2>
+                    <h2 class="text-3xl md:text-5xl font-black text-white mb-3 font-display">Tariffe B2B ad Alto Margine</h2>
                     <p class="text-zinc-400 text-sm max-w-xl mx-auto">Cancelli quando vuoi con 1 clic. I progressi rimangono salvati per sempre.</p>
                 </div>
                 
@@ -297,7 +304,7 @@
                                 <span class="text-zinc-400 text-xs font-bold">/ mese</span>
                             </div>
                             <ul class="space-y-2.5 text-xs text-zinc-300 mb-6">
-                                <li>✓ Assistente Vocale Vapi H24 (Hotword)</li>
+                                <li>✓ Assistente Vocale Vapi H24 (Hotword "Ares")</li>
                                 <li>✓ Progressione RPG con Livelli e Ranghi</li>
                                 <li>✓ Dieta fotografica con stima macro AI</li>
                                 <li>✓ Accesso alla Leaderboard della Palestra</li>
@@ -324,7 +331,7 @@
                                 <li>✓ Dashboard Coach con target nutrizionali e carichi</li>
                             </ul>
                         </div>
-                        <button onclick="avviaCheckoutAres('coach')" data-btn-plan="coach" class="w-full py-3.5 rounded-xl text-center font-black text-xs uppercase tracking-wider bg-brandCyan hover:bg-cyan-300 text-black transition shadow-lg cursor-pointer">Attiva Gym Arena 🔥</button>
+                        <button onclick="avviaCheckoutAres('coach')" data-btn-plan="coach" class="w-full py-3.5 rounded-xl text-center font-black text-xs uppercase tracking-wider bg-brandCyan hover:bg-cyan-300 text-black transition shadow-lg cursor-pointer">Attiva Gym Arena (€199)</button>
                     </div>
 
                     <!-- 3. GYM ARENA ELITE (HIGH TICKET) -->
@@ -343,7 +350,7 @@
                                 <li>✓ Assistenza tecnica prioritaria H24</li>
                             </ul>
                         </div>
-                        <button onclick="avviaCheckoutAres('elite')" data-btn-plan="elite" class="w-full py-3.5 rounded-xl text-center font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-black font-black transition cursor-pointer">Attiva Arena ELITE</button>
+                        <button onclick="avviaCheckoutAres('elite')" data-btn-plan="elite" class="w-full py-3.5 rounded-xl text-center font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-black font-black transition cursor-pointer">Attiva Arena ELITE (€399)</button>
                     </div>
 
                 </div>
@@ -456,17 +463,18 @@
         </main>
     </div>
 
-    <!-- Scripts Modulari & Audio Player Logic con Toggle Intelligente -->
+    <!-- Scripts Modulari & Audio Player con Brani FirstFit -->
     <script src="pricing.js"></script>
     <script>
-    // 1. ARRAY BRANI (Modifica qui gli MP3 da Suno)
+    // 1. ARRAY BRANI (Inni Ufficiali FirstFit + Workout Beats)
     const ARES_TRACKS = [
-        { id: 1, title: "S-Rank Titan", duration: "High BPM", url: "https://cdn1.suno.ai/80902ba7-9a03-44f1-b454-def984ca893e.mp3" },
-        { id: 2, title: "Log It", duration: "Voice Beat", url: "https://cdn1.suno.ai/4fb1eb5f-df02-4a3d-8dec-a8e826749515.mp3" },
-        { id: 3, title: "Ares Arena", duration: "Inno Ufficiale", url: "https://cdn1.suno.ai/98206b32-fda5-4a49-b66b-2772c936bc69.mp3" },
-        { id: 4, title: "Level Up", duration: "Power Electro", url: "https://cdn1.suno.ai/ff3c5fb4-c63c-4d38-a304-1ad67e4d6d5e.mp3" },
-        { id: 5, title: "Battito Digitale", duration: "Cardio Synth", url: "https://cdn1.suno.ai/2dee52d5-c39b-4f5b-acef-29c6f26c6b77.mp3" },
-        { id: 6, title: "Digital Muscle", duration: "Heavy Bass", url: "https://cdn1.suno.ai/92a61893-089b-4a27-9853-394c8eb8831b.mp3" }
+        { id: 1, title: "Cuore FirstFit", duration: "Inno Ufficiale", url: "https://cdn1.suno.ai/c85c7b6e-74ad-43d1-97ee-08553d5adb01.mp3" },
+        { id: 2, title: "FirstFit Mantra", duration: "Workout Beat", url: "https://cdn1.suno.ai/658ef7a0-3626-4906-a06e-810b47a33260.mp3" },
+        { id: 3, title: "Log It", duration: "Voice Beat", url: "https://cdn1.suno.ai/4fb1eb5f-df02-4a3d-8dec-a8e826749515.mp3" },
+        { id: 4, title: "Ares Arena", duration: "Inno Battaglia", url: "https://cdn1.suno.ai/98206b32-fda5-4a49-b66b-2772c936bc69.mp3" },
+        { id: 5, title: "Level Up", duration: "Power Electro", url: "https://cdn1.suno.ai/ff3c5fb4-c63c-4d38-a304-1ad67e4d6d5e.mp3" },
+        { id: 6, title: "Battito Digitale", duration: "Cardio Synth", url: "https://cdn1.suno.ai/2dee52d5-c39b-4f5b-acef-29c6f26c6b77.mp3" },
+        { id: 7, title: "Digital Muscle", duration: "Heavy Bass", url: "https://cdn1.suno.ai/92a61893-089b-4a27-9853-394c8eb8831b.mp3" }
     ];
 
     let currentTrackIndex = -1;
@@ -489,7 +497,6 @@
         `).join('');
     }
 
-    // ⚡ TOGGLE INTELLIGENTE: Se clicchi la stessa traccia va in PAUSA, altrimenti cambia e avvia
     function handleTrackClick(idx) {
         if (currentTrackIndex === idx) {
             if (audio.paused) {
@@ -552,7 +559,7 @@
         };
     }
 
-    // 2. PWA 1-Tap Prompt
+    // PWA Prompt
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
@@ -568,7 +575,7 @@
         }
     });
 
-    // 3. Form Registrazione e Sistema Orbitale
+    // Form Registrazione e Sistema Orbitale
     document.addEventListener('DOMContentLoaded', () => {
         renderTracklist();
 
