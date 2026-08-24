@@ -1,5 +1,5 @@
 /**
- * AresAI - Live Pricing & Stripe Checkout Engine
+ * AresAI - Live Pricing & Stripe Checkout Engine (High-Ticket B2B)
  * RM Studio Universal Engine (Supabase S2 Central DB)
  */
 
@@ -9,26 +9,33 @@ const SUPABASE_S2_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzd
 // 1. Prezzi di Fallback Immediati (Zero Flicker)
 const ARES_PRICES = {
   base:  { id: "base",  name: "Atleta PRO", price: 19 },
-  coach: { id: "coach", name: "Coach Hub & Arena", price: 99 }
+  coach: { id: "coach", name: "Gym Arena Standard", price: 199 },
+  elite: { id: "elite", name: "Gym Arena ELITE", price: 399 }
 };
 
 // 2. Render Reattivo del DOM
 function renderAresPrices() {
   const elBase = document.getElementById("price-atleta-val");
   const elCoach = document.getElementById("price-coach-val");
+  const elElite = document.getElementById("price-elite-val");
 
   if (elBase) elBase.innerText = `€${ARES_PRICES.base.price}`;
   if (elCoach) elCoach.innerText = `€${ARES_PRICES.coach.price}`;
+  if (elElite) elElite.innerText = `€${ARES_PRICES.elite.price}`;
 
   const btnBase = document.querySelector('[data-btn-plan="base"]');
   const btnCoach = document.querySelector('[data-btn-plan="coach"]');
+  const btnElite = document.querySelector('[data-btn-plan="elite"]');
   if (btnBase) btnBase.innerText = `Acquista Atleta PRO (€${ARES_PRICES.base.price})`;
-  if (btnCoach) btnCoach.innerText = `Attiva Coach Hub (€${ARES_PRICES.coach.price}) 🔥`;
+  if (btnCoach) btnCoach.innerText = `Attiva Gym Arena (€${ARES_PRICES.coach.price}) 🔥`;
+  if (btnElite) btnElite.innerText = `Attiva Arena ELITE (€${ARES_PRICES.elite.price})`;
 
   const optBase = document.querySelector('option[data-plan-option="base"]');
   const optCoach = document.querySelector('option[data-plan-option="coach"]');
+  const optElite = document.querySelector('option[data-plan-option="elite"]');
   if (optBase) optBase.innerText = `Atleta PRO (${ARES_PRICES.base.price}€/mese)`;
-  if (optCoach) optCoach.innerText = `Coach Hub per Palestre & PT (${ARES_PRICES.coach.price}€/mese)`;
+  if (optCoach) optCoach.innerText = `Gym Arena Standard (${ARES_PRICES.coach.price}€/mese - Fino a 60 atleti + TV)`;
+  if (optElite) optElite.innerText = `Gym Arena ELITE (${ARES_PRICES.elite.price}€/mese - Illimitato + Inno FF)`;
 }
 
 // 3. Fetch Live da Supabase S2 (Tabella saas_pricing)
@@ -61,8 +68,8 @@ async function initAresPricing() {
 }
 
 // 4. Dispatch Checkout On-The-Fly verso n8n
-async function avviaCheckoutAres(planKey = "base", email = "", phone = "", name = "") {
-  const plan = ARES_PRICES[planKey] || ARES_PRICES.base;
+async function avviaCheckoutAres(planKey = "coach", email = "", phone = "", name = "") {
+  const plan = ARES_PRICES[planKey] || ARES_PRICES.coach;
   const origin = window.location.origin;
   const telSafe = phone ? phone.replace(/[^0-9+]/g, '') : '';
 
@@ -71,7 +78,7 @@ async function avviaCheckoutAres(planKey = "base", email = "", phone = "", name 
     portal_type: "ares",
     title: `AresAI • ${plan.name}`,
     price: plan.price,
-    ricarica_tipo: planKey === "coach" ? "coach" : "base",
+    ricarica_tipo: planKey,
     email: email || undefined,
     agency_id: telSafe || (email ? `lead_${email}` : "atleta_anon"),
     project_id: telSafe || "atleta_anon",
