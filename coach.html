@@ -45,21 +45,34 @@
             </div>
         </header>
 
-        <!-- BANNER PERENNE PROMO FF EDIZIONI (CROSS-SELL MUSICALE PER LA PALESTRA) -->
-        <section class="bg-gradient-to-r from-amber-950/40 via-slate-900/90 to-amber-950/30 border-2 border-amber-500/40 p-6 rounded-3xl flex flex-col md:flex-row justify-between items-center gap-6 glow-gold">
-            <div class="space-y-1 text-center md:text-left">
-                <div class="flex items-center justify-center md:justify-start gap-2">
-                    <span class="text-xl">🎵</span>
-                    <span class="font-rpg text-xs text-amber-400 font-bold uppercase tracking-wider">FF Edizioni Musicali • Produzione Esclusiva SIAE</span>
+        <!-- BANNER PROMO PERENNE FF EDIZIONI & PLAYER SALA PESI -->
+        <section class="bg-gradient-to-r from-amber-950/40 via-slate-900/90 to-amber-950/30 border-2 border-amber-500/40 p-6 rounded-3xl glow-gold space-y-5">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="space-y-1 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2">
+                        <span class="text-xl">🎵</span>
+                        <span class="font-rpg text-xs text-amber-400 font-bold uppercase tracking-wider">FF Edizioni Musicali • Inno Ufficiale &amp; Workout Beats</span>
+                    </div>
+                    <h3 class="text-lg font-black text-white font-rpg">Colonna Sonora Inedita &amp; Inno Ufficiale per la tua Palestra</h3>
+                    <p class="text-xs text-slate-300 max-w-2xl leading-relaxed">
+                        Componiamo l'Inno su misura per la tua struttura con il Maestro <b>Fausto Fusetti</b> (SIAE n. 189515). Puoi anche riprodurre i 6 brani ufficiali direttamente in sala pesi.
+                    </p>
                 </div>
-                <h3 class="text-lg font-black text-white font-rpg">Vuoi l'Inno Ufficiale o una Playlist Inedita per la tua Palestra?</h3>
-                <p class="text-xs text-slate-300 max-w-2xl leading-relaxed">
-                    Componiamo l'Inno su misura per i tuoi social e il maxischermo con il Maestro <b>Fausto Fusetti</b>. Carica gli atleti con musica d'autore registrata a tuo marchio.
-                </p>
+                <button onclick="apriModalMusica()" class="whitespace-nowrap bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-black font-black font-rpg text-xs px-6 py-3.5 rounded-xl transition shadow-lg uppercase tracking-wider cursor-pointer">
+                    Richiedi Inno Palestra 🎧
+                </button>
             </div>
-            <button onclick="apriModalMusica()" class="whitespace-nowrap bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-black font-rpg text-xs px-6 py-3.5 rounded-xl transition shadow-lg shadow-amber-500/25 cursor-pointer uppercase tracking-wider">
-                Richiedi Brano / Inno 🎧
-            </button>
+
+            <!-- Mini Jukebox Brani Sala Pesi -->
+            <div class="pt-4 border-t border-amber-500/20 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+                <button onclick="playCoachTrack(0)" class="p-2.5 rounded-xl bg-slate-950/80 hover:bg-amber-500/20 border border-slate-800 text-left transition flex items-center justify-between"><span class="text-[11px] font-bold truncate">1. S-Rank Titan</span><span class="text-[10px] text-amber-400">▶</span></button>
+                <button onclick="playCoachTrack(1)" class="p-2.5 rounded-xl bg-slate-950/80 hover:bg-amber-500/20 border border-slate-800 text-left transition flex items-center justify-between"><span class="text-[11px] font-bold truncate">2. Log It</span><span class="text-[10px] text-amber-400">▶</span></button>
+                <button onclick="playCoachTrack(2)" class="p-2.5 rounded-xl bg-slate-950/80 hover:bg-amber-500/20 border border-slate-800 text-left transition flex items-center justify-between"><span class="text-[11px] font-bold truncate">3. Ares Arena</span><span class="text-[10px] text-amber-400">▶</span></button>
+                <button onclick="playCoachTrack(3)" class="p-2.5 rounded-xl bg-slate-950/80 hover:bg-amber-500/20 border border-slate-800 text-left transition flex items-center justify-between"><span class="text-[11px] font-bold truncate">4. Level Up</span><span class="text-[10px] text-amber-400">▶</span></button>
+                <button onclick="playCoachTrack(4)" class="p-2.5 rounded-xl bg-slate-950/80 hover:bg-amber-500/20 border border-slate-800 text-left transition flex items-center justify-between"><span class="text-[11px] font-bold truncate">5. Battito Digitale</span><span class="text-[10px] text-amber-400">▶</span></button>
+                <button onclick="playCoachTrack(5)" class="p-2.5 rounded-xl bg-slate-950/80 hover:bg-amber-500/20 border border-slate-800 text-left transition flex items-center justify-between"><span class="text-[11px] font-bold truncate">6. Digital Muscle</span><span class="text-[10px] text-amber-400">▶</span></button>
+            </div>
+            <audio id="coach-audio-player" preload="none"></audio>
         </section>
 
         <!-- KPI CARDS GAMIFIED -->
@@ -116,8 +129,7 @@
             <p class="text-xs text-slate-300 mb-6 leading-relaxed">Invia la tua richiesta: Riccardo e il Maestro Fausto Fusetti elaboreranno la proposta artistica personalizzata per la tua struttura.</p>
 
             <form id="form-inno" class="space-y-4">
-                <!-- Web3Forms Access Key RM Studio -->
-                <input type="hidden" name="access_key" value="0fe31b53-ec52-4467-9273-0309e46a782e">
+                <input type="hidden" name="access_key" value="9013a8d5-0901-42a0-b9e6-4c45553f960d">
                 <input type="hidden" name="subject" value="Nuova Richiesta Inno Palestra - FF Edizioni da Ares Dashboard">
                 <input type="hidden" name="from_name" value="Ares Gym Dashboard">
 
@@ -145,7 +157,7 @@
                 </div>
                 <div>
                     <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Dettagli / Stile Musicale Desiderato</label>
-                    <textarea name="note" rows="2" placeholder="Es. Vogliamo un sound energico rock/elettronico..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-amber-400"></textarea>
+                    <textarea name="note" rows="2" placeholder="Es. Sound energico rock/elettronico..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-amber-400"></textarea>
                 </div>
 
                 <button type="submit" id="btn-invia-inno" class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-black font-black font-rpg text-xs py-3 rounded-xl transition uppercase tracking-wider">
@@ -156,12 +168,31 @@
         </div>
     </div>
 
-    <!-- SCRIPT LOGICA COACH -->
+    <!-- SCRIPT LOGICA COACH & BRANI -->
     <script>
         const SUPABASE_URL = "https://geotspkwrfpbfuinypfw.supabase.co"; 
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3RzcGt3cmZwYmZ1aW55cGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMjgyMDUsImV4cCI6MjA5ODkwNDIwNX0.itwiI95uu_XbWaODK5tDyjbNgWWZ6TCRqEVHLRUOt6I"; 
 
         const SUPERADMIN_EMAILS = ["modena.riccardo@gmail.com", "riccardo@rmstudio.app", "info@rmstudio.app"];
+
+        const ARES_COACH_TRACKS = [
+            "https://cdn1.suno.ai/80902ba7-9a03-44f1-b454-def984ca893e.mp3",
+            "https://cdn1.suno.ai/4fb1eb5f-df02-4a3d-8dec-a8e826749515.mp3",
+            "https://cdn1.suno.ai/98206b32-fda5-4a49-b66b-2772c936bc69.mp3",
+            "https://cdn1.suno.ai/ff3c5fb4-c63c-4d38-a304-1ad67e4d6d5e.mp3",
+            "https://cdn1.suno.ai/2dee52d5-c39b-4f5b-acef-29c6f26c6b77.mp3",
+            "https://cdn1.suno.ai/92a61893-089b-4a27-9853-394c8eb8831b.mp3"
+        ];
+
+        const coachAudio = document.getElementById("coach-audio-player");
+        function playCoachTrack(index) {
+            if (coachAudio.src === ARES_COACH_TRACKS[index] && !coachAudio.paused) {
+                coachAudio.pause();
+            } else {
+                coachAudio.src = ARES_COACH_TRACKS[index];
+                coachAudio.play();
+            }
+        }
 
         function verificaSuperAdmin() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -311,7 +342,6 @@
             } catch (e) { alert("Errore"); }
         }
 
-        // GESTIONE MODAL & WEB3FORMS INNO PALESTRA
         function apriModalMusica() { document.getElementById("modal-musica").classList.remove("hidden"); }
         function chiudiModalMusica() { document.getElementById("modal-musica").classList.add("hidden"); }
 
@@ -324,10 +354,7 @@
 
             try {
                 const formData = new FormData(this);
-                const response = await fetch("https://api.web3forms.com/submit", {
-                    method: "POST",
-                    body: formData
-                });
+                const response = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
                 const data = await response.json();
                 if (data.success) {
                     res.innerText = "✓ Richiesta inviata con successo! Riceverai una proposta da Riccardo e dal Maestro Fausto Fusetti entro 24 ore.";
