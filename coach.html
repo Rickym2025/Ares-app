@@ -410,6 +410,50 @@
             }
         });
 
+        // Caricamento e Salvataggio Regole XP
+        async function caricaRegoleXP() {
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/ares_config_xp?select=*&limit=1`, {
+                    headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` }
+                });
+                const data = await res.json();
+                if (data && data.length > 0) {
+                    document.getElementById('xp-fondamentali').value = data[0].fondamentali_base_xp || 75;
+                    document.getElementById('xp-macchine').value = data[0].macchine_base_xp || 50;
+                    document.getElementById('xp-isolamento').value = data[0].isolamento_base_xp || 30;
+                    document.getElementById('xp-dieta').value = data[0].dieta_foto_xp || 100;
+                }
+            } catch(e) { console.warn("Fallback XP rules"); }
+        }
+
+        async function salvaRegoleXPPalestra() {
+            const fond = parseInt(document.getElementById('xp-fondamentali').value) || 75;
+            const macch = parseInt(document.getElementById('xp-macchine').value) || 50;
+            const isol = parseInt(document.getElementById('xp-isolamento').value) || 30;
+            const dieta = parseInt(document.getElementById('xp-dieta').value) || 100;
+
+            try {
+                await fetch(`${SUPABASE_URL}/rest/v1/ares_config_xp`, {
+                    method: "POST",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                        "Content-Type": "application/json",
+                        "Prefer": "resolution=merge-duplicates"
+                    },
+                    body: JSON.stringify({
+                        id: "00000000-0000-0000-0000-000000000001",
+                        fondamentali_base_xp: fond,
+                        macchine_base_xp: macch,
+                        isolamento_base_xp: isol,
+                        dieta_foto_xp: dieta,
+                        updated_at: new Date().toISOString()
+                    })
+                });
+                alert("✓ Regole XP salvate! Tutte le nuove serie registrate useranno questi punti.");
+            } catch(e) { alert("Errore durante il salvataggio."); }
+        }
+        
         window.onload = () => {
             verificaSuperAdmin();
             caricaDatiCoach();
