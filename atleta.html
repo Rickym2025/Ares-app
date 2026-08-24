@@ -84,14 +84,20 @@
             </div>
         </section>
 
-        <!-- COPILOTA VOCALE VAPI PER ACCUMULO XP -->
-        <section class="glass-rpg p-5 rounded-2xl border border-cyan-500/20 text-center">
-            <h2 class="text-sm font-extrabold text-white font-rpg uppercase tracking-wider mb-1">⚡ Registra Serie con la Voce</h2>
-            <p class="text-xs text-slate-400 mb-4">Indossa le cuffie, parla con Ares e ricevi <b class="text-cyan-400">+50 XP</b> per ogni serie completata.</p>
-            
+        <!-- COPILOTA VOCALE VAPI CON BADGE HOTWORD & SMART MUTE -->
+        <section class="glass-rpg p-5 rounded-2xl border border-cyan-500/20 text-center space-y-3">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[10px] font-rpg text-cyan-300 font-bold uppercase">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                Hotword Attiva: Dì "Ares..." per registrare
+            </div>
+
             <button id="vapi-btn" onclick="toggleChiamata()" class="w-full bg-cyan-400 hover:bg-cyan-300 text-black font-black font-rpg py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 uppercase tracking-wider cursor-pointer">
                 <span>🎙️</span> Inizia Allenamento Vocale
             </button>
+
+            <p class="text-[11px] text-slate-400">
+                💡 <i>Ares ignora le conversazioni con altre persone e risponde solo quando pronunci "Ares".</i>
+            </p>
         </section>
 
         <!-- DIETA FOTOGRAFICA AI (+100 XP) -->
