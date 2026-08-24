@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AresAI • Arena RPG & HUD Atleta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .font-rpg { font-family: 'Orbitron', sans-serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        .glass-rpg {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(5, 8, 17, 0.95) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+        .glow-cyan { box-shadow: 0 0 25px rgba(6, 182, 212, 0.35); }
+        .glow-gold { box-shadow: 0 0 25px rgba(245, 158, 11, 0.4); }
+    </style>
+</head>
+<body class="bg-[#050811] text-slate-100 min-h-screen p-4 sm:p-6 font-sans selection:bg-cyan-500 selection:text-black">
+
+    <div class="max-w-md mx-auto space-y-5">
+        
+        <!-- HEADER LIVE & RANGO -->
+        <header class="flex justify-between items-center px-1">
+            <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-cyan-400 animate-pulse"></div>
+                <span class="font-rpg text-xs uppercase tracking-widest text-cyan-400 font-bold">Ares Gym Arena</span>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="caricaProfiloRPG()" class="text-xs bg-slate-900 border border-slate-800 text-slate-400 px-3 py-1.5 rounded-lg hover:text-white transition">🔄 Sync</button>
+                <button onclick="logout()" class="text-xs bg-red-500/10 border border-red-500/20 text-red-400 px-3 py-1.5 rounded-lg hover:bg-red-500/20 transition">Esci</button>
+            </div>
+        </header>
+
+        <!-- AVATAR CARD & PROGRESSION BAR -->
+        <section class="glass-rpg p-6 rounded-3xl relative overflow-hidden glow-cyan border border-cyan-500/30">
+            <div class="absolute -right-8 -top-8 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="flex items-center gap-5 mb-5">
+                <!-- Avatar Olografico Circolare con Bordo Dinamico -->
+                <div class="relative">
+                    <div id="avatar-circle" class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-cyan-600 via-slate-800 to-indigo-600 p-1 flex items-center justify-center shadow-lg">
+                        <div class="w-full h-full bg-slate-950 rounded-xl flex items-center justify-center text-3xl" id="avatar-icon">
+                            ⚡
+                        </div>
+                    </div>
+                    <span id="badge-livello" class="absolute -bottom-2 -right-2 bg-cyan-400 text-black text-[11px] font-black px-2 py-0.5 rounded-md font-rpg shadow">LVL 1</span>
+                </div>
+
+                <div class="flex-1">
+                    <span id="rango-titolo" class="text-[10px] uppercase font-rpg tracking-wider text-cyan-400 font-extrabold px-2 py-0.5 bg-cyan-500/10 rounded border border-cyan-500/20 inline-block mb-1">
+                        E-Rank Hunter
+                    </span>
+                    <h1 id="nome-atleta" class="text-xl font-black text-white font-rpg tracking-tight truncate">Caricamento...</h1>
+                    <p class="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
+                        🔥 Streak Attiva: <b id="streak-val" class="text-amber-400">1 Giorno</b>
+                    </p>
+                </div>
+            </div>
+
+            <!-- XP BAR -->
+            <div class="space-y-1.5">
+                <div class="flex justify-between text-xs font-bold">
+                    <span class="text-slate-400">Esperienza (XP)</span>
+                    <span id="xp-text" class="text-cyan-400 font-rpg">0 / 500 XP</span>
+                </div>
+                <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-slate-800 p-0.5">
+                    <div id="xp-progress-bar" class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- STATISTICHE FISICHE RPG -->
+            <div class="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-slate-800/80 text-center">
+                <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/50">
+                    <span class="block text-[9px] uppercase font-bold text-slate-400">Forza Totale</span>
+                    <span id="stat-forza" class="font-rpg text-sm font-extrabold text-white">0 kg</span>
+                </div>
+                <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/50">
+                    <span class="block text-[9px] uppercase font-bold text-slate-400">Serie Chiuse</span>
+                    <span id="stat-serie" class="font-rpg text-sm font-extrabold text-cyan-400">0</span>
+                </div>
+                <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/50">
+                    <span class="block text-[9px] uppercase font-bold text-slate-400">Classifica</span>
+                    <span id="stat-rank" class="font-rpg text-sm font-extrabold text-amber-400">#--</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- COPILOTA VOCALE VAPI PER ACCUMULO XP -->
+        <section class="glass-rpg p-5 rounded-2xl border border-cyan-500/20 text-center">
+            <h2 class="text-sm font-extrabold text-white font-rpg uppercase tracking-wider mb-1">⚡ Registra Serie con la Voce</h2>
+            <p class="text-xs text-slate-400 mb-4">Indossa le cuffie, parla con Ares e ricevi <b class="text-cyan-400">+50 XP</b> per ogni serie completata.</p>
+            
+            <button id="vapi-btn" onclick="toggleChiamata()" class="w-full bg-cyan-400 hover:bg-cyan-300 text-black font-black font-rpg py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 uppercase tracking-wider cursor-pointer">
+                <span>🎙️</span> Inizia Allenamento Vocale
+            </button>
+        </section>
+
+        <!-- CLASSIFICA LIVE DELLA PALESTRA (GYM LEADERBOARD) -->
+        <section class="glass-rpg p-5 rounded-2xl border border-slate-800">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xs font-black uppercase tracking-wider text-white font-rpg flex items-center gap-1.5">
+                    <span>🏆</span> Leaderboard Palestra
+                </h3>
+                <span class="text-[10px] text-cyan-400 font-bold uppercase bg-cyan-500/10 px-2 py-0.5 rounded">Settimanale</span>
+            </div>
+
+            <div id="leaderboard-container" class="space-y-2.5">
+                <!-- Skeleton Loader -->
+                <div class="text-center py-4 text-xs text-slate-500 animate-pulse">Caricamento classifiche in corso...</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Vapi Web SDK & Motore Gamification -->
+    <script type="module">
+        import Vapi from 'https://esm.sh/@vapi-ai/web';
+
+        const SUPABASE_URL = "https://geotspkwrfpbfuinypfw.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3RzcGt3cmZwYmZ1aW55cGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMjgyMDUsImV4cCI6MjA5ODkwNDIwNX0.itwiI95uu_XbWaODK5tDyjbNgWWZ6TCRqEVHLRUOt6I";
+
+        const VAPI_PUBLIC_KEY = "5d937cb1-a20a-4ba0-8090-21a1ce32feaf";
+        const ASSISTANT_ID = "4d800e9c-95f0-470f-b650-879c11b96422";
+
+        let utenteCorrente = null;
+        let vapiInstance = null;
+        let isCalling = false;
+
+        async function caricaProfiloRPG() {
+            const token = localStorage.getItem("ares_token") || localStorage.getItem("ares_utente_nome");
+            if (!token) { window.location.href = "login.html"; return; }
+
+            try {
+                // Recupera tutti gli utenti per calcolare rank e leaderboard
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/ares_utenti?select=*&order=xp.desc`, {
+                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                });
+                const classifica = await res.json();
+
+                utenteCorrente = classifica.find(u => u.nome === token || u.token_accesso === token || u.email === token) || classifica[0];
+
+                if (!utenteCorrente) return;
+
+                // Calcolo Rango RPG
+                const xp = utenteCorrente.xp || 0;
+                const livello = Math.floor(xp / 500) + 1;
+                const xpLivelloAttuale = xp % 500;
+                const percXp = (xpLivelloAttuale / 500) * 100;
+
+                let rango = "E-Rank Hunter";
+                if (livello >= 5) rango = "D-Rank Warrior";
+                if (livello >= 10) rango = "C-Rank Gladiator";
+                if (livello >= 20) rango = "B-Rank Titan";
+                if (livello >= 35) rango = "A-Rank Berserker";
+                if (livello >= 50) rango = "S-Rank Shadow Lord";
+
+                // Aggiornamento DOM Atleta
+                document.getElementById("nome-atleta").innerText = utenteCorrente.nome;
+                document.getElementById("badge-livello").innerText = `LVL ${livello}`;
+                document.getElementById("rango-titolo").innerText = rango;
+                document.getElementById("xp-text").innerText = `${xpLivelloAttuale} / 500 XP`;
+                document.getElementById("xp-progress-bar").style.width = `${percXp}%`;
+                document.getElementById("stat-forza").innerText = `${utenteCorrente.forza_totale_kg || 0} kg`;
+                document.getElementById("streak-val").innerText = `${utenteCorrente.streak_giorni || 1} Giorni`;
+
+                // Recupero conteggio serie totali
+                const resSerie = await fetch(`${SUPABASE_URL}/rest/v1/ares_serie?utente_id=eq.${utenteCorrente.id}&select=id`, {
+                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                });
+                const serieData = await resSerie.json();
+                document.getElementById("stat-serie").innerText = serieData.length || 0;
+
+                // Render Posizione e Leaderboard
+                const userIndex = classifica.findIndex(u => u.id === utenteCorrente.id);
+                document.getElementById("stat-rank").innerText = `#${userIndex + 1}`;
+
+                renderLeaderboard(classifica);
+
+            } catch (err) {
+                console.error("Errore Sync RPG:", err);
+            }
+        }
+
+        function renderLeaderboard(classifica) {
+            const container = document.getElementById("leaderboard-container");
+            container.innerHTML = "";
+
+            classifica.slice(0, 5).forEach((atleta, idx) => {
+                const isMe = atleta.id === utenteCorrente.id;
+                const card = document.createElement("div");
+                card.className = `flex items-center justify-between p-3 rounded-xl border ${isMe ? 'bg-cyan-500/10 border-cyan-500/40 glow-cyan' : 'bg-slate-950/60 border-slate-900'}`;
+                
+                let medaglia = `#${idx + 1}`;
+                if (idx === 0) medaglia = "🥇";
+                if (idx === 1) medaglia = "🥈";
+                if (idx === 2) medaglia = "🥉";
+
+                card.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="font-rpg font-extrabold text-sm ${idx < 3 ? 'text-amber-400' : 'text-slate-500'}">${medaglia}</span>
+                        <div>
+                            <p class="text-xs font-bold text-white leading-tight ${isMe ? 'text-cyan-300' : ''}">${atleta.nome} ${isMe ? '(Tu)' : ''}</p>
+                            <span class="text-[9px] text-slate-400 font-rpg">LVL ${Math.floor((atleta.xp || 0) / 500) + 1}</span>
+                        </div>
+                    </div>
+                    <span class="font-rpg text-xs font-black text-cyan-400">${atleta.xp || 0} XP</span>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleChiamata() {
+            const btn = document.getElementById("vapi-btn");
+            if (!vapiInstance) {
+                vapiInstance = new Vapi(VAPI_PUBLIC_KEY);
+                vapiInstance.on('call-start', () => {
+                    isCalling = true;
+                    btn.innerHTML = "<span>🛑</span> Termina e Salva XP";
+                    btn.className = "w-full bg-red-500 hover:bg-red-600 text-white font-black font-rpg py-4 rounded-xl transition flex items-center justify-center gap-2 uppercase tracking-wider";
+                });
+                vapiInstance.on('call-end', () => {
+                    isCalling = false;
+                    btn.innerHTML = "<span>🎙️</span> Inizia Allenamento Vocale";
+                    btn.className = "w-full bg-cyan-400 hover:bg-cyan-300 text-black font-black font-rpg py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 uppercase tracking-wider";
+                    setTimeout(caricaProfiloRPG, 1500); // Ricarica XP appena terminata la sessione
+                });
+            }
+
+            if (!isCalling) {
+                const primoNome = utenteCorrente?.nome ? utenteCorrente.nome.split(' ')[0] : "Atleta";
+                vapiInstance.start(ASSISTANT_ID, {
+                    variableValues: { nome_utente: primoNome }
+                });
+            } else {
+                vapiInstance.stop();
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        window.toggleChiamata = toggleChiamata;
+        window.caricaProfiloRPG = caricaProfiloRPG;
+        window.logout = logout;
+
+        document.addEventListener("DOMContentLoaded", caricaProfiloRPG);
+    </script>
+</body>
+</html>
