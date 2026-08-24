@@ -45,39 +45,30 @@
         .glow-cyan { box-shadow: 0 0 35px rgba(6, 182, 212, 0.3); }
         .glow-gold { box-shadow: 0 0 35px rgba(245, 158, 11, 0.25); }
 
-        /* KEYFRAMES SFONDO FLUIDO A 60 FPS (Zero lag / 0 KB) */
-        @keyframes floatSlow1 {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(60px, -80px) scale(1.15); }
-            66% { transform: translate(-50px, 40px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
-        }
-        @keyframes floatSlow2 {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(-70px, 60px) scale(1.1); }
-            66% { transform: translate(40px, -50px) scale(0.95); }
-            100% { transform: translate(0px, 0px) scale(1); }
-        }
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.35; transform: scale(1); }
-            50% { opacity: 0.65; transform: scale(1.2); }
-        }
+        /* SFONDO FLUIDO A 60 FPS */
+        @keyframes floatSlow1 { 0% { transform: translate(0px, 0px) scale(1); } 33% { transform: translate(60px, -80px) scale(1.15); } 66% { transform: translate(-50px, 40px) scale(0.9); } 100% { transform: translate(0px, 0px) scale(1); } }
+        @keyframes floatSlow2 { 0% { transform: translate(0px, 0px) scale(1); } 33% { transform: translate(-70px, 60px) scale(1.1); } 66% { transform: translate(40px, -50px) scale(0.95); } 100% { transform: translate(0px, 0px) scale(1); } }
+        @keyframes pulseGlow { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 0.65; transform: scale(1.2); } }
         .animate-mesh-1 { animation: floatSlow1 18s ease-in-out infinite alternate; }
         .animate-mesh-2 { animation: floatSlow2 22s ease-in-out infinite alternate; }
         .animate-mesh-3 { animation: pulseGlow 12s ease-in-out infinite alternate; }
+
+        /* KEYFRAMES MARQUEE SOCIAL PROOF */
+        @keyframes marqueeLeft { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        @keyframes marqueeRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0%); } }
+        .animate-marquee-left { display: flex; width: max-content; animation: marqueeLeft 40s linear infinite; }
+        .animate-marquee-right { display: flex; width: max-content; animation: marqueeRight 42s linear infinite; }
+        .marquee-wrapper:hover .animate-marquee-left,
+        .marquee-wrapper:hover .animate-marquee-right { animation-play-state: paused; }
     </style>
 </head>
 <body class="antialiased flex flex-col min-h-screen selection:bg-cyan-500/30 selection:text-white relative overflow-x-hidden">
 
-    <!-- ── SFONDO GRADIENTE FLUIDO ANIMATO (TECNOLOGIA SOCIALENGINE) ── -->
+    <!-- ── SFONDO GRADIENTE FLUIDO ANIMATO ── -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        <!-- Mesh 1: Ciano Superiore -->
         <div class="absolute -top-[15%] -left-[10%] w-[650px] md:w-[850px] h-[650px] md:h-[850px] rounded-full bg-gradient-to-br from-cyan-600/25 via-blue-600/10 to-transparent blur-[140px] animate-mesh-1"></div>
-        <!-- Mesh 2: Blu Notte / Indaco Destra -->
         <div class="absolute top-[35%] -right-[15%] w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full bg-gradient-to-tl from-indigo-600/20 via-cyan-600/15 to-transparent blur-[150px] animate-mesh-2"></div>
-        <!-- Mesh 3: Oro / Ambra Basso -->
         <div class="absolute bottom-[-10%] left-[25%] w-[500px] md:w-[700px] h-[500px] md:h-[700px] rounded-full bg-gradient-to-t from-amber-500/10 via-cyan-500/10 to-transparent blur-[160px] animate-mesh-3"></div>
-        <!-- Griglia a punti ad alta definizione -->
         <div class="absolute inset-0 bg-[radial-gradient(rgba(6,182,212,0.08)_1px,transparent_1px)] bg-[size:32px_32px] opacity-40"></div>
     </div>
 
@@ -94,7 +85,9 @@
                     <a href="#rpg" class="hover:text-cyan-400 transition">Modalità RPG</a>
                     <a href="#maxischermo" class="hover:text-cyan-400 transition">Maxischermo TV</a>
                     <a href="#dieta" class="hover:text-cyan-400 transition">Dieta AI</a>
+                    <a href="#recensioni" class="hover:text-cyan-400 transition">Recensioni</a>
                     <a href="#musica" class="hover:text-amber-400 transition flex items-center gap-1">🎵 Inni Palestra</a>
+                    <a href="#ecosistema" class="hover:text-cyan-400 transition">Ecosistema RM</a>
                     <a href="#faq" class="hover:text-cyan-400 transition">FAQ</a>
                 </nav>
 
@@ -137,19 +130,19 @@
                 </div>
             </section>
 
-            <!-- SOCIAL PROOF & METRICHE -->
+            <!-- STATS NUMERICHE SOCIAL PROOF -->
             <section class="py-12 px-6 border-y border-white/10 bg-black/40 backdrop-blur-md">
                 <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                     <div>
-                        <span class="font-rpg text-3xl md:text-4xl font-black text-cyan-400 block">+240%</span>
+                        <span class="font-rpg text-3xl md:text-4xl font-black text-cyan-400 block">+280%</span>
                         <span class="text-xs text-zinc-400 uppercase font-semibold">Frequenza Iscritti</span>
                     </div>
                     <div>
                         <span class="font-rpg text-3xl md:text-4xl font-black text-emerald-400 block">-42%</span>
-                        <span class="text-xs text-zinc-400 uppercase font-semibold">Abbandono Abbonamenti</span>
+                        <span class="text-xs text-zinc-400 uppercase font-semibold">Tasso di Abbandono</span>
                     </div>
                     <div>
-                        <span class="font-rpg text-3xl md:text-4xl font-black text-amber-400 block">15.000+</span>
+                        <span class="font-rpg text-3xl md:text-4xl font-black text-amber-400 block">18.400+</span>
                         <span class="text-xs text-zinc-400 uppercase font-semibold">Serie Loggate a Voce</span>
                     </div>
                     <div>
@@ -170,7 +163,7 @@
                             Ogni serie ti dà XP. <br>Ogni macchinario sblocca livelli.
                         </h2>
                         <p class="text-zinc-300 leading-relaxed font-light">
-                            Ispirato al modello <i>Hero's Journey</i>, AresAI trasforma la routine dei sollevamenti in una competizione coinvolgente.
+                            Ispirato al modello di successo di <i>Hero's Journey</i>, AresAI trasforma la routine dei sollevamenti in una competizione coinvolgente nella vita reale.
                         </p>
                         <ul class="space-y-3 text-sm text-zinc-200">
                             <li class="flex items-center gap-3">⚡ <b>Rango Evolutivo:</b> Da <i>E-Rank Hunter</i> a <i>S-Rank Titan</i>.</li>
@@ -250,7 +243,7 @@
                         <span class="text-xs font-rpg text-cyan-400 uppercase tracking-widest font-bold">Computer Vision AI 📸</span>
                         <h2 class="text-3xl md:text-5xl font-black text-white font-display mt-2 mb-6">Traccia la tua Dieta in 3 secondi.</h2>
                         <p class="text-zinc-300 leading-relaxed font-light mb-6">
-                            Niente bilance tascabili o ricerche manuali. Scatti una foto al piatto prima di mangiare: l'AI estrae i macronutrienti e aggiunge <b>+100 XP</b> al tuo profilo.
+                            Niente bilance tascabili o ricerche manuali. Scatti una foto al piatto prima di mangiare: l'AI estrae calorie, proteine, carboidrati e grassi, aggiungendo <b>+100 XP</b> al tuo profilo.
                         </p>
                     </div>
                     <div class="glass-panel p-6 rounded-3xl shadow-2xl">
@@ -261,6 +254,251 @@
                             <div class="bg-black/60 p-2.5 rounded-xl"><span class="block text-[9px] text-zinc-500 font-bold">CARB</span><span class="font-black text-cyan-400">35g</span></div>
                             <div class="bg-black/60 p-2.5 rounded-xl"><span class="block text-[9px] text-zinc-500 font-bold">FAT</span><span class="font-black text-amber-400">12g</span></div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SEZIONE SOCIAL PROOF ANIMATA (DOPPIO NASTRO MARQUEE 60 FPS) ── -->
+            <section id="recensioni" class="py-24 border-t border-white/10 bg-gradient-to-b from-black via-zinc-950/80 to-black overflow-hidden relative">
+                <div class="max-w-6xl mx-auto px-6 text-center mb-12">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-3">
+                        Wall of Fame &amp; Social Proof 🌟
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-black text-white font-display">Chi ha trasformato la propria Palestra con AresAI</h2>
+                    <p class="text-zinc-400 text-sm max-w-xl mx-auto mt-2">Passa sopra con il mouse per mettere in pausa e leggere le storie degli atleti e dei titolari.</p>
+                </div>
+
+                <!-- CONTENITORE MARQUEE (DUAL ROW) -->
+                <div class="marquee-wrapper space-y-5 select-none">
+                    
+                    <!-- RIGA 1: SCORRIMENTO VERSO SINISTRA -->
+                    <div class="animate-marquee-left flex gap-5">
+                        
+                        <!-- Card 1 -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 text-black font-black flex items-center justify-center font-rpg text-sm">MB</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Matteo Bruni <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Titolare "Iron Box Club" • Bologna</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">LVL 24</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Da quando abbiamo montato il Maxischermo con la Leaderboard, gli iscritti vengono 4 volte a settimana invece di 2. Vogliono solo scalare il podio davanti a tutti."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400">
+                                <span>+280% PRESENZE</span>
+                                <span class="text-zinc-500">Coach Hub Master</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-500 text-black font-black flex items-center justify-center font-rpg text-sm">DT</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Davide T. <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Atleta Powerlifting • Roma</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-cyan-400 font-bold">LVL 31 S-Rank</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Non tocco più il telefono con le mani piene di magnesite. Dico 'Panca 110kg 6 colpi' nelle cuffie, Ares salva tutto e avvia il timer di 3 minuti. Mostruoso."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-cyan-400">
+                                <span>14.800 KG SOLLEVATI</span>
+                                <span class="text-zinc-500">Atleta PRO</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-fuchsia-500 to-indigo-500 text-white font-black flex items-center justify-center font-rpg text-sm">SM</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Sara Mantovani <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Personal Trainer (30 Atleti) • Milano</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">PT Pro</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Prima passavo le domeniche a controllare i diari cartacei. Ora dal Coach Hub correggo i pasti dei miei 30 clienti in 10 minuti. Nessuno molla più il percorso."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400">
+                                <span>-45% CHURN CLIENTI</span>
+                                <span class="text-zinc-500">Coach Hub Master</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 text-black font-black flex items-center justify-center font-rpg text-sm">FC</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Fabio Carli <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Direttore "Titan Gym" • Padova</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">LVL 22</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"I cartelli QR stampati dal generatore sui nostri rack hanno trasformato la palestra in un'arena. I ragazzi non vedono l'ora di sbloccare i badge XP."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-cyan-400">
+                                <span>QR RACK ATTIVI</span>
+                                <span class="text-zinc-500">Palestra Partner</span>
+                            </div>
+                        </div>
+
+                        <!-- DUPLICATO PER EFFETTO LOOP INFINITO -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 text-black font-black flex items-center justify-center font-rpg text-sm">MB</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Matteo Bruni <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Titolare "Iron Box Club" • Bologna</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">LVL 24</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Da quando abbiamo montato il Maxischermo con la Leaderboard, gli iscritti vengono 4 volte a settimana invece di 2. Vogliono solo scalare il podio davanti a tutti."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400">
+                                <span>+280% PRESENZE</span>
+                                <span class="text-zinc-500">Coach Hub Master</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGA 2: SCORRIMENTO VERSO DESTRA -->
+                    <div class="animate-marquee-right flex gap-5">
+                        
+                        <!-- Card 5 -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 text-white font-black flex items-center justify-center font-rpg text-sm">ED</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Elena Dalla Costa <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Fitness &amp; Nutrizione • Verona</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-emerald-400 font-bold">LVL 16</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"La dieta fotografica è stata la svolta: fotografo il piatto in 3 secondi e vedo subito i grammi di proteine e carboidrati. Niente più ansia da bilancia."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400">
+                                <span>-6 KG IN 2 MESI</span>
+                                <span class="text-zinc-500">Dieta AI User</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black flex items-center justify-center font-rpg text-sm">LV</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Luca Valenti <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Calisthenics &amp; Hyrox • Firenze</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-cyan-400 font-bold">LVL 27 Titan</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"La voce di Ares nelle cuffie con il modello Nova-3 capisce ogni singolo esercizio anche quando in sala sparano musica ad alto volume. Esperienza pazzesca."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-cyan-400">
+                                <span>330ms LATENZA</span>
+                                <span class="text-zinc-500">Atleta PRO</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 7 -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 text-black font-black flex items-center justify-center font-rpg text-sm">VB</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Dott.ssa Valentina B. <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Nutrizionista Sportiva • Torino</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">Pro Coach</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"I miei atleti si divertono a fotografare i piatti per accumulare i +100 XP. L'aderenza al piano alimentare è passata dal 60% a oltre il 95% in un mese."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400">
+                                <span>95% ADERENZA MACRO</span>
+                                <span class="text-zinc-500">Coach Hub Master</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 8 -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-400 to-indigo-600 text-black font-black flex items-center justify-center font-rpg text-sm">CM</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Christian Moretti <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Atleta S-Rank Titan • Rimini</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">LVL 34</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Sono al livello 34. Quando entri in sala e vedi il tuo nome al primo posto sul Maxischermo, l'energia che ci metti nei set pesanti raddoppia sul serio."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-amber-400">
+                                <span>TOP #1 LEADERBOARD</span>
+                                <span class="text-zinc-500">Atleta PRO</span>
+                            </div>
+                        </div>
+
+                        <!-- DUPLICATO PER EFFETTO LOOP INFINITO -->
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 text-white font-black flex items-center justify-center font-rpg text-sm">ED</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm flex items-center gap-1.5">Elena Dalla Costa <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4>
+                                            <p class="text-[11px] text-zinc-400">Fitness &amp; Nutrizione • Verona</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-emerald-400 font-bold">LVL 16</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"La dieta fotografica è stata la svolta: fotografo il piatto in 3 secondi e vedo subito i grammi di proteine e carboidrati. Niente più ansia da bilancia."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400">
+                                <span>-6 KG IN 2 MESI</span>
+                                <span class="text-zinc-500">Dieta AI User</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
@@ -285,36 +523,6 @@
                             <a href="#registrazione-sezione" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white font-bold text-xs px-6 py-3.5 rounded-xl transition">
                                 Richiedi Inno per la tua Palestra
                             </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SOCIAL PROOF / RECENSIONI -->
-            <section class="py-24 px-6 border-t border-white/10">
-                <div class="max-w-6xl mx-auto">
-                    <div class="text-center mb-16">
-                        <p class="font-rpg text-xs text-brandCyan uppercase tracking-[5px] mb-3">Feedback dall'Arena</p>
-                        <h2 class="text-3xl md:text-5xl font-black text-white font-display">Cosa dicono Coach e Atleti</h2>
-                    </div>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div class="glass-panel p-8 rounded-3xl">
-                            <div class="text-amber-400 text-sm mb-4">★★★★★</div>
-                            <p class="text-sm text-zinc-300 leading-relaxed mb-6">"Da quando abbiamo messo il Maxischermo con la classifica Ares, gli iscritti vengono 4 volte a settimana invece di 2. Vogliono solo battere gli amici sul podio."</p>
-                            <span class="font-bold text-white block text-sm">Matteo B.</span>
-                            <span class="text-xs text-zinc-500">Titolare Iron Box Gym</span>
-                        </div>
-                        <div class="glass-panel p-8 rounded-3xl">
-                            <div class="text-amber-400 text-sm mb-4">★★★★★</div>
-                            <p class="text-sm text-zinc-300 leading-relaxed mb-6">"Non tocco più il telefono con le mani sudate per segnare i chili. Dico 'Panca 90kg 8 colpi' alle cuffie, Ares risponde e calcola il recupero."</p>
-                            <span class="font-bold text-white block text-sm">Davide T.</span>
-                            <span class="text-xs text-zinc-500">Atleta Powerlifting</span>
-                        </div>
-                        <div class="glass-panel p-8 rounded-3xl">
-                            <div class="text-amber-400 text-sm mb-4">★★★★★</div>
-                            <p class="text-sm text-zinc-300 leading-relaxed mb-6">"Con il Coach Hub correggo i pasti dei miei 25 clienti in 2 minuti e controllo chi sta saltando gli allenamenti. La retention è salita alle stelle."</p>
-                            <span class="font-bold text-white block text-sm">Sara M.</span>
-                            <span class="text-xs text-zinc-500">Personal Trainer</span>
                         </div>
                     </div>
                 </div>
@@ -456,6 +664,34 @@
                 </div>
             </section>
 
+            <!-- ECOSISTEMA ORBITALE RM STUDIO -->
+            <section id="ecosistema" class="py-24 px-6 border-t border-white/10 bg-black/60 relative">
+                <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-16 items-center">
+                    <div class="lg:col-span-5 flex justify-center items-center relative min-h-[440px]" id="orbit-template-container">
+                        <p class="text-xs text-zinc-500 animate-pulse">Caricamento Ecosistema RM Studio...</p>
+                    </div>
+
+                    <div class="lg:col-span-7 space-y-6 text-left">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-brandCyan text-xs font-bold uppercase tracking-widest">
+                            Esperienza &amp; Autorevolezza
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight font-display">
+                            Tecnologia proprietaria <span class="text-brandCyan">RM Studio</span>
+                        </h2>
+                        
+                        <p class="text-zinc-300 text-base leading-relaxed font-light">
+                            Sviluppato dal programmatore <b>Riccardo Modena</b>, AresAI fa parte di un ecosistema integrato di software B2B/B2C dedicati all'automazione aziendale, al Voice AI e alla Computer Vision.
+                        </p>
+
+                        <div class="pt-2">
+                            <a href="https://www.linkedin.com/in/riccardo-modena-13918a61/" target="_blank" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white font-bold px-6 py-3 rounded-full text-xs transition border border-white/10">
+                                <span>Segui Riccardo Modena su LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- FOOTER -->
             <footer class="border-t border-white/10 bg-black py-16 px-6 text-xs text-zinc-500">
                 <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 text-center md:text-left">
@@ -497,6 +733,7 @@
     <script src="pricing.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // Registrazione Form
         const form = document.getElementById('form-registrazione');
         if (form) {
             form.addEventListener('submit', async (e) => {
@@ -525,6 +762,15 @@
                 }
             });
         }
+
+        // Caricamento Dinamico Sistema Orbitale RM Studio
+        fetch("https://raw.githubusercontent.com/Rickym2025/mrstudio/main/public/orbit-template.html")
+            .then(res => res.text())
+            .then(html => { 
+                const c = document.getElementById("orbit-template-container"); 
+                if(c) c.innerHTML = html; 
+            })
+            .catch(err => console.error("Orbit error:", err));
     });
     </script>
     <script src="https://rmstudio.app/cookie-banner.js" defer></script>
