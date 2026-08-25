@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "AresAI Coach Hub",
+      "operatingSystem": "Web, Android, iOS",
+      "applicationCategory": "BusinessApplication"
+    }
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-REFDMP8X2H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-REFDMP8X2H');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AresAI • Coach Hub & Master Control</title>
+    <title>AresAI • Coach Hub &amp; Master Control</title>
+    
+    <!-- Favicon & Icone -->
+    <link rel="icon" href="public/favicon.ico" onerror="this.href='/favicon.ico'" type="image/x-icon">
+    <link rel="shortcut icon" href="public/favicon.ico" onerror="this.href='/favicon.ico'" type="image/x-icon">
+    <link rel="apple-touch-icon" href="public/logo.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;700;800;900&family=Montserrat:wght@800;900&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --font-heading: 'Orbitron', sans-serif;
         }
-
-        /* Il font dinamico controllato in tempo reale dal Coach */
-        .font-rpg { 
-            font-family: var(--font-heading) !important; 
-        }
-
+        .font-rpg { font-family: var(--font-heading) !important; }
+        .font-inter { font-family: 'Inter', sans-serif; }
         .glass {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(5, 8, 17, 0.96) 100%);
             border: 1px solid rgba(6, 182, 212, 0.15);
@@ -23,19 +42,22 @@
         .glow-gold { box-shadow: 0 0 30px rgba(245, 158, 11, 0.25); }
     </style>
 </head>
-<body class="bg-[#030712] text-slate-100 min-h-screen p-6 selection:bg-cyan-500 selection:text-black">
+<body class="bg-[#030712] text-slate-100 min-h-screen p-6 font-inter selection:bg-cyan-500 selection:text-black">
 
     <div class="max-w-6xl mx-auto space-y-8">
         
         <!-- HEADER COACH -->
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-900 pb-6">
-            <div>
-                <div class="flex items-center gap-2 mb-1">
-                    <span class="font-rpg text-xs text-cyan-400 font-bold uppercase tracking-widest">Ares Gym Control</span>
-                    <span id="superadmin-badge" class="hidden text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-bold">👑 SuperAdmin Illimitato</span>
+            <div class="flex items-center gap-3">
+                <img src="public/logo.png" alt="AresAI" class="h-10 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="font-rpg text-xs text-cyan-400 font-bold uppercase tracking-widest">Ares Gym Control</span>
+                        <span id="superadmin-badge" class="hidden text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-bold">👑 SuperAdmin Illimitato</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-black text-white font-rpg tracking-tight">Coach Hub Dashboard</h1>
+                    <p class="text-xs text-slate-400 mt-0.5">Gestione atleti, monitoraggio carichi, correzione pasti e controllo Maxischermo Arena.</p>
                 </div>
-                <h1 class="text-3xl font-black text-white font-rpg tracking-tight">Coach Hub Dashboard</h1>
-                <p class="text-xs text-slate-400 mt-1">Gestione atleti, monitoraggio carichi, correzione pasti e controllo Maxischermo Arena.</p>
             </div>
             
             <div class="flex flex-wrap gap-2.5">
@@ -48,7 +70,7 @@
                 <a href="qr-generator.html" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-bold font-rpg px-4 py-2.5 rounded-xl transition">
                     🖨️ Cartelli QR Rack
                 </a>
-                <button onclick="caricaDatiCoach()" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 px-4 py-2.5 rounded-xl transition font-medium">
+                <button onclick="caricaDatiCoach()" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 px-4 py-2.5 rounded-xl transition font-medium cursor-pointer">
                     🔄 Sincronizza
                 </button>
             </div>
@@ -117,7 +139,7 @@
                     </div>
                     <h3 class="text-lg font-black text-white font-rpg">Colonna Sonora Inedita &amp; Inno Ufficiale per la tua Palestra</h3>
                     <p class="text-xs text-slate-300 max-w-2xl leading-relaxed">
-                        Componiamo l'Inno su misura per la tua struttura con il Maestro <b>Fausto Fusetti</b> (SIAE n. 189515). Puoi anche riprodurre i 6 brani ufficiali direttamente in sala pesi.
+                        Componiamo l'Inno su misura per la tua struttura con il Maestro <b>Fausto Fusetti</b> (SIAE n. 189515). Puoi anche riprodurre i brani ufficiali direttamente in sala pesi.
                     </p>
                 </div>
                 <button onclick="apriModalMusica()" class="whitespace-nowrap bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-black font-black font-rpg text-xs px-6 py-3.5 rounded-xl transition shadow-lg uppercase tracking-wider cursor-pointer">
@@ -282,16 +304,15 @@
         const SUPERADMIN_EMAILS = ["modena.riccardo@gmail.com", "riccardo@rmstudio.app", "info@rmstudio.app"];
 
         const ARES_COACH_TRACKS = [
-            "https://cdn1.suno.ai/c85c7b6e-74ad-43d1-97ee-08553d5adb01.mp3", // Cuore FirstFit
-            "https://cdn1.suno.ai/658ef7a0-3626-4906-a06e-810b47a33260.mp3", // FirstFit Mantra
-            "https://cdn1.suno.ai/4fb1eb5f-df02-4a3d-8dec-a8e826749515.mp3", // Log It
-            "https://cdn1.suno.ai/98206b32-fda5-4a49-b66b-2772c936bc69.mp3", // Ares Arena
-            "https://cdn1.suno.ai/ff3c5fb4-c63c-4d38-a304-1ad67e4d6d5e.mp3", // Level Up
-            "https://cdn1.suno.ai/2dee52d5-c39b-4f5b-acef-29c6f26c6b77.mp3", // Battito Digitale
-            "https://cdn1.suno.ai/92a61893-089b-4a27-9853-394c8eb8831b.mp3"  // Digital Muscle
+            "https://cdn1.suno.ai/c85c7b6e-74ad-43d1-97ee-08553d5adb01.mp3",
+            "https://cdn1.suno.ai/658ef7a0-3626-4906-a06e-810b47a33260.mp3",
+            "https://cdn1.suno.ai/4fb1eb5f-df02-4a3d-8dec-a8e826749515.mp3",
+            "https://cdn1.suno.ai/98206b32-fda5-4a49-b66b-2772c936bc69.mp3",
+            "https://cdn1.suno.ai/ff3c5fb4-c63c-4d38-a304-1ad67e4d6d5e.mp3",
+            "https://cdn1.suno.ai/2dee52d5-c39b-4f5b-acef-29c6f26c6b77.mp3",
+            "https://cdn1.suno.ai/92a61893-089b-4a27-9853-394c8eb8831b.mp3"
         ];
 
-        // MAPPA FONT PER IL CAMBIO DINAMICO A 0 MS
         const FONT_MAP = {
             'font-orbitron': "'Orbitron', sans-serif",
             'font-montserrat': "'Montserrat', sans-serif",
@@ -384,7 +405,7 @@
                                     <div><label class="block text-[8px] text-slate-500 uppercase font-bold">Carb (g)</label><input type="number" id="meal-carb-${ultimoPasto.id}" value="${ultimoPasto.carboidrati_g || 0}" class="w-full text-center bg-slate-900 border border-slate-800 rounded py-1 text-slate-200"></div>
                                     <div><label class="block text-[8px] text-slate-500 uppercase font-bold">Fat (g)</label><input type="number" id="meal-fat-${ultimoPasto.id}" value="${ultimoPasto.grassi_g || 0}" class="w-full text-center bg-slate-900 border border-slate-800 rounded py-1 text-slate-200"></div>
                                 </div>
-                                <button onclick="modificaValoriPasto('${ultimoPasto.id}')" class="w-full text-[10px] font-bold bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 py-1.5 rounded-lg transition">Salva Correzione Pasto</button>
+                                <button onclick="modificaValoriPasto('${ultimoPasto.id}')" class="w-full text-[10px] font-bold bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 py-1.5 rounded-lg transition cursor-pointer">Salva Correzione Pasto</button>
                             </div>
                         `;
                     }
