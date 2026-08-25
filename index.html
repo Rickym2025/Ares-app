@@ -19,17 +19,23 @@
       "author": { "@type": "Person", "name": "Riccardo Modena", "url": "https://www.linkedin.com/in/riccardo-modena-13918a61/" }
     }
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CSTMDQWEGR"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-REFDMP8X2H"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-CSTMDQWEGR');
+      gtag('config', 'G-REFDMP8X2H');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AresAI • Il Co-Pilota Vocale e Fitness RPG per Palestre e Atleti</title>
+    
+    <!-- Favicon & Icone -->
     <link rel="icon" href="public/favicon.ico" onerror="this.href='/favicon.ico'" type="image/x-icon">
+    <link rel="shortcut icon" href="public/favicon.ico" onerror="this.href='/favicon.ico'" type="image/x-icon">
+    <link rel="apple-touch-icon" href="public/logo.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -67,7 +73,7 @@
 </head>
 <body class="antialiased flex flex-col min-h-screen selection:bg-cyan-500/30 selection:text-white relative overflow-x-hidden">
 
-    <!-- SFONDO GYM VIBRANTE (Zero Lag) -->
+    <!-- SFONDO GYM CON OVERLAY E ACCENTI NEON A 60 FPS -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
         <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1920&q=80" alt="Palestra Background" class="absolute inset-0 w-full h-full object-cover opacity-15 mix-blend-luminosity filter contrast-125">
         <div class="absolute inset-0 bg-gradient-to-b from-[#030712]/95 via-[#030712]/85 to-[#030712]"></div>
@@ -81,7 +87,7 @@
         <header class="fixed top-0 left-0 w-full p-4 md:p-5 z-50 bg-[#030712]/90 border-b border-white/10">
             <div class="max-w-6xl mx-auto flex justify-between items-center">
                 <a href="#" class="flex items-center gap-3 text-2xl font-black text-white font-display">
-                    <img src="public/logo.png" alt="AresAI" class="h-9 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
+                    <img src="public/logo.png" alt="AresAI Logo" class="h-9 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
                     <span>Ares<span class="text-brandCyan italic">AI</span></span>
                 </a>
                 
@@ -89,7 +95,8 @@
                     <a href="#rpg" class="hover:text-cyan-400 transition">Modalità RPG</a>
                     <a href="#hotword-system" class="hover:text-cyan-400 transition">🎙️ Attivazione "Ares"</a>
                     <a href="#maxischermo" class="hover:text-cyan-400 transition">Maxischermo TV</a>
-                    <a href="#workout-beats" class="hover:text-amber-400 transition">🎵 Inni Palestra</a>
+                    <a href="#servizi-ausiliari" class="hover:text-cyan-400 transition">Suite Palestre</a>
+                    <a href="#workout-beats" class="hover:text-amber-400 transition">🎵 Inni FirstFit</a>
                     <a href="#prezzi" class="hover:text-cyan-400 transition">Piani &amp; Tariffe</a>
                     <a href="#faq" class="hover:text-cyan-400 transition">FAQ</a>
                 </nav>
@@ -170,7 +177,7 @@
                     <div class="text-center max-w-2xl mx-auto mb-10">
                         <span class="text-xs font-rpg text-cyan-400 uppercase tracking-widest font-bold">Ingegneria Vocale di Sala Pesi 🎙️</span>
                         <h2 class="text-2xl sm:text-4xl font-black text-white font-display mt-2">Parla con gli amici. Ares risponde solo a te.</h2>
-                        <p class="text-xs sm:text-sm text-zinc-300 mt-2">Nessun falso allarme se chiacchiere tra una serie e l'altra.</p>
+                        <p class="text-xs sm:text-sm text-zinc-300 mt-2">Nessun falso allarme se chiacchieri tra una serie e l'altra.</p>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6 items-stretch">
                         <div class="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
@@ -197,6 +204,40 @@
                 </div>
             </section>
 
+            <!-- RPG SYSTEM -->
+            <section id="rpg" class="py-24 px-6 border-t border-white/10">
+                <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest">Il Modello Gamified del Kazakistan 🎮</div>
+                        <h2 class="text-3xl md:text-5xl font-black text-white font-display leading-tight">Ogni serie ti dà XP. <br>Ogni macchinario sblocca livelli.</h2>
+                        <p class="text-zinc-300 leading-relaxed font-light">Ispirato al modello di successo di <i>Hero's Journey</i>, AresAI trasforma la routine dei sollevamenti in una sfida competitiva.</p>
+                        <ul class="space-y-3 text-sm text-zinc-200">
+                            <li class="flex items-center gap-3">⚡ <b>Rango Evolutivo:</b> Da <i>E-Rank Hunter</i> a <i>S-Rank Titan</i>.</li>
+                            <li class="flex items-center gap-3">🎙️ <b>Zero Mani sul Telefono:</b> Dici "Ares..." e il copilota registra per te.</li>
+                            <li class="flex items-center gap-3">🔥 <b>Streak &amp; Badge:</b> Bonus giornalieri per chi mantiene la costanza.</li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl glow-cyan">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 p-0.5 flex items-center justify-center"><span class="text-2xl">⚡</span></div>
+                                <div><span class="text-[10px] font-rpg text-cyan-400 font-bold uppercase">B-Rank Gladiator</span><h4 class="font-rpg text-lg font-black text-white">Marco Rossi (Tu)</h4></div>
+                            </div>
+                            <span class="bg-cyan-400 text-black text-xs font-black px-2.5 py-1 rounded font-rpg">LVL 14</span>
+                        </div>
+                        <div class="space-y-2 mb-6">
+                            <div class="flex justify-between text-xs font-bold"><span class="text-slate-400">Progresso Livello</span><span class="text-cyan-400 font-rpg">380 / 500 XP</span></div>
+                            <div class="w-full h-3 bg-slate-950 rounded-full border border-slate-800 p-0.5"><div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full w-[76%]"></div></div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500">KG TOTALI</span><span class="font-rpg font-bold text-white">4.850 kg</span></div>
+                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500">SERIE CONCLUSE</span><span class="font-rpg font-bold text-cyan-400">42</span></div>
+                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500">RANK PALESTRA</span><span class="font-rpg font-bold text-amber-400">#2 🥈</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- MAXISCHERMO PER PALESTRE -->
             <section id="maxischermo" class="py-24 px-6 border-t border-white/10 bg-black/60">
                 <div class="max-w-6xl mx-auto text-center mb-12">
@@ -210,9 +251,174 @@
                         <a href="maxischermo.html" target="_blank" class="text-xs bg-amber-500 text-black font-rpg font-black px-4 py-1.5 rounded-lg hover:bg-amber-400 transition">Apri a Schermo Intero 📺</a>
                     </div>
                     <div class="grid md:grid-cols-3 gap-4">
-                        <div class="bg-gradient-to-r from-amber-500/20 to-slate-950 p-4 rounded-2xl border border-amber-500/40 flex justify-between items-center"><div><span class="text-2xl">👑</span> <span class="font-rpg font-black text-white ml-2">Davide V.</span><p class="text-[10px] text-amber-300 font-rpg">LVL 28 • Titan</p></div><span class="font-rpg text-base font-black text-amber-400">14.200 XP</span></div>
-                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex justify-between items-center"><div><span class="text-xl">🥈</span> <span class="font-rpg font-bold text-white ml-2">Marco R.</span><p class="text-[10px] text-cyan-400 font-rpg">LVL 14 • Gladiator</p></div><span class="font-rpg text-base font-black text-cyan-400">7.380 XP</span></div>
-                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex justify-between items-center"><div><span class="text-xl">🥉</span> <span class="font-rpg font-bold text-white ml-2">Elena G.</span><p class="text-[10px] text-slate-400 font-rpg">LVL 11 • Warrior</p></div><span class="font-rpg text-base font-black text-slate-300">5.900 XP</span></div>
+                        <div class="bg-gradient-to-r from-amber-500/20 to-slate-950 p-4 rounded-2xl border border-amber-500/40 flex justify-between items-center"><div><span class="text-2xl">👑</span> <span class="font-rpg font-black text-white ml-2">Davide V. (FirstFit)</span><p class="text-[10px] text-amber-300 font-rpg">LVL 10 • Gladiator</p></div><span class="font-rpg text-base font-black text-amber-400">4.850 XP</span></div>
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex justify-between items-center"><div><span class="text-xl">🥈</span> <span class="font-rpg font-bold text-white ml-2">Marco R. (FirstFit)</span><p class="text-[10px] text-cyan-400 font-rpg">LVL 7 • Warrior</p></div><span class="font-rpg text-base font-black text-cyan-400">3.200 XP</span></div>
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex justify-between items-center"><div><span class="text-xl">🥉</span> <span class="font-rpg font-bold text-white ml-2">Elena G. (FirstFit)</span><p class="text-[10px] text-slate-400 font-rpg">LVL 5 • Warrior</p></div><span class="font-rpg text-base font-black text-slate-300">2.150 XP</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVIZI AUSILIARI PER PALESTRE & PT -->
+            <section id="servizi-ausiliari" class="py-24 px-6 border-t border-white/10 bg-gradient-to-b from-cyan-950/20 via-black to-black">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-3">Suite Palestre All-in-One 🚀</div>
+                        <h2 class="text-3xl md:text-5xl font-black text-white font-display">Tecnologie Ausiliarie per Riempire la tua Sala</h2>
+                        <p class="text-zinc-400 text-sm max-w-2xl mx-auto mt-2">Dalla segreteria vocale H24 alla generazione automatica di Reel promozionali per non perdere nessun nuovo iscritto.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border border-cyan-500/30 hover:border-cyan-400 transition">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-2xl font-black mb-6">📞</div>
+                                <h3 class="text-xl font-bold text-white mb-2">Receptionist Vocale H24</h3>
+                                <span class="text-[10px] font-rpg text-cyan-400 font-bold uppercase tracking-wider block mb-3">Ex Dentis • Riadattato Palestre</span>
+                                <p class="text-xs text-zinc-300 leading-relaxed">Risponde al telefono fuori orario, di notte e nei weekend. Spiega prezzi, orari corsi e prenota in automatico <b>giornate di prova gratuita</b> su Google Calendar con promemoria WhatsApp al cliente.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-slate-800 text-xs font-bold text-cyan-400">Zero chiamate perse alla reception →</div>
+                        </div>
+
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border border-fuchsia-500/30 hover:border-fuchsia-400 transition">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-fuchsia-500/10 text-fuchsia-400 flex items-center justify-center text-2xl font-black mb-6">🎥</div>
+                                <h3 class="text-xl font-bold text-white mb-2">Vision UGC Fitness</h3>
+                                <span class="text-[10px] font-rpg text-fuchsia-400 font-bold uppercase tracking-wider block mb-3">Influencer &amp; Modelli Virtuali</span>
+                                <p class="text-xs text-zinc-300 leading-relaxed">Genera video Reel e TikTok ad alta conversione con modelli fitness virtuali realistici (es. "Camila") per promuovere la tua palestra sui social. Tagli del 90% i costi di videomaker e attori.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-slate-800 text-xs font-bold text-fuchsia-400">Reel pronti in 24 ore →</div>
+                        </div>
+
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col justify-between border border-indigo-500/30 hover:border-indigo-400 transition">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-2xl font-black mb-6">⚡</div>
+                                <h3 class="text-xl font-bold text-white mb-2">SocialEngine AI</h3>
+                                <span class="text-[10px] font-rpg text-indigo-400 font-bold uppercase tracking-wider block mb-3">Caroselli in 40 Secondi</span>
+                                <p class="text-xs text-zinc-300 leading-relaxed">Incolli l'URL del sito della tua palestra: l'AI estrae i colori del tuo logo e genera 5 slide persuasive con consigli nutrizionali, promo e schede pronte per Instagram e Facebook.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-slate-800 text-xs font-bold text-indigo-400">Zero ore perse su Canva →</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WALL OF FAME SOCIAL PROOF ANIMATA -->
+            <section id="recensioni" class="py-24 border-t border-white/10 bg-black/60 overflow-hidden relative">
+                <div class="max-w-6xl mx-auto px-6 text-center mb-12">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-3">Wall of Fame 🌟</div>
+                    <h2 class="text-3xl md:text-5xl font-black text-white font-display">Chi si allena e gestisce palestre con AresAI</h2>
+                    <p class="text-zinc-400 text-sm max-w-xl mx-auto mt-2">Passa con il mouse per mettere in pausa lo scorrimento.</p>
+                </div>
+
+                <div class="marquee-wrapper space-y-5 select-none">
+                    <!-- RIGA 1 -->
+                    <div class="animate-marquee-left flex gap-5">
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 text-black font-black flex items-center justify-center font-rpg text-sm">MB</div>
+                                        <div><h4 class="font-bold text-white text-sm">Matteo Bruni <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4><p class="text-[11px] text-zinc-400">Titolare "Iron Box Club" • Bologna</p></div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">LVL 24</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Da quando abbiamo montato il Maxischermo con la Leaderboard, gli iscritti vengono 4 volte a settimana invece di 2. Vogliono solo scalare il podio."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400"><span>+280% PRESENZE</span><span class="text-zinc-500">Coach Hub Master</span></div>
+                        </div>
+
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-500 text-black font-black flex items-center justify-center font-rpg text-sm">DT</div>
+                                        <div><h4 class="font-bold text-white text-sm">Davide T. <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4><p class="text-[11px] text-zinc-400">Atleta Powerlifting • Roma</p></div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-cyan-400 font-bold">LVL 31 S-Rank</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Dico 'Ares, panca 110kg 6 colpi' nelle cuffie, Ares salva tutto e avvia il recupero. Quando parlo col mio spotter non si intromette mai."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-cyan-400"><span>14.800 KG SOLLEVATI</span><span class="text-zinc-500">Atleta PRO</span></div>
+                        </div>
+
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-fuchsia-500 to-indigo-500 text-white font-black flex items-center justify-center font-rpg text-sm">SM</div>
+                                        <div><h4 class="font-bold text-white text-sm">Sara Mantovani <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4><p class="text-[11px] text-zinc-400">Personal Trainer (30 Atleti) • Milano</p></div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">PT Pro</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Dal Coach Hub correggo i pasti dei miei 30 clienti in 10 minuti. Nessuno molla più il percorso alimentare e la retention è alle stelle."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400"><span>-45% CHURN CLIENTI</span><span class="text-zinc-500">Coach Hub Master</span></div>
+                        </div>
+
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 text-black font-black flex items-center justify-center font-rpg text-sm">MB</div>
+                                        <div><h4 class="font-bold text-white text-sm">Matteo Bruni <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4><p class="text-[11px] text-zinc-400">Titolare "Iron Box Club" • Bologna</p></div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">LVL 24</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Da quando abbiamo montato il Maxischermo con la Leaderboard, gli iscritti vengono 4 volte a settimana invece di 2."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400"><span>+280% PRESENZE</span><span class="text-zinc-500">Coach Hub Master</span></div>
+                        </div>
+                    </div>
+
+                    <!-- RIGA 2 -->
+                    <div class="animate-marquee-right flex gap-5">
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 text-white font-black flex items-center justify-center font-rpg text-sm">ED</div>
+                                        <div><h4 class="font-bold text-white text-sm">Elena Dalla Costa <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4><p class="text-[11px] text-zinc-400">Fitness &amp; Nutrizione • Verona</p></div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-emerald-400 font-bold">LVL 16</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"La dieta fotografica è stata la svolta: fotografo il piatto in 3 secondi e vedo subito i macronutrienti. Niente più noia da bilancia."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400"><span>-6 KG IN 2 MESI</span><span class="text-zinc-500">Dieta AI User</span></div>
+                        </div>
+
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-400 to-indigo-600 text-black font-black flex items-center justify-center font-rpg text-sm">CM</div>
+                                        <div><h4 class="font-bold text-white text-sm">Christian Moretti <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4><p class="text-[11px] text-zinc-400">Atleta S-Rank Titan • Rimini</p></div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-amber-400 font-bold">LVL 34</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"Sono al livello 34. Quando entri in sala e vedi il tuo nome al primo posto sul Maxischermo, l'energia che ci metti nei set pesanti raddoppia."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-amber-400"><span>TOP #1 LEADERBOARD</span><span class="text-zinc-500">Atleta PRO</span></div>
+                        </div>
+
+                        <div class="w-[380px] sm:w-[420px] glass-panel p-6 rounded-3xl border border-white/10 flex-shrink-0 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 text-white font-black flex items-center justify-center font-rpg text-sm">ED</div>
+                                        <div><h4 class="font-bold text-white text-sm">Elena Dalla Costa <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">✓ Verificato</span></h4><p class="text-[11px] text-zinc-400">Fitness &amp; Nutrizione • Verona</p></div>
+                                    </div>
+                                    <span class="text-xs font-rpg text-emerald-400 font-bold">LVL 16</span>
+                                </div>
+                                <div class="text-amber-400 text-xs mb-2.5">★★★★★</div>
+                                <p class="text-xs text-zinc-300 leading-relaxed">"La dieta fotografica è stata la svolta: fotografo il piatto in 3 secondi e vedo subito i macronutrienti."</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] font-rpg text-emerald-400"><span>-6 KG IN 2 MESI</span><span class="text-zinc-500">Dieta AI User</span></div>
+                        </div>
                     </div>
                 </div>
             </section>
