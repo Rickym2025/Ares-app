@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "AresAI QR Generator",
+      "operatingSystem": "Web",
+      "applicationCategory": "UtilitiesApplication"
+    }
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-REFDMP8X2H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-REFDMP8X2H');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AresAI - Generatore Cartelli QR Macchinari</title>
+    <title>AresAI • Generatore Cartelli QR per Macchinari &amp; Rack</title>
+    
+    <!-- Favicon & Icone -->
+    <link rel="icon" href="public/favicon.ico" onerror="this.href='/favicon.ico'" type="image/x-icon">
+    <link rel="shortcut icon" href="public/favicon.ico" onerror="this.href='/favicon.ico'" type="image/x-icon">
+    <link rel="apple-touch-icon" href="public/logo.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Cinzel:wght@700&family=Inter:wght@700;900&family=Montserrat:wght@800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -24,10 +47,13 @@
 
     <div class="max-w-6xl mx-auto space-y-6">
         <!-- Header -->
-        <header class="flex justify-between items-center pb-6 border-b border-slate-900">
-            <div>
-                <span class="text-xs font-orbitron text-cyan-400 uppercase tracking-widest font-bold">Strumenti Palestra</span>
-                <h1 class="text-2xl sm:text-3xl font-black text-white mt-1">Generatore Cartelli QR per Postazioni &amp; Rack</h1>
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-slate-900">
+            <div class="flex items-center gap-3">
+                <img src="public/logo.png" alt="AresAI" class="h-10 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
+                <div>
+                    <span class="text-xs font-orbitron text-cyan-400 uppercase tracking-widest font-bold">Strumenti Palestra</span>
+                    <h1 class="text-2xl sm:text-3xl font-black text-white mt-0.5">Generatore Cartelli QR Postazioni &amp; Rack</h1>
+                </div>
             </div>
             <a href="coach.html" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 px-4 py-2.5 rounded-xl transition">
                 ← Torna alla Dashboard Coach
@@ -44,7 +70,7 @@
                     <!-- 1. Nome Palestra -->
                     <div>
                         <label class="block text-xs text-slate-400 uppercase tracking-wider mb-1.5 font-bold">1. Nome della tua Palestra</label>
-                        <input type="text" id="gym-name-input" oninput="aggiornaAnteprima()" value="Olympus Gym" placeholder="Es. Gold's Gym" class="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 rounded-xl focus:border-cyan-500 outline-none text-sm font-bold">
+                        <input type="text" id="gym-name-input" oninput="aggiornaAnteprima()" value="FIRSTFIT" placeholder="Es. FIRSTFIT" class="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 rounded-xl focus:border-cyan-500 outline-none text-sm font-bold">
                     </div>
 
                     <!-- 2. Macchinario / Attrezzo -->
@@ -55,8 +81,8 @@
                             <option value="POWER RACK SQUAT">🦵 Power Rack Squat</option>
                             <option value="LEG PRESS 45°">🦵 Leg Press 45°</option>
                             <option value="LAT MACHINE">💪 Lat Machine / Pulley</option>
-                            <option value="TRAZIONI & DIP">🦍 Trazioni & Dip Station</option>
-                            <option value="MANUBRI LIBERI">🔥 Zona Manubri & Pesi Liberi</option>
+                            <option value="TRAZIONI & DIP">🦍 Trazioni &amp; Dip Station</option>
+                            <option value="MANUBRI LIBERI">🔥 Zona Manubri &amp; Pesi Liberi</option>
                             <option value="POSTAZIONE CARDIO">🏃 Tapis Roulant / Cardio</option>
                             <option value="CUSTOM">✏️ Altro (Personalizzato...)</option>
                         </select>
@@ -80,10 +106,10 @@
                     <div>
                         <label class="block text-xs text-slate-400 uppercase tracking-wider mb-2 font-bold">4. Stile Visivo del Cartello</label>
                         <div class="grid grid-cols-2 gap-2 text-xs font-bold">
-                            <button onclick="cambiaStile('cyber')" class="bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 p-2.5 rounded-xl text-cyan-400">1. Cyber Arena</button>
-                            <button onclick="cambiaStile('iron')" class="bg-slate-900 hover:bg-slate-800 border border-yellow-500/40 p-2.5 rounded-xl text-yellow-400">2. Hardcore Iron</button>
-                            <button onclick="cambiaStile('luxury')" class="bg-slate-900 hover:bg-slate-800 border border-amber-500/40 p-2.5 rounded-xl text-amber-300">3. Luxury Gold</button>
-                            <button onclick="cambiaStile('clean')" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-slate-200">4. Clean Bianco</button>
+                            <button onclick="cambiaStile('cyber')" class="bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 p-2.5 rounded-xl text-cyan-400 cursor-pointer">1. Cyber Arena</button>
+                            <button onclick="cambiaStile('iron')" class="bg-slate-900 hover:bg-slate-800 border border-yellow-500/40 p-2.5 rounded-xl text-yellow-400 cursor-pointer">2. Hardcore Iron</button>
+                            <button onclick="cambiaStile('luxury')" class="bg-slate-900 hover:bg-slate-800 border border-amber-500/40 p-2.5 rounded-xl text-amber-300 cursor-pointer">3. Luxury Gold</button>
+                            <button onclick="cambiaStile('clean')" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-slate-200 cursor-pointer">4. Clean Bianco</button>
                         </div>
                     </div>
 
@@ -98,7 +124,7 @@
                         
                         <!-- Template 1: Cyber Arena (Predefinito) -->
                         <div id="tpl-cyber" class="qr-card bg-slate-950 p-8 rounded-3xl border-2 border-cyan-400 shadow-[0_0_35px_rgba(6,182,212,0.35)] w-[260px] text-center flex flex-col items-center">
-                            <span class="text-[10px] text-cyan-400 uppercase tracking-widest font-bold label-palestra font-orbitron mb-2">OLYMPUS GYM</span>
+                            <span class="text-[10px] text-cyan-400 uppercase tracking-widest font-bold label-palestra font-orbitron mb-2">FIRSTFIT</span>
                             <h3 class="text-sm font-black text-white uppercase label-attrezzo font-orbitron mb-4">PANCA PIANA</h3>
                             <div class="qrcode-placeholder bg-white p-3 rounded-2xl shadow-lg"></div>
                             <span class="text-[11px] text-cyan-300 mt-4 uppercase tracking-wider font-bold">Inquadra &amp; Dì "Ares"</span>
@@ -107,7 +133,7 @@
 
                         <!-- Template 2: Hardcore Iron -->
                         <div id="tpl-iron" class="qr-card hidden bg-zinc-900 p-8 rounded-3xl border-4 border-yellow-500 w-[260px] text-center flex flex-col items-center">
-                            <span class="text-[10px] text-yellow-500 uppercase tracking-wider font-black label-palestra font-impact mb-1">OLYMPUS GYM</span>
+                            <span class="text-[10px] text-yellow-500 uppercase tracking-wider font-black label-palestra font-impact mb-1">FIRSTFIT</span>
                             <h3 class="text-base font-black text-white uppercase label-attrezzo font-impact mb-4">PANCA PIANA</h3>
                             <div class="qrcode-placeholder bg-white p-3 rounded-2xl border-2 border-black"></div>
                             <span class="text-xs text-yellow-400 mt-4 font-black uppercase">REGISTRA SERIE QUI</span>
@@ -116,7 +142,7 @@
 
                         <!-- Template 3: Luxury Gold -->
                         <div id="tpl-luxury" class="qr-card hidden bg-black p-8 rounded-3xl border border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.2)] w-[260px] text-center flex flex-col items-center">
-                            <span class="text-[10px] text-amber-400/80 uppercase tracking-widest font-bold label-palestra font-cinzel mb-2">OLYMPUS GYM</span>
+                            <span class="text-[10px] text-amber-400/80 uppercase tracking-widest font-bold label-palestra font-cinzel mb-2">FIRSTFIT</span>
                             <h3 class="text-xs font-black text-amber-200 uppercase label-attrezzo font-cinzel mb-4">PANCA PIANA</h3>
                             <div class="qrcode-placeholder bg-white p-3 rounded-2xl border border-amber-500/30"></div>
                             <span class="text-[10px] text-amber-300 mt-4 uppercase tracking-widest font-bold">Ares Voice Arena</span>
@@ -124,7 +150,7 @@
 
                         <!-- Template 4: Clean Bianco -->
                         <div id="tpl-clean" class="qr-card hidden bg-white p-8 rounded-3xl border border-slate-300 w-[260px] text-center flex flex-col items-center text-slate-950">
-                            <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold label-palestra font-inter mb-1">OLYMPUS GYM</span>
+                            <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold label-palestra font-inter mb-1">FIRSTFIT</span>
                             <h3 class="text-sm font-black text-slate-900 uppercase label-attrezzo font-inter mb-4">PANCA PIANA</h3>
                             <div class="qrcode-placeholder bg-white p-2 rounded-xl border border-slate-200"></div>
                             <span class="text-xs text-slate-800 mt-4 font-black uppercase">Scansiona per Allenarti</span>
@@ -181,7 +207,6 @@
             const nomePalestra = document.getElementById('gym-name-input').value.trim() || 'ARES GYM';
             const attrezzo = getNomeAttrezzo();
 
-            // Aggiorna testi
             document.querySelectorAll('.label-palestra').forEach(el => {
                 el.innerText = nomePalestra.toUpperCase();
                 el.className = el.className.replace(/font-\w+/g, '') + ' ' + fontAttivo;
@@ -192,7 +217,6 @@
                 el.className = el.className.replace(/font-\w+/g, '') + ' ' + fontAttivo;
             });
 
-            // Genera QR Code che punta all'HUD Atleta con l'attrezzo pre-impostato
             const targetUrl = `https://ares.rmstudio.app/atleta.html?attrezzo=${encodeURIComponent(attrezzo)}`;
             const placeholders = document.querySelectorAll('.qrcode-placeholder');
             placeholders.forEach(ph => {
