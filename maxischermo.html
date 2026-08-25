@@ -43,10 +43,15 @@
         @keyframes alertIn { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
     </style>
 </head>
-<body class="bg-cyber text-slate-100 min-h-screen p-8 lg:p-12 font-inter overflow-hidden select-none flex flex-col justify-between">
+<body class="bg-cyber text-slate-100 min-h-screen p-8 lg:p-12 font-inter overflow-hidden select-none flex flex-col justify-between relative">
+
+    <!-- FILIGRANA LOGO PALESTRA IN BACKGROUND (CENTRO TV) -->
+    <div class="fixed inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
+        <img id="gym-bg-watermark" src="" alt="Logo Palestra Watermark" class="hidden w-[600px] max-w-[75vw] h-auto object-contain opacity-[0.06] filter grayscale contrast-150 select-none">
+    </div>
 
     <!-- HEADER MAXISCHERMO -->
-    <header class="flex justify-between items-center border-b border-cyan-500/20 pb-6">
+    <header class="flex justify-between items-center border-b border-cyan-500/20 pb-6 relative z-10">
         <div class="flex items-center gap-4">
             <img src="public/logo.png" alt="AresAI" class="h-12 w-auto object-contain" onerror="this.onerror=null; this.src='logo.png';">
             <div class="w-3.5 h-3.5 rounded-full bg-cyan-400 animate-ping"></div>
@@ -60,7 +65,7 @@
         <div class="flex items-center gap-6">
             <div class="text-right">
                 <span id="live-clock" class="font-rpg text-2xl font-black text-slate-300">--:--:--</span>
-                <p class="text-[10px] text-cyan-400 font-bold tracking-widest uppercase">Classifica Ufficiale</p>
+                <p class="text-[10px] text-cyan-400 font-bold tracking-widest uppercase" id="gym-name-label">Classifica Ufficiale FirstFit</p>
             </div>
             <div class="bg-cyan-500/10 border border-cyan-500/30 px-4 py-2 rounded-xl text-center">
                 <span class="text-xs text-slate-400 font-bold block">ATLETI IN ARENA</span>
@@ -70,7 +75,7 @@
     </header>
 
     <!-- MAIN BODY: PODIO & LIVE FEED -->
-    <main class="grid grid-cols-12 gap-8 my-auto py-6 items-start">
+    <main class="grid grid-cols-12 gap-8 my-auto py-6 items-start relative z-10">
         
         <!-- LEADERBOARD CLASSIFICA (Col 8) -->
         <section class="col-span-8 space-y-3">
@@ -91,7 +96,7 @@
                     <h3 class="font-rpg text-xs font-bold text-white uppercase tracking-wider">Ultima Serie in Sala</h3>
                 </div>
                 <div id="last-activity-box" class="p-4 rounded-xl bg-slate-950/80 border border-cyan-500/30">
-                    <p class="text-xs text-slate-500 italic">In attesa del prossimo carico registrato a voce...</p>
+                    <p class="text-xs text-slate-500 italic font-rpg">In attesa del prossimo carico registrato a voce...</p>
                 </div>
             </div>
 
@@ -109,7 +114,7 @@
     </main>
 
     <!-- FOOTER STREAMING BANNER -->
-    <footer class="bg-slate-950/80 border border-slate-800/80 p-3.5 rounded-2xl flex justify-between items-center text-xs">
+    <footer class="bg-slate-950/80 border border-slate-800/80 p-3.5 rounded-2xl flex justify-between items-center text-xs relative z-10">
         <span class="font-rpg text-cyan-400 font-bold text-xs tracking-wider flex items-center gap-2">
             <span>🛡️</span> ARES AI • IL TUO COACH VOCALE IN SALA PESI
         </span>
@@ -139,14 +144,29 @@
 
         async function sincronizzaArena() {
             try {
-                // 1. Sincronizza Font scelto dalla Palestra a 0 ms via CSS Variable
-                const resConfig = await fetch(`${SUPABASE_URL}/rest/v1/ares_config_xp?select=font_style&limit=1`, {
+                // 1. Sincronizza Font, Logo e Nome Palestra da Supabase
+                const resConfig = await fetch(`${SUPABASE_URL}/rest/v1/ares_config_xp?select=font_style,logo_url,nome_palestra&limit=1`, {
                     headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
                 });
                 const configData = await resConfig.json();
-                if (configData && configData[0]?.font_style) {
-                    const family = FONT_MAP[configData[0].font_style] || FONT_MAP['font-orbitron'];
-                    document.documentElement.style.setProperty('--font-heading', family);
+                if (configData && configData[0]) {
+                    // Applica Font Dinamico
+                    if (configData[0].font_style) {
+                        const family = FONT_MAP[configData[0].font_style] || FONT_MAP['font-orbitron'];
+                        document.documentElement.style.setProperty('--font-heading', family);
+                    }
+                    // Applica Logo Watermark in filigrana
+                    if (configData[0].logo_url) {
+                        const wm = document.getElementById('gym-bg-watermark');
+                        if (wm) {
+                            wm.src = configData[0].logo_url;
+                            wm.classList.remove('hidden');
+                        }
+                    }
+                    // Aggiorna Nome Palestra
+                    if (configData[0].nome_palestra) {
+                        document.getElementById('gym-name-label').innerText = `Classifica Ufficiale ${configData[0].nome_palestra}`;
+                    }
                 }
 
                 // 2. Recupera Classifica Atleti ordinata per XP
@@ -226,7 +246,6 @@
             `;
         }
 
-        // Aggiornamento automatico ogni 5 secondi
         setInterval(sincronizzaArena, 5000);
         sincronizzaArena();
     </script>
